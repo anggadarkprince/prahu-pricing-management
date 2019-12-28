@@ -1,0 +1,61 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: $dark;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $weight-bold;
+}
+
+a {
+  transition: color, background-color 300ms;
+}
+
+table tr td, table tr th {
+  vertical-align: middle !important;
+}
+
+th {
+  font-weight: $weight-bold;
+}
+
+b, strong {
+  font-weight: $weight-bold;
+}
+
+.has-sticky-footer {
+  margin-bottom: 67.2px; /* Margin bottom by footer height */
+}
+
+.full-height {
+  min-height: calc(100vh - 67.2px);
+}
+
+.sticky-footer {
+  background-color: #f5f5f5;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.wrapper {
+  padding-top: 56px;
+
+  @media (min-width: 576px) {
+    padding-top: 72px;
+  }
+}
+
+.content-wrapper {
+  padding-top: 15px;
+  padding-bottom: 20px;
+
+  @media (min-width: 576px) {
+    padding-top: 25px;
+  }
+}

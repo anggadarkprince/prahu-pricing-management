@@ -1,0 +1,162 @@
+.app-banner {
+  background: #3e3d4d;
+  padding-top: 25px;
+  color: $light;
+
+  .btn-section-wrapper {
+    margin-top: 30px;
+  }
+
+  .banner-title {
+    font-size: 2rem;
+
+    @media (max-width: 575px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  .btn-section {
+    background: $light;
+    color: $dark;
+    border-radius: 0;
+    padding: .375rem 1.5rem;
+
+    @media (max-width: 575px) {
+      font-size: 0.9rem;
+      padding: .3rem 1rem;
+      background: transparent;
+      color: $light;
+
+      &.active {
+        background: $light !important;
+        color: $dark !important;
+      }
+
+      &:hover:not(.active) {
+        background: $light;
+        color: lighten($primary, 10%);
+      }
+    }
+
+    &.active {
+      background: $primary;
+      color: $light;
+    }
+
+    &:hover:not(.active) {
+      background: lighten($primary, 10%);
+      color: $light;
+    }
+  }
+}
+
+.app-banner-description {
+  padding: 1rem 0;
+  background: $primary;
+  color: $light;
+}
+
+.app-wrapper {
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  @media (min-width: 576px) {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+.card-app {
+  @media (min-width: 576px) {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  a {
+    color: $dark;
+
+    &:hover {
+      text-decoration: none;
+
+      .card:after {
+        background: rgba(0, 0, 0, .1);
+        bottom: -10px;
+      }
+
+      .app-title {
+        color: darken($dark, 20%);
+      }
+      .app-subtitle {
+        color: darken($light-gray, 30%);
+      }
+      @media (min-width: 576px) {
+        .app-icon {
+          font-size: 7rem;
+        }
+      }
+    }
+  }
+
+  .app-icon {
+    transition: all 100ms;
+    font-size: 3rem;
+    line-height: 1;
+
+    @media (min-width: 576px) {
+      font-size: 6.6rem;
+    }
+  }
+
+  .card {
+    position: relative;
+    border: none;
+    box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    min-width: 92px;
+
+    @media (min-width: 576px) {
+      min-width: auto;
+      min-height: 200px;
+    }
+
+    &:after {
+      transition: all 100ms;
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      height: 35px;
+      width: 100%;
+      background: rgba(0, 0, 0, .05);
+      transform: rotate(-5deg);
+    }
+  }
+
+  .card-title {
+    margin-bottom: 0;
+
+    @media (min-width: 576px) {
+      margin-top: 20px;
+    }
+
+    .app-title {
+      transition: all 100ms;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .app-subtitle {
+      transition: all 100ms;
+      font-size: 0.9rem;
+      color: $light-gray;
+    }
+  }
+
+  .app-version {
+    font-size: 0.75rem;
+    color: lighten($dark, 40%);
+
+    a:hover {
+      color: $primary;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.modal-content {
+  border: none;
+}
+
+.modal-backdrop.show {
+  opacity: 0.7;
+}
+
+.modal-scanner {
+  .qr-icon {
+    font-size: 10rem;
+    line-height: 1;
+  }
+}

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: angga
- * Date: 24/06/18
- * Time: 1:39
- */
 
 class Logging
 {
@@ -13,7 +7,7 @@ class Logging
      */
     public function logAccess()
     {
-        if (UserModel::isLoggedIn()) {
+        if (AuthModel::isLoggedIn()) {
             $CI = get_instance();
             $CI->load->library('user_agent');
 
@@ -29,7 +23,7 @@ class Logging
                     'browser' => $CI->agent->browser(),
                     'is_mobile' => $CI->agent->is_mobile(),
                 ]),
-                'created_by' => UserModel::loginData('id', 0),
+                'created_by' => AuthModel::loginData('id', 0),
                 'created_at' => date('Y-m-d H:i:s')
             ]);
         }

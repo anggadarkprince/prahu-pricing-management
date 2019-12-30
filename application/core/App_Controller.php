@@ -150,7 +150,7 @@ class App_Controller extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata([
-                'status' => 'warning', 'message' => 'Form inputs is invalid' . validation_errors(),
+                'status' => 'warning', 'message' => 'Form inputs is invalid'/* . validation_errors(), */
             ]);
             return false;
         }

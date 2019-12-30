@@ -302,16 +302,8 @@ class App_Model extends CI_Model
             $hasCreatedBy = $this->db->field_exists('created_by', $this->table);
             $hasCreatedAt = $this->db->field_exists('created_at', $this->table);
             foreach ($data as &$datum) {
-                if ($this->table != 'notifications' && $this->table != 'ref_settings') {
-                    foreach ($datum as $attribute => &$value) {
-                        if ($attribute != 'username' && $attribute != 'password' && $attribute != 'document' && $attribute != 'attachment' && $attribute != 'photo' && $attribute != 'data' && !preg_match('/file/', $attribute)) {
-                            $value = strtoupper($value);
-                        }
-                    }
-                }
-
                 if ($hasCreatedBy) {
-                    $datum['created_by'] = UserModel::loginData('id', 0);
+                    $datum['created_by'] = AuthModel::loginData('id', 0);
                 }
                 if ($hasCreatedAt) {
                     $datum['created_at'] = date('Y-m-d H:i:s');
@@ -320,16 +312,8 @@ class App_Model extends CI_Model
             return $this->db->insert_batch($this->table, $data);
         }
 
-        if ($this->table != 'notifications' && $this->table != 'ref_settings') {
-            foreach ($data as $attribute => &$value) {
-                if ($attribute != 'username' && $attribute != 'password' && $attribute != 'document' && $attribute != 'attachment' && $attribute != 'photo' && $attribute != 'data' && !preg_match('/file/', $attribute)) {
-                    $value = strtoupper($value);
-                }
-            }
-        }
-
         if ($this->db->field_exists('created_by', $this->table)) {
-            $data['created_by'] = UserModel::loginData('id', 0);
+            $data['created_by'] = AuthModel::loginData('id', 0);
         }
         if ($this->db->field_exists('created_at', $this->table)) {
             $data['created_at'] = date('Y-m-d H:i:s');
@@ -350,19 +334,11 @@ class App_Model extends CI_Model
         if (is_array($id)) {
             $condition = $id;
         }
-        if ($this->db->field_exists('updated_at', $this->table)) {
-            $data['updated_by'] = UserModel::loginData('id', 0);
+        if ($this->db->field_exists('updated_by', $this->table)) {
+            $data['updated_by'] = AuthModel::loginData('id', 0);
         }
         if ($this->db->field_exists('updated_at', $this->table)) {
             $data['updated_at'] = date('Y-m-d H:i:s');
-        }
-
-        if ($this->table != 'notifications' && $this->table != 'ref_settings') {
-            foreach ($data as $attribute => &$value) {
-                if ($attribute != 'username' && $attribute != 'password' && $attribute != 'document' && $attribute != 'attachment' && $attribute != 'photo' && $attribute != 'data' && !preg_match('/file/', $attribute) && !preg_match('/attachment/', $attribute)) {
-                    $value = strtoupper($value);
-                }
-            }
         }
 
         return $this->db->update($this->table, $data, $condition);
@@ -381,7 +357,7 @@ class App_Model extends CI_Model
             return $this->db->update($this->table, [
                 'is_deleted' => true,
                 'deleted_at' => date('Y-m-d H:i:s'),
-                'deleted_by' => UserModel::loginData('id')
+                'deleted_by' => AuthModel::loginData('id')
             ], (is_array($id) ? $id : [$this->id => $id]));
         }
         return $this->db->delete($this->table, (is_array($id) ? $id : [$this->id => $id]));

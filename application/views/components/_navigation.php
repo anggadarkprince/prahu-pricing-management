@@ -2,7 +2,7 @@
 $segment1 = $this->uri->segment(1);
 $segment2 = $this->uri->segment(2);
 ?>
-<nav id="main-navbar" class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top py-2 py-sm-3" style="background: white">
+<nav id="main-navbar" class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top py-2 py-sm-3" style="background: white">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav">
             <span class="navbar-toggler-icon"></span>
@@ -78,7 +78,7 @@ $segment2 = $this->uri->segment(2);
                 </li>
                 <li class="nav-item<?= $segment1 == 'setting' ? ' active' : '' ?>">
                     <a class="nav-link" href="<?= site_url('setting') ?>">
-						<i class="mdi mdi-settings-outline mr-1"></i>Setting
+						<i class="mdi mdi-tune mr-1"></i>Setting
                     </a>
                 </li>
             </ul>

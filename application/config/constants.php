@@ -86,3 +86,19 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 // Super admin permission
 defined('PERMISSION_ALL_ACCESS') OR define('PERMISSION_ALL_ACCESS', 'all-access');
+
+// Account setting permission
+defined('PERMISSION_ACCOUNT_EDIT') OR define('PERMISSION_ACCOUNT_EDIT', 'account-edit');
+defined('PERMISSION_SETTING_EDIT') OR define('PERMISSION_SETTING_EDIT', 'setting-edit');
+
+// Master role permission
+defined('PERMISSION_ROLE_VIEW') OR define('PERMISSION_ROLE_VIEW', 'role-view');
+defined('PERMISSION_ROLE_CREATE') OR define('PERMISSION_ROLE_CREATE', 'role-create');
+defined('PERMISSION_ROLE_EDIT') OR define('PERMISSION_ROLE_EDIT', 'role-edit');
+defined('PERMISSION_ROLE_DELETE') OR define('PERMISSION_ROLE_DELETE', 'role-delete');
+
+// Master user permission
+defined('PERMISSION_USER_VIEW') OR define('PERMISSION_USER_VIEW', 'user-view');
+defined('PERMISSION_USER_CREATE') OR define('PERMISSION_USER_CREATE', 'user-create');
+defined('PERMISSION_USER_EDIT') OR define('PERMISSION_USER_EDIT', 'user-edit');
+defined('PERMISSION_USER_DELETE') OR define('PERMISSION_USER_DELETE', 'user-delete');

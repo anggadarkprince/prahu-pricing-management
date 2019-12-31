@@ -5,7 +5,7 @@
     ]
 ]) ?>
 
-<h4><?= $title ?></h4>
+<h4 class="text-primary"><?= $title ?></h4>
 <p class="form-section-title">Role Information</p>
 
 <form class="form-plaintext">
@@ -92,9 +92,13 @@
     <hr class="mt-5">
 
     <div class="d-flex justify-content-between mt-4">
-        <button onclick="history.back()" type="button" class="btn btn-secondary">Back</button>
+		<button onclick="history.back()" type="button" class="btn btn-outline-primary">
+			<i class="mdi mdi-arrow-left mr-2"></i>Back
+		</button>
         <?php if(AuthorizationModel::isAuthorized(PERMISSION_ROLE_EDIT)): ?>
-            <a href="<?= site_url('master/role/edit/' . $role['id']) ?>" class="btn btn-primary">Edit Role</a>
+			<button type="submit" class="btn btn-primary">
+				Edit Role<i class="mdi mdi-square-edit-outline ml-2"></i>
+			</button>
         <?php endif; ?>
     </div>
 </form>

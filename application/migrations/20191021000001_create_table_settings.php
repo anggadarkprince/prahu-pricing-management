@@ -21,6 +21,49 @@ class Migration_Create_table_settings extends CI_Migration
         $this->dbforge->create_table('settings');
         echo 'Migrate Migration_Create_table_settings' . PHP_EOL;
 
+		$this->db->insert_batch('settings', [
+			[
+				'key' => 'meta_keywords',
+				'value' => 'transporter,pricing,shipping,report,management',
+			],
+			[
+				'key' => 'meta_description',
+				'value' => 'Pricing Management is the process of integrating all perspectives and information necessary to consistently arrive at optimal pricing decisions',
+			],
+			[
+				'key' => 'meta_author',
+				'value' => 'Prahu-hub developer',
+			],
+			[
+				'key' => 'email_bug_report',
+				'value' => 'bug@prahu-hub.com',
+			],
+			[
+				'key' => 'email_support',
+				'value' => 'support@prahu-hub.com',
+			],
+			[
+				'key' => 'company_name',
+				'value' => 'Prahu-hub',
+			],
+			[
+				'key' => 'company_address',
+				'value' => 'Avenue street',
+			],
+			[
+				'key' => 'company_contact',
+				'value' => '0000-000',
+			],
+			[
+				'key' => 'company_logo',
+				'value' => '',
+			],
+			[
+				'key' => 'api_token',
+				'value' => '',
+			],
+		]);
+		echo '--Seeding Migration_Create_table_ref_settings' . PHP_EOL;
     }
 
     public function down()

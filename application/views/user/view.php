@@ -5,7 +5,7 @@
     ]
 ]) ?>
 
-<h4><?= $title ?></h4>
+<h4 class="text-primary"><?= $title ?></h4>
 <p class="form-section-title">User Information</p>
 
 <div class="form-plaintext">
@@ -15,7 +15,7 @@
         </div>
         <div class="col-lg-10">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="name">Name</label>
                         <div class="col-sm-8">
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="username">Username</label>
                         <div class="col-sm-8">
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="email">Email</label>
                         <div class="col-sm-8">
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="status">Status</label>
                         <div class="col-sm-8">
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="created_at">Created At</label>
                         <div class="col-sm-8">
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="updated_at">Updated At</label>
                         <div class="col-sm-8">
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="role">Roles</label>
                         <div class="col-sm-8">
@@ -96,16 +96,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="parent_user">Parent User</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-plaintext" id="parent_user">
-                                <?= if_empty($user['parent_user'], '-') ?>
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -113,11 +103,13 @@
     <hr>
 
     <div class="d-flex justify-content-between mt-3">
-        <a href="javascript:void()" onclick="history.back()" class="btn btn-secondary">Back</a>
-        <?php if(AuthorizationModel::isAuthorized(PERMISSION_ROLE_EDIT)): ?>
-            <a href="<?= site_url('manage/user/edit/' . $user['id']) ?>" class="btn btn-primary">
-                Edit User
-            </a>
-        <?php endif; ?>
+		<button onclick="history.back()" type="button" class="btn btn-outline-primary">
+			<i class="mdi mdi-arrow-left mr-2"></i>Back
+		</button>
+		<?php if(AuthorizationModel::isAuthorized(PERMISSION_USER_EDIT)): ?>
+			<button type="submit" class="btn btn-primary">
+				Edit Role<i class="mdi mdi-square-edit-outline ml-2"></i>
+			</button>
+		<?php endif; ?>
     </div>
 </div>

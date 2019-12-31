@@ -1,4 +1,11 @@
-@import url("~bootstrap/dist/css/bootstrap.css");
+$border-radius: 3px;
+$border-radius-lg: 3px;
+$border-radius-sm: 3px;
+$input-border-color: #dee2e6;
+$theme-colors: (
+		"primary": #22b250
+);
+@import "~bootstrap/scss/bootstrap";
 @import url("~@mdi/font/css/materialdesignicons.css");
 @import url("~daterangepicker/daterangepicker.css");
 @import url("~select2/dist/css/select2.css");

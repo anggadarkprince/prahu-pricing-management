@@ -2,12 +2,15 @@
 $segment1 = $this->uri->segment(1);
 $segment2 = $this->uri->segment(2);
 ?>
-<nav id="main-navbar" class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top py-2 py-sm-3" style="background: white">
+<nav id="main-navbar" class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top py-2 py-sm-2" style="background: white">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <span class="navbar-brand"><?= $this->config->item('app_name') ?></span>
+        <span class="navbar-brand">
+			<img src="<?= base_url('assets/dist/img/layouts/icon.jpg') ?>" alt="Logo" class="mr-2" style="max-width: 35px; border-radius: 3px">
+			<?= $this->config->item('app_name') ?>
+		</span>
         <ul class="navbar-nav ml-auto d-block d-lg-none">
             <li class="nav-item dropdown">
                 <a class="nav-link p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,14 +91,17 @@ $segment2 = $this->uri->segment(2);
                 <a class="nav-link p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="d-flex flex-row align-items-center">
                         <span class="mr-2"><?= AuthModel::loginData('name') ?></span>
-                        <div class="rounded-circle" style="height: 37px; width: 37px; background: url('<?= base_url(if_empty(AuthModel::loginData('avatar'), 'assets/dist/img/no-avatar.png', 'uploads/')) ?>') center center / cover"></div>
+                        <div class="rounded-circle" style="height: 37px; width: 37px; background: url('<?= base_url(if_empty(AuthModel::loginData('avatar'), 'assets/dist/img/layouts/no-avatar.png', 'uploads/')) ?>') center center / cover"></div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= site_url('account') ?>">My Account</a>
-                    <a class="dropdown-item" href="<?= site_url('inbound/notification') ?>">Notification</a>
+                    <a class="dropdown-item" href="<?= site_url('account') ?>">
+						<i class="mdi mdi-account-outline mr-2"></i>My Account
+					</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?= site_url('auth/logout') ?>">Sign Out</a>
+                    <a class="dropdown-item" href="<?= site_url('auth/logout') ?>">
+						<i class="mdi mdi-logout-variant mr-2"></i>Sign Out
+					</a>
                 </div>
             </li>
         </ul>

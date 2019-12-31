@@ -5,7 +5,7 @@
     ]
 ]) ?>
 
-<h4><?= $title ?></h4>
+<h4 class="text-primary"><?= $title ?></h4>
 
 <form action="<?= site_url('master/role/save') ?>" method="POST" id="form-role">
     <?= _csrf() ?>
@@ -86,8 +86,12 @@
 
     <hr>
 
-    <div class="d-flex justify-content-between">
-        <button onclick="history.back()" type="button" class="btn btn-secondary">Back</button>
-        <button type="submit" class="btn btn-success">Save Role</button>
+    <div class="d-flex justify-content-between align-items-center">
+		<button onclick="history.back()" type="button" class="btn btn-outline-primary">
+			<i class="mdi mdi-arrow-left mr-2"></i>Back
+		</button>
+		<button type="submit" class="btn btn-success" data-toggle="one-touch">
+			Save Role<i class="mdi mdi-content-save-outline ml-2"></i>
+		</button>
     </div>
 </form>

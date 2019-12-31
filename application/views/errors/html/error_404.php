@@ -7,48 +7,41 @@
     <meta name="csrf-token" content="<?= $this->security->get_csrf_hash() ?>">
     <meta name="base-url" content="<?= site_url() ?>">
     <meta name="user-id" content="">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#28a745">
     <title><?= $this->config->item('app_name') ?> | Page not found 404</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?= base_url('assets/dist/app.css') ?>">
+	<link rel="icon" href="<?= base_url('assets/dist/img/layouts/icon.jpg') ?>" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" href="<?= base_url(get_asset('vendors.css')) ?>">
+	<link rel="stylesheet" href="<?= base_url(get_asset('app.css')) ?>">
 </head>
 
 <body>
 
 <div class="d-flex align-items-center justify-content-center text-center" style="height: calc(100vh - 80px)">
     <div class="px-3">
-        <h1 class="display-1">404</h1>
+        <h1 class="display-1 text-primary">404</h1>
         <h1>Page Not Found</h1>
         <p class="lead text-muted">The page you’re looking for was not found.</p>
-        <a class="btn btn-primary mt-2" href="<?= site_url() ?>">
-            Back to home
-        </a>
+		<a class="btn btn-primary mt-2" href="<?= site_url() ?>">
+			<i class="mdi mdi-arrow-left mr-2"></i>Back to home
+		</a>
+
+		<p class="lead mt-5"><?= $this->config->item('app_name') ?></p>
+		<ul class="list-inline">
+			<li class="list-inline-item">
+				<a href="<?= site_url('/') ?>">Dashboard</a>
+			</li>
+			<li class="list-inline-item">
+				<a href="<?= site_url('setting') ?>">Setting</a>
+			</li>
+			<li class="list-inline-item">
+				<a href="<?= site_url('account') ?>">My Account</a>
+			</li>
+		</ul>
     </div>
 </div>
 
-<footer class="auth-footer mt-4 mt-md-5 py-4 small">
-    <div class="container d-sm-flex justify-content-between">
-        <p class="text-muted mb-1">
-            Copyright &copy; <?= date('Y') ?> <strong><?= $this->config->item('app_author') ?></strong>
-            <span class="d-none d-sm-inline">all rights reserved</span>.
-        </p>
-
-        <ul class="list-inline mb-0">
-            <li class="list-inline-item">
-                <a href="http://www.transcon-indonesia.com">Home</a>
-            </li>
-            <li class="list-inline-item">
-                <a href="<?= site_url('page/help') ?>">Help</a>
-            </li>
-            <li class="list-inline-item">
-                <a href="<?= site_url('page/terms') ?>">Terms</a>
-            </li>
-        </ul>
-    </div>
-</footer>
-
+<?php $this->load->view('components/_footer') ?>
 </body>
 
 </html>

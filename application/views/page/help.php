@@ -11,7 +11,7 @@
     </ol>
 </nav>
 <div class="panel-body">
-    <h3>Help and Supports</h3>
+    <h3 class="text-primary">Help and Supports</h3>
     <p class="text-muted">Last updated: October 20, 2018</p>
     <p>
         For more information please contact our support at

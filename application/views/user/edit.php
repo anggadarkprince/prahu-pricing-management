@@ -5,7 +5,7 @@
     ]
 ]) ?>
 
-<h4><?= $title ?></h4>
+<h4 class="text-primary"><?= $title ?></h4>
 
 <form action="<?= site_url('master/user/update/' . $user['id']) ?>" method="post" enctype="multipart/form-data">
     <?= _csrf() ?>
@@ -29,30 +29,12 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email"
-                       placeholder="Your email address" maxlength="50" value="<?= set_value('email', $user['email']) ?>">
-                <?= form_error('email') ?>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="parent_user">Parent User</label>
-                <select class="custom-select" name="parent_user" id="parent_user">
-                    <option value="">-- No parent user --</option>
-                    <?php foreach ($parentUsers as $parentUser): ?>
-                        <option value="<?= $parentUser['id'] ?>"<?= set_select('parent_user', $parentUser['id'], $parentUser['id'] == $user['id_user']) ?>>
-                            <?= $parentUser['name'] ?> (<?= $parentUser['email'] ?>)
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <?= form_error('parent_user'); ?>
-            </div>
-        </div>
-    </div>
+	<div class="form-group">
+		<label for="email">Email Address</label>
+		<input type="email" class="form-control" id="email" name="email"
+			   placeholder="Your email address" maxlength="50" value="<?= set_value('email', $user['email']) ?>">
+		<?= form_error('email') ?>
+	</div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
@@ -61,7 +43,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control file-upload-info" disabled placeholder="Upload photo" value="<?= $user['avatar'] ?>">
                     <div class="input-group-append">
-                        <button class="file-upload-browse btn btn-default btn-simple-upload" type="button">
+                        <button class="file-upload-browse btn btn-secondary btn-simple-upload" type="button">
                             Select Photo
                         </button>
                     </div>
@@ -131,8 +113,12 @@
     <hr>
 
     <div class="d-flex justify-content-between">
-        <button onclick="history.back()" type="button" class="btn btn-secondary">Back</button>
-        <button type="submit" class="btn btn-primary">Update User</button>
+		<button onclick="history.back()" type="button" class="btn btn-outline-primary">
+			<i class="mdi mdi-arrow-left mr-2"></i>Back
+		</button>
+		<button type="submit" class="btn btn-primary" data-toggle="one-touch">
+			Update User<i class="mdi mdi-square-edit-outline ml-2"></i>
+		</button>
     </div>
 </form>
 

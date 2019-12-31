@@ -14,7 +14,7 @@ class Migration_Seed_admin_user extends CI_Migration
         $this->db->insert('prv_users', [
             'name' => 'Administrator',
             'username' => 'admin',
-            'email' => 'admin@finance.app',
+            'email' => 'admin@prahu-hub.com',
             'password' => password_hash('admin', PASSWORD_BCRYPT),
             'status' => 'ACTIVATED'
         ]);

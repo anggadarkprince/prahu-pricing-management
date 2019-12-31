@@ -1,3 +1,5 @@
+<h4 class="mb-4 text-primary">Dashboard</h4>
+
 <div class="row">
     <div class="col-sm-6 col-lg-3">
         <div class="card mb-3">

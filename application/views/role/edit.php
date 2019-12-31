@@ -5,7 +5,7 @@
     ]
 ]) ?>
 
-<h4><?= $title ?></h4>
+<h4 class="text-primary"><?= $title ?></h4>
 
 <form action="<?= site_url('master/role/update/' . $role['id']) ?>" method="POST" id="form-role" class="edit">
     <?= _csrf() ?>
@@ -98,7 +98,11 @@
     <hr>
 
     <div class="d-flex justify-content-between">
-        <button onclick="history.back()" type="button" class="btn btn-secondary">Back</button>
-        <button type="submit" class="btn btn-primary">Update Role</button>
+        <button onclick="history.back()" type="button" class="btn btn-outline-primary">
+			<i class="mdi mdi-arrow-left mr-2"></i>Back
+		</button>
+        <button type="submit" class="btn btn-primary" data-toggle="one-touch">
+			Update Role<i class="mdi mdi-square-edit-outline ml-2"></i>
+		</button>
     </div>
 </form>

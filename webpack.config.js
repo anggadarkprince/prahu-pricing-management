@@ -52,7 +52,9 @@ module.exports = {
         ignored: /node_modules/
     },
     plugins: [
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin({
+			cleanStaleWebpackAssets: false,
+		}),
         new ManifestPlugin({
             fileName: 'manifest.json',
             publicPath: 'assets/dist/'

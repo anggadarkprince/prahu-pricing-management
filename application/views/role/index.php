@@ -3,7 +3,7 @@
 ]) ?>
 
 <div class="d-flex justify-content-between align-items-center">
-    <h4 class="card-title mb-1">Roles</h4>
+    <h4 class="card-title mb-1 text-primary">Roles</h4>
     <span class="text-muted d-none d-sm-block ml-2 mr-auto text-light-gray">account privileges list</span>
     <div>
         <a href="#modal-filter" data-toggle="modal" class="btn btn-sm btn-outline-primary pr-2 pl-2">
@@ -14,14 +14,14 @@
         </a>
         <?php if(AuthorizationModel::isAuthorized(PERMISSION_ROLE_CREATE)): ?>
             <a href="<?= site_url('master/role/create') ?>" class="btn btn-sm btn-primary">
-                <i class="mdi mdi-plus-box-outline mr-1"></i>Create
+                <i class="mdi mdi-plus-box-multiple-outline mr-1"></i>Create
             </a>
         <?php endif; ?>
     </div>
 </div>
 
 <table class="table table-sm table-hover mt-3 responsive" id="table-role">
-    <thead>
+    <thead class="thead-dark">
     <tr>
         <th class="text-center" style="width: 60px">No</th>
         <th>Role</th>
@@ -40,8 +40,7 @@
             <td><?= numerical($role['total_permission']) ?> privileges</td>
             <td>
                 <div class="dropdown">
-                    <button class="btn btn-light btn-sm dropdown-toggle" type="button"
-                            data-toggle="dropdown">
+                    <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                         Action
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">

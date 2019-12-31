@@ -4,6 +4,11 @@
   }
 }
 
+.table .thead-dark th {
+  background: #28a745;
+  border: none;
+}
+
 .table {
   td, th, thead th {
 	white-space: normal;

@@ -3,7 +3,7 @@
 ]) ?>
 
 <div class="d-flex justify-content-between align-items-center">
-    <h4 class="card-title mb-1">Users</h4>
+    <h4 class="card-title mb-1 text-primary">Users</h4>
     <span class="text-muted d-none d-sm-block ml-2 mr-auto text-light-gray">a list of accounts and editor</span>
     <div>
         <a href="#modal-filter" data-toggle="modal" class="btn btn-outline-primary btn-sm pr-2 pl-2">
@@ -14,13 +14,13 @@
         </a>
         <?php if(AuthorizationModel::isAuthorized(PERMISSION_USER_CREATE)): ?>
             <a href="<?= site_url('master/user/create') ?>" class="btn btn-sm btn-primary">
-                <i class="mdi mdi-plus-box-outline mr-1"></i>Create
+				<i class="mdi mdi-plus-box-multiple-outline mr-1"></i>Create
             </a>
         <?php endif; ?>
     </div>
 </div>
 <table class="table table-sm table-hover mt-3 responsive" id="table-user">
-    <thead>
+    <thead class="thead-dark">
     <tr>
         <th class="text-center" style="width: 60px">No</th>
         <th>Name</th>
@@ -34,7 +34,7 @@
     <?php
     $statuses = [
         UserModel::STATUS_ACTIVATED => 'success',
-        UserModel::STATUS_PENDING => 'primary',
+        UserModel::STATUS_PENDING => 'warning',
         UserModel::STATUS_SUSPENDED => 'danger',
     ]
     ?>
@@ -44,7 +44,7 @@
             <td class="text-center responsive-hide" style="width: 30px"><?= ++$no ?></td>
             <td class="font-weight-bold">
                 <div class="d-flex flex-row align-items-center">
-                    <div class="rounded mr-3" style="height:40px; width: 40px; background: url('<?= base_url(if_empty($user['avatar'], 'assets/dist/img/no-avatar.png', 'uploads/')) ?>') center center / cover"></div>
+                    <div class="rounded mr-3" style="height:40px; width: 40px; background: url('<?= base_url(if_empty($user['avatar'], 'assets/dist/img/layouts/no-avatar.png', 'uploads/')) ?>') center center / cover"></div>
                     <?= $user['name'] ?>
                 </div>
             </td>
@@ -59,7 +59,7 @@
             </td>
             <td class="text-lg-right">
                 <div class="dropdown">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                         Action
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">

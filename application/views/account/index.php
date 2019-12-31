@@ -1,17 +1,18 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="javascript:void()" onclick="history.back()">
-                <span class="mdi mdi-arrow-left"></span> Back
-            </a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">
-            My Account
-        </li>
-    </ol>
-</nav>
-
-<h4>My Account</h4>
+<div class="d-flex justify-content-between">
+	<h4 class="text-primary">My Account</h4>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="javascript:void()" onclick="history.back()">
+					<span class="mdi mdi-arrow-left"></span> Back
+				</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				My Account
+			</li>
+		</ol>
+	</nav>
+</div>
 
 <form action="<?= site_url('account') ?>" method="post" enctype="multipart/form-data">
     <?= _method('put') ?>
@@ -47,7 +48,7 @@
             <p class="form-section-title">Avatar</p>
             <div class="form-group">
                 <div class="d-flex flex-column flex-sm-row align-items-center">
-                    <div class="rounded mb-2 mb-sm-0" style="height:120px; width: 120px; background: url('<?= base_url(if_empty($user['avatar'], 'assets/dist/img/no-avatar.png', '/uploads/')) ?>') center center / cover"></div>
+                    <div class="rounded mb-2 mb-sm-0" style="height:120px; width: 120px; background: url('<?= base_url(if_empty($user['avatar'], 'assets/dist/img/layouts/no-avatar.png', '/uploads/')) ?>') center center / cover"></div>
 
                     <div class="mr-lg-3 ml-sm-4">
                         <label for="avatar">Photo</label>
@@ -55,10 +56,10 @@
                         <div class="input-group">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Upload photo">
                             <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-default btn-simple-upload" type="button">
-                                        Select Photo
-                                    </button>
-                                </span>
+								<button class="file-upload-browse btn btn-secondary btn-simple-upload" type="button">
+									Select Photo
+								</button>
+							</span>
                         </div>
                         <span class="form-text">Leave it unselected if you don't change avatar.</span>
                         <?= form_error('avatar') ?>
@@ -91,7 +92,7 @@
             </div>
 
             <div class="form-group text-right">
-                <button type="submit" class="btn btn-primary my-4">Update Account</button>
+                <button type="submit" class="btn btn-primary my-4" data-toggle="one-touch">Update Account</button>
             </div>
         </div>
     </div>

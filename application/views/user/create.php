@@ -5,7 +5,7 @@
     ]
 ]) ?>
 
-<h4><?= $title ?></h4>
+<h4 class="text-primary"><?= $title ?></h4>
 
 <form action="<?= site_url('master/user/save') ?>" method="post" enctype="multipart/form-data">
     <?= _csrf() ?>
@@ -23,35 +23,17 @@
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" name="username"
-                       placeholder="Enter username" maxlength="50" value="<?= set_value('username') ?>">
+                       placeholder="Unique username" maxlength="50" value="<?= set_value('username') ?>">
                 <?= form_error('username') ?>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email"
-                       placeholder="Your email address" maxlength="50" value="<?= set_value('email') ?>">
-                <?= form_error('email') ?>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="parent_user">Parent User</label>
-                <select class="custom-select" name="parent_user" id="parent_user">
-                    <option value="">-- No parent user --</option>
-                    <?php foreach ($users as $user): ?>
-                        <option value="<?= $user['id'] ?>"<?= set_select('parent_user', $user['id']) ?>>
-                            <?= $user['name'] ?> (<?= $user['email'] ?>)
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <?= form_error('parent_user'); ?>
-            </div>
-        </div>
-    </div>
+	<div class="form-group">
+		<label for="email">Email Address</label>
+		<input type="email" class="form-control" id="email" name="email"
+			   placeholder="Your email address" maxlength="50" value="<?= set_value('email') ?>">
+		<?= form_error('email') ?>
+	</div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
@@ -60,7 +42,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control file-upload-info" disabled placeholder="Upload photo">
                     <div class="input-group-append">
-                        <button class="file-upload-browse btn btn-default btn-simple-upload" type="button">
+                        <button class="file-upload-browse btn btn-secondary btn-simple-upload" type="button">
                             Select Photo
                         </button>
                     </div>
@@ -129,7 +111,11 @@
     <hr>
 
     <div class="d-flex justify-content-between">
-        <button onclick="history.back()" type="button" class="btn btn-secondary">Back</button>
-        <button type="submit" class="btn btn-success">Save Role</button>
+		<button onclick="history.back()" type="button" class="btn btn-outline-primary">
+			<i class="mdi mdi-arrow-left mr-2"></i>Back
+		</button>
+		<button type="submit" class="btn btn-success" data-toggle="one-touch">
+			Save User<i class="mdi mdi-content-save-outline ml-2"></i>
+		</button>
     </div>
 </form>

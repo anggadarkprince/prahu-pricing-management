@@ -9,6 +9,7 @@
     <meta name="user-id" content="">
     <meta name="theme-color" content="#ffffff">
     <title><?= $this->config->item('app_name') ?> | <?= isset($title) ? $title : 'Home' ?></title>
+	<link rel="icon" href="<?= base_url('assets/dist/img/layouts/icon.jpg') ?>" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
 	<link rel="stylesheet" href="<?= base_url(get_asset('vendors.css')) ?>">
 	<link rel="stylesheet" href="<?= base_url(get_asset('app.css')) ?>">

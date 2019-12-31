@@ -1,14 +1,72 @@
-<?php $this->load->view('components/_breadcrumb', [
-    'breadcrumbs' => ['setting' => 'setting']
-]) ?>
+<div class="d-flex justify-content-between">
+	<h4 class="text-primary">Settings</h4>
+	<?php $this->load->view('components/_breadcrumb', [
+		'breadcrumbs' => ['setting' => 'setting']
+	]) ?>
+</div>
 
-<h4>Settings</h4>
-
-<form action="<?= site_url('setting') ?>" method="post" id="form-setting">
+<form action="<?= site_url('setting') ?>" method="post" id="form-setting" enctype="multipart/form-data">
     <?= _csrf() ?>
     <?= _method('put') ?>
 
-    <p class="form-section-title">Basic Setting</p>
+	<p class="form-section-title">Profile</p>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="company_name">Company Name</label>
+				<input type="text" class="form-control" id="company_name" name="company_name"
+					   placeholder="Enter company name" maxlength="50"
+					   value="<?= set_value('company_name', get_if_exist($setting, 'company_name')) ?>">
+				<?= form_error('company_name') ?>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="company_contact">Contact Label</label>
+				<input type="text" class="form-control" id="company_contact" name="company_contact"
+					   placeholder="Company contact label" maxlength="100"
+					   value="<?= set_value('company_contact', get_if_exist($setting, 'company_contact')) ?>">
+				<?= form_error('company_contact') ?>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="company_address">Company Address</label>
+		<textarea class="form-control" id="company_address" name="company_address"
+				  placeholder="Application description" maxlength="300"><?= set_value('company_address', get_if_exist($setting, 'company_address')) ?></textarea>
+		<?= form_error('company_address') ?>
+	</div>
+	<div class="form-group">
+		<label>Company Logo</label>
+		<div class="d-sm-flex align-items-center">
+			<?php if(empty(get_if_exist($setting, 'company_logo'))): ?>
+				<img src="<?= base_url('assets/dist/img/layouts/icon.jpg') ?>" alt="Logo" class="mb-3 mb-sm-0 mr-3" style="max-width: 90px">
+			<?php else: ?>
+				<img src="<?= base_url('uploads/' . $setting['company_logo']) ?>" alt="Logo" class="mb-3 mb-sm-0 mr-3" style="max-width: 90px">
+			<?php endif; ?>
+			<div>
+				<input type="file" id="company_logo" name="company_logo" class="file-upload-default" accept="image/*" data-max-size="3000000">
+				<div class="input-group col-xs-12">
+					<input type="text" class="form-control file-upload-info" value="<?= set_value('company_logo', get_if_exist($setting, 'company_logo')) ?>" disabled placeholder="Upload logo" aria-label="path">
+					<span class="input-group-append">
+						<button class="file-upload-browse btn btn-secondary btn-simple-upload" type="button">
+							Pick Image
+						</button>
+					</span>
+				</div>
+				<?= form_error('company_logo') ?>
+			</div>
+		</div>
+	</div>
+
+    <p class="form-section-title">Contact & Basic Setting</p>
+	<div class="form-group">
+		<label for="meta_author">Author</label>
+		<input type="text" class="form-control" id="meta_author" name="meta_author"
+			   placeholder="Author of application" maxlength="50"
+			   value="<?= set_value('meta_author', get_if_exist($setting, 'meta_author')) ?>">
+		<?= form_error('meta_author') ?>
+	</div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
@@ -35,7 +93,7 @@
     </div>
 
     <div class="form-group">
-        <label for="meta_description">Description</label>
+        <label for="meta_description">App Description</label>
         <textarea class="form-control" id="meta_description" name="meta_description"
                   placeholder="Application description"
                   maxlength="300"><?= set_value('meta_description', get_if_exist($setting, 'meta_description', 'An inventory management system that designed to support and optimize warehouse functionality and distribution center management')) ?></textarea>
@@ -43,12 +101,6 @@
     </div>
 
     <p class="form-section-title">API Token</p>
-    <div class="form-group">
-        <label for="email_token">Email Token</label>
-        <input type="email" class="form-control" id="email_token" name="email_token"
-               placeholder="Registered token email" maxlength="50" value="<?= set_value('email_token', get_if_exist($setting, 'email_token')) ?>">
-        <?= form_error('email_token') ?>
-    </div>
     <div class="form-group">
         <label for="api_token">Token Key</label>
         <input type="text" class="form-control" id="api_token" name="api_token"
@@ -58,6 +110,6 @@
     </div>
 
     <div class="form-group text-right">
-        <button type="submit" class="btn btn-primary my-4">Update Settings</button>
+        <button type="submit" class="btn btn-primary my-4" data-toggle="one-touch">Update Settings</button>
     </div>
 </form>

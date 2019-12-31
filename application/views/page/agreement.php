@@ -11,7 +11,7 @@
     </ol>
 </nav>
 <div class="panel-body">
-    <h3>Terms and Conditions</h3>
+    <h3 class="text-primary">Terms and Conditions</h3>
     <p class="text-muted">Last updated: October 20, 2018</p>
     <p>Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the <?= $this->config->item('app_name') ?>
         website (the "Service") operated by <?= $this->config->item('app_name') ?> ("us", "we", or "our").</p>

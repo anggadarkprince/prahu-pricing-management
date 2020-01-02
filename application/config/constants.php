@@ -102,3 +102,21 @@ defined('PERMISSION_USER_VIEW') OR define('PERMISSION_USER_VIEW', 'user-view');
 defined('PERMISSION_USER_CREATE') OR define('PERMISSION_USER_CREATE', 'user-create');
 defined('PERMISSION_USER_EDIT') OR define('PERMISSION_USER_EDIT', 'user-edit');
 defined('PERMISSION_USER_DELETE') OR define('PERMISSION_USER_DELETE', 'user-delete');
+
+// Master marketing permission
+defined('PERMISSION_MARKETING_VIEW') or define('PERMISSION_MARKETING_VIEW', 'marketing-view');
+defined('PERMISSION_MARKETING_CREATE') or define('PERMISSION_MARKETING_CREATE', 'marketing-create');
+defined('PERMISSION_MARKETING_EDIT') or define('PERMISSION_MARKETING_EDIT', 'marketing-edit');
+defined('PERMISSION_MARKETING_DELETE') or define('PERMISSION_MARKETING_DELETE', 'marketing-delete');
+
+// Master container type permission
+defined('PERMISSION_CONTAINER_TYPE_VIEW') or define('PERMISSION_CONTAINER_TYPE_VIEW', 'container-type-view');
+defined('PERMISSION_CONTAINER_TYPE_CREATE') or define('PERMISSION_CONTAINER_TYPE_CREATE', 'container-type-create');
+defined('PERMISSION_CONTAINER_TYPE_EDIT') or define('PERMISSION_CONTAINER_TYPE_EDIT', 'container-type-edit');
+defined('PERMISSION_CONTAINER_TYPE_DELETE') or define('PERMISSION_CONTAINER_TYPE_DELETE', 'container-type-delete');
+
+// Master container type permission
+defined('PERMISSION_CONTAINER_SIZE_VIEW') or define('PERMISSION_CONTAINER_SIZE_VIEW', 'container-size-view');
+defined('PERMISSION_CONTAINER_SIZE_CREATE') or define('PERMISSION_CONTAINER_SIZE_CREATE', 'container-size-create');
+defined('PERMISSION_CONTAINER_SIZE_EDIT') or define('PERMISSION_CONTAINER_SIZE_EDIT', 'container-size-edit');
+defined('PERMISSION_CONTAINER_SIZE_DELETE') or define('PERMISSION_CONTAINER_SIZE_DELETE', 'container-size-delete');

@@ -7,7 +7,7 @@
 		</div>
 	</div>
 
-    <?php $this->load->view('components/_alert') ?>
+    <?php $this->load->view('partials/_alert') ?>
 
     <form action="<?= site_url('auth/password/reset/' . $token) ?>" method="post">
         <?= _csrf() ?>

@@ -1,4 +1,4 @@
-<?php $this->load->view('components/_breadcrumb', [
+<?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
         'user' => 'master/user',
         'view' => 'master/user/view/' . $user['id']

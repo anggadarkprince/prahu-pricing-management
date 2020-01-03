@@ -1,4 +1,4 @@
-<?php $this->load->view('components/_breadcrumb', [
+<?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => ['marketing' => 'master/marketing']
 ]) ?>
 
@@ -77,9 +77,9 @@
     </tbody>
 </table>
 
-<?php $this->load->view('components/_pagination', ['pagination' => $marketings]) ?>
+<?php $this->load->view('partials/_pagination', ['pagination' => $marketings]) ?>
 
 <?php $this->load->view('marketing/_modal_filter') ?>
 <?php if(AuthorizationModel::isAuthorized(PERMISSION_MARKETING_DELETE)): ?>
-    <?php $this->load->view('components/modals/_delete') ?>
+    <?php $this->load->view('partials/modals/_delete') ?>
 <?php endif; ?>

@@ -12,7 +12,7 @@
         link to reset your password.
     </p>
 
-    <?php $this->load->view('components/_alert') ?>
+    <?php $this->load->view('partials/_alert') ?>
 
     <form action="<?= site_url('auth/password/forgot-password') ?>" method="post">
         <?= _csrf() ?>

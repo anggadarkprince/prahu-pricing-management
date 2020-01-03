@@ -54,7 +54,7 @@
     </div>
 </div>
 
-<?php $this->load->view('components/_footer') ?>
+<?php $this->load->view('partials/_footer') ?>
 
 <script src="<?= base_url(get_asset('runtime.js')) ?>"></script>
 <script src="<?= base_url(get_asset('vendors.js')) ?>"></script>

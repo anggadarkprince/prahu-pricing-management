@@ -84,7 +84,7 @@ class Container_size extends App_Controller
             ]);
 
             if ($save) {
-                flash('success', "Container_size {$containerSize} successfully created", 'master/container-size');
+                flash('success', "Container size {$containerSize} successfully created", 'master/container-size');
             } else {
                 flash('danger', 'Create container size failed, try again or contact administrator');
             }
@@ -125,7 +125,7 @@ class Container_size extends App_Controller
             ], $id);
 
             if ($update) {
-                flash('success', "Container_size {$containerSize} successfully updated", 'master/container-size');
+                flash('success', "Container size {$containerSize} successfully updated", 'master/container-size');
             } else {
                 flash('danger', "Update container size failed, try again or contact administrator");
             }

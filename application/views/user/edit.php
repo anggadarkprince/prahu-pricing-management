@@ -1,4 +1,4 @@
-<?php $this->load->view('components/_breadcrumb', [
+<?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
         'user' => 'master/user',
         'edit' => 'master/user/edit/' . $user['id']
@@ -122,4 +122,4 @@
     </div>
 </form>
 
-<?php $this->load->view('components/modals/_alert') ?>
+<?php $this->load->view('partials/modals/_alert') ?>

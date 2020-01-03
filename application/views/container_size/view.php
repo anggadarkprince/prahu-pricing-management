@@ -1,4 +1,4 @@
-<?php $this->load->view('components/_breadcrumb', [
+<?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
         'container size' => 'master/container-size',
         'view' => 'master/container-size/view/' . $containerSize['id']

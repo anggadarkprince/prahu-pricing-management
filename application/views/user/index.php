@@ -1,4 +1,4 @@
-<?php $this->load->view('components/_breadcrumb', [
+<?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => ['user' => 'master/user']
 ]) ?>
 
@@ -94,9 +94,9 @@
     </tbody>
 </table>
 
-<?php $this->load->view('components/_pagination', ['pagination' => $users]) ?>
+<?php $this->load->view('partials/_pagination', ['pagination' => $users]) ?>
 
 <?php $this->load->view('user/_modal_filter') ?>
 <?php if(AuthorizationModel::isAuthorized(PERMISSION_USER_DELETE)): ?>
-    <?php $this->load->view('components/modals/_delete') ?>
+    <?php $this->load->view('partials/modals/_delete') ?>
 <?php endif; ?>

@@ -18,16 +18,16 @@
 </head>
 
 <body class="has-sticky-footer">
-<?php $this->load->view('components/_navigation') ?>
+<?php $this->load->view('partials/_navigation') ?>
 
 <div class="wrapper">
-    <?php $this->load->view('components/_alert_block') ?>
+    <?php $this->load->view('partials/_alert_block') ?>
     <div class="container content-wrapper pb-5">
         <?php $this->load->view($page, $data) ?>
     </div>
 </div>
 
-<?php $this->load->view('components/_footer') ?>
+<?php $this->load->view('partials/_footer') ?>
 
 <script src="<?= base_url(get_asset('runtime.js')) ?>"></script>
 <script src="<?= base_url(get_asset('vendors.js')) ?>"></script>

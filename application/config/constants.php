@@ -120,3 +120,9 @@ defined('PERMISSION_CONTAINER_SIZE_VIEW') or define('PERMISSION_CONTAINER_SIZE_V
 defined('PERMISSION_CONTAINER_SIZE_CREATE') or define('PERMISSION_CONTAINER_SIZE_CREATE', 'container-size-create');
 defined('PERMISSION_CONTAINER_SIZE_EDIT') or define('PERMISSION_CONTAINER_SIZE_EDIT', 'container-size-edit');
 defined('PERMISSION_CONTAINER_SIZE_DELETE') or define('PERMISSION_CONTAINER_SIZE_DELETE', 'container-size-delete');
+
+// Master component permission
+defined('PERMISSION_COMPONENT_VIEW') or define('PERMISSION_COMPONENT_VIEW', 'component-view');
+defined('PERMISSION_COMPONENT_CREATE') or define('PERMISSION_COMPONENT_CREATE', 'component-create');
+defined('PERMISSION_COMPONENT_EDIT') or define('PERMISSION_COMPONENT_EDIT', 'component-edit');
+defined('PERMISSION_COMPONENT_DELETE') or define('PERMISSION_COMPONENT_DELETE', 'component-delete');

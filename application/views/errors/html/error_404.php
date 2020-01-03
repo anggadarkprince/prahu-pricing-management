@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<?php $this->load->view('components/_footer') ?>
+<?php $this->load->view('partials/_footer') ?>
 </body>
 
 </html>

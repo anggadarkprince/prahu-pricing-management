@@ -1,4 +1,4 @@
-<?php $this->load->view('components/_breadcrumb', [
+<?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => ['container-size' => 'master/container-size']
 ]) ?>
 
@@ -73,9 +73,9 @@
     </tbody>
 </table>
 
-<?php $this->load->view('components/_pagination', ['pagination' => $containerSizes]) ?>
+<?php $this->load->view('partials/_pagination', ['pagination' => $containerSizes]) ?>
 
 <?php $this->load->view('container_size/_modal_filter') ?>
 <?php if(AuthorizationModel::isAuthorized(PERMISSION_CONTAINER_SIZE_DELETE)): ?>
-    <?php $this->load->view('components/modals/_delete') ?>
+    <?php $this->load->view('partials/modals/_delete') ?>
 <?php endif; ?>

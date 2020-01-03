@@ -7,7 +7,7 @@
 		</div>
 	</div>
 
-    <?php $this->load->view('components/_alert') ?>
+    <?php $this->load->view('partials/_alert') ?>
 
     <form action="<?= site_url('auth/login') . if_empty($_SERVER['QUERY_STRING'], '', '?') ?>" method="post">
         <?= _csrf() ?>

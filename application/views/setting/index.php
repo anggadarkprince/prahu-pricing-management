@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between">
 	<h4 class="text-primary">Settings</h4>
-	<?php $this->load->view('components/_breadcrumb', [
+	<?php $this->load->view('partials/_breadcrumb', [
 		'breadcrumbs' => ['setting' => 'setting']
 	]) ?>
 </div>

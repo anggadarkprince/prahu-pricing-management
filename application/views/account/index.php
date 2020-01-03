@@ -98,4 +98,4 @@
     </div>
 </form>
 
-<?php $this->load->view('components/modals/_alert') ?>
+<?php $this->load->view('partials/modals/_alert') ?>

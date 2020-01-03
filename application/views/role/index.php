@@ -1,4 +1,4 @@
-<?php $this->load->view('components/_breadcrumb', [
+<?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => ['role' => 'master/role']
 ]) ?>
 
@@ -75,9 +75,9 @@
     </tbody>
 </table>
 
-<?php $this->load->view('components/_pagination', ['pagination' => $roles]) ?>
+<?php $this->load->view('partials/_pagination', ['pagination' => $roles]) ?>
 
 <?php $this->load->view('role/_modal_filter') ?>
 <?php if(AuthorizationModel::isAuthorized(PERMISSION_ROLE_DELETE)): ?>
-    <?php $this->load->view('components/modals/_delete') ?>
+    <?php $this->load->view('partials/modals/_delete') ?>
 <?php endif; ?>

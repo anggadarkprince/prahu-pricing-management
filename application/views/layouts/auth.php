@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-8 col-md-6 pr-0 d-none d-md-flex">
             <div class="text-white overlay auth-banner full-height w-100" style="background: url('https://www.smlines.com/iFile/main/2017090521063938.jpg') center / cover;">
-                <h1 class="display-6">Price Calculator</h1>
+                <h1 class="display-6">Instant Pricing Calculator</h1>
                 <p class="lead" style="opacity: 0.93"><?= get_setting('meta_description') ?></p>
                 <ul class="mt-4 list-unstyled">
                     <li>

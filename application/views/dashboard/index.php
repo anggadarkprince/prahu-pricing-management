@@ -5,13 +5,13 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="text-success card-title">
-                    <i class="mdi mdi-import mr-2"></i>Inbound
+                    <i class="mdi mdi-anchor mr-2"></i>Ports
                 </h5>
-                <h6 class="card-subtitle mb-1 text-muted small">Goods inbound flow</h6>
+                <h6 class="card-subtitle mb-1 text-muted small">Port master data</h6>
                 <h4 class="mb-3">345
-                    <small>Activities</small>
+                    <small>Port</small>
                 </h4>
-                <a href="<?= site_url('inbound/inbound-activity') ?>" class="btn btn-sm btn-outline-success">
+                <a href="<?= site_url('master/port') ?>" class="btn btn-sm btn-outline-success">
                     <i class="mdi mdi-chevron-right"></i> See in Details
                 </a>
             </div>
@@ -21,13 +21,13 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="text-danger card-title">
-                    <i class="mdi mdi-export mr-2"></i>Outbound
+                    <i class="mdi mdi-factory mr-2"></i>Vendor
                 </h5>
-                <h6 class="card-subtitle mb-1 text-muted small">Goods outbound flow</h6>
+                <h6 class="card-subtitle mb-1 text-muted small">Partner and vendors</h6>
                 <h4 class="mb-3">732
-                    <small>Activities</small>
+                    <small>Partners</small>
                 </h4>
-                <a href="<?= site_url('inbound/outbound-activity') ?>" class="btn btn-sm btn-outline-danger">
+                <a href="<?= site_url('master/vendor') ?>" class="btn btn-sm btn-outline-danger">
                     See in Details <i class="mdi mdi-chevron-right"></i>
                 </a>
             </div>
@@ -37,9 +37,9 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="text-info card-title">
-                    <i class="mdi mdi-cube-outline mr-2"></i>Goods Stock
+                    <i class="mdi mdi-cube-outline mr-2"></i>Locations
                 </h5>
-                <h6 class="card-subtitle mb-1 text-muted small">Available in stock</h6>
+                <h6 class="card-subtitle mb-1 text-muted small">Area pickup and destination</h6>
                 <h4 class="mb-3">34
                     <small>Items</small>
                 </h4>
@@ -53,9 +53,9 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="text-warning card-title">
-                    <i class="mdi mdi-checkbox-marked-circle-outline mr-2"></i>Outstanding
+                    <i class="mdi mdi-checkbox-marked-circle-outline mr-2"></i>Quotation
                 </h5>
-                <h6 class="card-subtitle mb-1 text-muted small">Inbound delivery manifest</h6>
+                <h6 class="card-subtitle mb-1 text-muted small">Pricing offer histories</h6>
                 <h4 class="mb-3">732
                     <small>SF</small>
                 </h4>

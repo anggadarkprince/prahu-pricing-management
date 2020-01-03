@@ -103,7 +103,7 @@ class Container_size extends App_Controller
 
         $containerSize = $this->containerSize->getById($id);
 
-        $this->render('containerSize/edit', compact('containerSize'));
+        $this->render('container_size/edit', compact('containerSize'));
     }
 
     /**
@@ -145,9 +145,9 @@ class Container_size extends App_Controller
         $containerSize = $this->containerSize->getById($id);
 
         if ($this->containerSize->delete($id, true)) {
-            flash('warning', "Container_size {$containerSize['container_size']} successfully deleted");
+            flash('warning', "Container size {$containerSize['container_size']} successfully deleted");
         } else {
-            flash('danger', 'Delete containerSize failed, try again or contact administrator');
+            flash('danger', 'Delete container size failed, try again or contact administrator');
         }
         redirect('master/container-size');
     }

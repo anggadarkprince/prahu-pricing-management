@@ -16,27 +16,19 @@ if (!function_exists('flash')) {
             'status' => $status, 'message' => $message,
         ]);
 
-        if (!empty($redirectTo)) {
-            if ($redirectTo == '_redirect') {
-                $redirect = get_url_param('redirect');
-                redirect(if_empty($redirect, $fallback));
-            } elseif ($redirectTo == '_back') {
-                redirect(if_empty(get_instance()->agent->referrer(), $fallback));
-            } else {
-                $redirect = str_replace('redirect=', '', get_if_exist($_SERVER, 'REDIRECT_QUERY_STRING', ''));
-                if(empty($redirect)) {
-                    $redirect = get_url_param('redirect');
-                }
-                redirect(empty($redirect) ? $redirectTo : $redirect);
-            }
-        } else {
-            $redirect = get_url_param('redirect');
-            if (!empty($redirect)) {
-                $target = str_replace('redirect=', '', get_if_exist($_SERVER, 'REDIRECT_QUERY_STRING', ''));
-                if (!empty($target)) {
-                    redirect($target);
-                }
-            }
-        }
+		if (!empty($redirectTo)) {
+			$redirect = str_replace('redirect=', '', get_if_exist($_SERVER, 'REDIRECT_QUERY_STRING', ''));
+			if (empty($redirect)) {
+				$redirect = get_url_param('redirect');
+			}
+
+			if ($redirectTo == '_redirect') {
+				redirect(if_empty($redirect, $fallback));
+			} elseif ($redirectTo == '_back') {
+				redirect(if_empty(get_instance()->agent->referrer(), if_empty($redirect, $fallback)));
+			} else {
+				redirect(empty($redirect) ? $redirectTo : $redirect);
+			}
+		}
     }
 }

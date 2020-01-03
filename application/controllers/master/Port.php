@@ -149,7 +149,7 @@ class Port extends App_Controller
         $port = $this->port->getById($id);
 
         if ($this->port->delete($id, true)) {
-            flash('warning', "Port {$port['name']} successfully deleted");
+            flash('warning', "Port {$port['port']} successfully deleted");
         } else {
             flash('danger', 'Delete port failed, try again or contact administrator');
         }

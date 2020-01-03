@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/_breadcrumb', [
 	'breadcrumbs' => [
-		'container size' => 'master/port',
+		'port' => 'master/port',
 		'create' => 'master/port/edit/' . $port['id']
 	]
 ]) ?>
@@ -11,7 +11,7 @@
     <?= _csrf() ?>
     <?= _method('put') ?>
 
-    <p class="form-section-title">Component Information</p>
+    <p class="form-section-title">Port Information</p>
 	<div class="row">
 		<div class="col-sm-4">
 			<div class="form-group">

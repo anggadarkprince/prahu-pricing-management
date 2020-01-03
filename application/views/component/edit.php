@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/_breadcrumb', [
 	'breadcrumbs' => [
-		'container size' => 'master/component',
+		'component' => 'master/component',
 		'create' => 'master/component/edit/' . $component['id']
 	]
 ]) ?>

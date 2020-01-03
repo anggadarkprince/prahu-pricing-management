@@ -145,7 +145,7 @@ class Component extends App_Controller
         $component = $this->component->getById($id);
 
         if ($this->component->delete($id, true)) {
-            flash('warning', "Container size {$component['component']} successfully deleted");
+            flash('warning', "Component {$component['component']} successfully deleted");
         } else {
             flash('danger', 'Delete component failed, try again or contact administrator');
         }

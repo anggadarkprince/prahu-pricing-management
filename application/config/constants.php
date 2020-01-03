@@ -138,3 +138,15 @@ defined('PERMISSION_LOCATION_VIEW') or define('PERMISSION_LOCATION_VIEW', 'locat
 defined('PERMISSION_LOCATION_CREATE') or define('PERMISSION_LOCATION_CREATE', 'location-create');
 defined('PERMISSION_LOCATION_EDIT') or define('PERMISSION_LOCATION_EDIT', 'location-edit');
 defined('PERMISSION_LOCATION_DELETE') or define('PERMISSION_LOCATION_DELETE', 'location-delete');
+
+// Sub component permission
+defined('PERMISSION_SUB_COMPONENT_VIEW') or define('PERMISSION_SUB_COMPONENT_VIEW', 'sub-component-view');
+defined('PERMISSION_SUB_COMPONENT_CREATE') or define('PERMISSION_SUB_COMPONENT_CREATE', 'sub-component-create');
+defined('PERMISSION_SUB_COMPONENT_EDIT') or define('PERMISSION_SUB_COMPONENT_EDIT', 'sub-component-edit');
+defined('PERMISSION_SUB_COMPONENT_DELETE') or define('PERMISSION_SUB_COMPONENT_DELETE', 'sub-component-delete');
+
+// Vendor permission
+defined('PERMISSION_VENDOR_VIEW') or define('PERMISSION_VENDOR_VIEW', 'vendor-view');
+defined('PERMISSION_VENDOR_CREATE') or define('PERMISSION_VENDOR_CREATE', 'vendor-create');
+defined('PERMISSION_VENDOR_EDIT') or define('PERMISSION_VENDOR_EDIT', 'vendor-edit');
+defined('PERMISSION_VENDOR_DELETE') or define('PERMISSION_VENDOR_DELETE', 'vendor-delete');

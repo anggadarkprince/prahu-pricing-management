@@ -5,9 +5,9 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"build": "webpack",
-	"production": "webpack -p",
-	"watch": "webpack --watch"
+    "build": "webpack",
+    "production": "webpack -p",
+    "watch": "webpack --watch"
   },
   "author": "Angga Ari Wijaya",
   "license": "ISC",

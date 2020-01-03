@@ -3,7 +3,7 @@
 ]) ?>
 
 <div class="d-flex justify-content-between align-items-center">
-    <h4 class="card-title mb-1 text-primary">Component</h4>
+    <h4 class="card-title mb-1 text-primary">Components</h4>
     <span class="text-muted d-none d-sm-block ml-2 mr-auto text-light-gray">main checkpoint</span>
     <div>
         <a href="#modal-filter" data-toggle="modal" class="btn btn-sm btn-outline-primary pr-2 pl-2">

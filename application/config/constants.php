@@ -126,3 +126,9 @@ defined('PERMISSION_COMPONENT_VIEW') or define('PERMISSION_COMPONENT_VIEW', 'com
 defined('PERMISSION_COMPONENT_CREATE') or define('PERMISSION_COMPONENT_CREATE', 'component-create');
 defined('PERMISSION_COMPONENT_EDIT') or define('PERMISSION_COMPONENT_EDIT', 'component-edit');
 defined('PERMISSION_COMPONENT_DELETE') or define('PERMISSION_COMPONENT_DELETE', 'component-delete');
+
+// Port permission
+defined('PERMISSION_PORT_VIEW') or define('PERMISSION_PORT_VIEW', 'port-view');
+defined('PERMISSION_PORT_CREATE') or define('PERMISSION_PORT_CREATE', 'port-create');
+defined('PERMISSION_PORT_EDIT') or define('PERMISSION_PORT_EDIT', 'port-edit');
+defined('PERMISSION_PORT_DELETE') or define('PERMISSION_PORT_DELETE', 'port-delete');

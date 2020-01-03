@@ -36,7 +36,7 @@ class Marketing extends App_Controller
             $this->exporter->exportFromArray('Marketing', $marketings);
         }
 
-        $this->render('marketing/index', compact('roles'));
+        $this->render('marketing/index', compact('marketings'));
     }
 
     /**

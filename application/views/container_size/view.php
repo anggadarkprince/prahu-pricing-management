@@ -1,6 +1,6 @@
 <?php $this->load->view('components/_breadcrumb', [
     'breadcrumbs' => [
-        'role' => 'master/container-size',
+        'container size' => 'master/container-size',
         'view' => 'master/container-size/view/' . $containerSize['id']
     ]
 ]) ?>

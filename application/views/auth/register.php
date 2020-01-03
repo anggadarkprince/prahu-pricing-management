@@ -1,6 +1,11 @@
 <div class="form-auth mx-auto">
-    <h3 class="mb-1">Register New Account</h3>
-    <p class="text-muted">Warehouse management system</p>
+	<div class="d-flex align-items-center mb-4">
+		<img src="<?= base_url('assets/dist/img/layouts/icon.jpg') ?>" alt="Logo" class="mr-3 p-1" style="max-width: 50px; border-radius: 5px; border: 1px solid #22b250">
+		<div>
+			<h3 class="mb-1">Register account</h3>
+			<p class="text-muted mb-0">Register to prahu-hub pricing</p>
+		</div>
+	</div>
 
     <?php $this->load->view('components/_alert') ?>
 

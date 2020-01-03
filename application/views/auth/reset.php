@@ -1,6 +1,11 @@
 <div class="form-auth mt-0 mt-sm-4 mx-auto">
-    <h3 class="mb-1">Password Recovery</h3>
-    <p class="text-muted">Resetting your credentials</p>
+	<div class="d-flex align-items-center mb-4">
+		<img src="<?= base_url('assets/dist/img/layouts/icon.jpg') ?>" alt="Logo" class="mr-3 p-1" style="max-width: 50px; border-radius: 5px; border: 1px solid #22b250">
+		<div>
+			<h3 class="mb-1">Password Recovery</h3>
+			<p class="text-muted mb-0">Resetting your credentials</p>
+		</div>
+	</div>
 
     <?php $this->load->view('components/_alert') ?>
 

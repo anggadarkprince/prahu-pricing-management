@@ -150,3 +150,9 @@ defined('PERMISSION_VENDOR_VIEW') or define('PERMISSION_VENDOR_VIEW', 'vendor-vi
 defined('PERMISSION_VENDOR_CREATE') or define('PERMISSION_VENDOR_CREATE', 'vendor-create');
 defined('PERMISSION_VENDOR_EDIT') or define('PERMISSION_VENDOR_EDIT', 'vendor-edit');
 defined('PERMISSION_VENDOR_DELETE') or define('PERMISSION_VENDOR_DELETE', 'vendor-delete');
+
+// Master service permission
+defined('PERMISSION_SERVICE_VIEW') or define('PERMISSION_SERVICE_VIEW', 'service-view');
+defined('PERMISSION_SERVICE_CREATE') or define('PERMISSION_SERVICE_CREATE', 'service-create');
+defined('PERMISSION_SERVICE_EDIT') or define('PERMISSION_SERVICE_EDIT', 'service-edit');
+defined('PERMISSION_SERVICE_DELETE') or define('PERMISSION_SERVICE_DELETE', 'service-delete');

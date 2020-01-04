@@ -52,7 +52,10 @@ $segment2 = $this->uri->segment(2);
 						<a class="dropdown-item<?= $segment2 == 'sub-component' ? ' active' : '' ?>" href="<?= site_url('master/sub-component') ?>">
 							<i class="mdi mdi-layers-search mr-2"></i>Sub-component
 						</a>
-						<a class="dropdown-item<?= $segment2 == 'ports' ? ' active' : '' ?>" href="<?= site_url('master/port') ?>">
+						<a class="dropdown-item<?= $segment2 == 'service' ? ' active' : '' ?>" href="<?= site_url('master/service') ?>">
+							<i class="mdi mdi-cube-scan mr-2"></i>Services
+						</a>
+						<a class="dropdown-item<?= $segment2 == 'port' ? ' active' : '' ?>" href="<?= site_url('master/port') ?>">
 							<i class="mdi mdi-anchor mr-2"></i>Ports
 						</a>
 						<a class="dropdown-item<?= $segment2 == 'location' ? ' active' : '' ?>" href="<?= site_url('master/location') ?>">

@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ComponentModel extends App_Model
 {
     protected $table = 'ref_components';
+    protected $defaultSortMethod = 'asc';
 
     /**
      * Get base query of table.

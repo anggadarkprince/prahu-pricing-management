@@ -43,7 +43,7 @@
                 <h4 class="mb-3">34
                     <small>Items</small>
                 </h4>
-                <a href="<?= site_url('report/stock-summary') ?>" class="btn btn-sm btn-outline-info">
+                <a href="<?= site_url('report/location') ?>" class="btn btn-sm btn-outline-info">
                     See in Details <i class="mdi mdi-chevron-right"></i>
                 </a>
             </div>
@@ -59,7 +59,7 @@
                 <h4 class="mb-3">732
                     <small>SF</small>
                 </h4>
-                <a href="<?= site_url('inbound/notification') ?>" class="btn btn-sm btn-outline-warning">
+                <a href="<?= site_url('pricing/quotation') ?>" class="btn btn-sm btn-outline-warning">
                     See in Details <i class="mdi mdi-chevron-right"></i>
                 </a>
             </div>

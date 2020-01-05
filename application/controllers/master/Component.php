@@ -7,6 +7,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property SubComponentModel $subComponent
  * @property ServiceComponentModel $serviceComponent
  * @property PackageModel $package
+ * @property PackageSubComponentModel $packageSubComponent
  * @property Exporter $exporter
  */
 class Component extends App_Controller
@@ -21,6 +22,7 @@ class Component extends App_Controller
         $this->load->model('SubComponentModel', 'subComponent');
         $this->load->model('ServiceComponentModel', 'serviceComponent');
         $this->load->model('PackageModel', 'package');
+        $this->load->model('PackageSubComponentModel', 'packageSubComponent');
         $this->load->model('modules/Exporter', 'exporter');
     }
 
@@ -58,6 +60,11 @@ class Component extends App_Controller
         $subComponents = $this->subComponent->getBy(['ref_sub_components.id_component' => $id]);
         $serviceComponents = $this->serviceComponent->getBy(['ref_service_components.id_component' => $id]);
         $packages = $this->package->getBy(['ref_packages.id_component' => $id]);
+        foreach($packages as &$package) {
+            $package['sub_components'] = $this->packageSubComponent->getBy([
+                'ref_package_sub_components.id_package' => $package['id']
+            ]);
+        }
 
         if (empty($component)) {
             redirect('error404');

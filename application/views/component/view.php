@@ -48,6 +48,54 @@
         </div>
     </div>
 
+    <p class="form-section-title">Package combination</p>
+
+    <table class="table table-sm mt-3 table-hover responsive">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center" style="width: 60px">No</th>
+                <th>Sub Component</th>
+                <?php foreach ($packages as $package) : ?>
+                    <th class="text-md-center"><?= $package['package'] ?></th>
+                <?php endforeach ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($subComponents as $index => $subComponent) : ?>
+                <tr>
+                    <td class="text-md-center"><?= $index + 1 ?></td>
+                    <td class="font-weight-bold">
+                        <a href="<?= site_url('master/sub-component/view/' . $subComponent['id']) ?>">
+                            <?= $subComponent['sub_component'] ?>
+                        </a>
+                    </td>
+                    <?php foreach ($packages as $package) : ?>
+                        <td class="text-md-center<?= in_array($subComponent['id'], array_column($package['sub_components'], 'id_sub_component')) ? ' table-success' : ' table-danger' ?>">
+                            <?= in_array($subComponent['id'], array_column($package['sub_components'], 'id_sub_component')) ? 'YES' : 'NO' ?>
+                        </td>
+                    <?php endforeach ?>
+                </tr>
+            <?php endforeach ?>
+            <?php if (empty($subComponents)) : ?>
+                <tr>
+                    <td colspan="<?= 2 + count($packages) ?>">
+                        No combination data available
+                    </td>
+                </tr>
+            <?php else : ?>
+                <tr class="table-warning">
+                    <td></td>
+                    <td><strong>Total</strong></td>
+                    <?php foreach ($packages as $package) : ?>
+                        <td class="text-md-center">
+                            <strong><?= count($package['sub_components']) ?></strong>
+                        </td>
+                    <?php endforeach ?>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+
     <p class="form-section-title">Sub components</p>
 
     <table class="table table-sm mt-3 table-hover responsive">

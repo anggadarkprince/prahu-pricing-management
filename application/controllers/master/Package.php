@@ -78,7 +78,7 @@ class Package extends App_Controller
         $subComponents = $this->subComponent->getBy([
             'ref_components.id' => $this->input->post('component'),
         ]);
-        
+
         $this->render('package/create', compact('components', 'subComponents'));
     }
 
@@ -134,9 +134,18 @@ class Package extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_PACKAGE_EDIT);
 
         $package = $this->package->getById($id);
+        $packageSubComponents = $this->packageSubComponent->getBy([
+            'ref_package_sub_components.id_package' => $id
+        ]);
         $components = $this->component->getAll();
+        $subComponents = $this->subComponent->getBy([
+            'ref_components.id' => $package['id_component'],
+        ]);
+        foreach ($subComponents as &$subComponent) {
+            $subComponent['is_selected'] = in_array($subComponent['id'], array_column($packageSubComponents, 'id_sub_component'));
+        }
 
-        $this->render('package/edit', compact('package', 'components'));
+        $this->render('package/edit', compact('package', 'components', 'subComponents'));
     }
 
     /**

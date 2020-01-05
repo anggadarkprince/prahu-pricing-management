@@ -1,10 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class App_Model extends CI_Model
 {
     protected $table = '';
     protected $id = 'id';
+    protected $defaultSortMethod = 'desc';
+    protected $defaultSortField = 'id';
     protected $filteredFields = ['*'];
     protected $filteredMaps = [];
 
@@ -151,7 +153,7 @@ class App_Model extends CI_Model
                     $baseQuery->order_by($filters['sort_by'], 'asc');
                 }
             } else {
-                $baseQuery->order_by($this->table . '.' . $this->id, 'desc');
+                $baseQuery->order_by($this->defaultSortField == 'id' ? $this->table . '.id' : $this->defaultSortField, $this->defaultSortMethod);
             }
             $pageData = $baseQuery->limit($perPage, ($currentPage - 1) * $perPage)->get()->result_array();
 
@@ -175,7 +177,7 @@ class App_Model extends CI_Model
                 $baseQuery->order_by($filters['sort_by'], 'asc');
             }
         } else {
-            $baseQuery->order_by($this->table . '.' . $this->id, 'desc');
+            $baseQuery->order_by($this->defaultSortField == 'id' ? $this->table . '.id' : $this->defaultSortField, $this->defaultSortMethod);
         }
 
         $data = $baseQuery->get()->result_array();
@@ -218,8 +220,8 @@ class App_Model extends CI_Model
         $baseQuery = $this->getBaseQuery()->order_by($this->table . '.id', 'asc');
 
         foreach ($conditions as $key => $condition) {
-            if(is_array($condition)) {
-                if(!empty($condition)) {
+            if (is_array($condition)) {
+                if (!empty($condition)) {
                     $baseQuery->where_in($key, $condition);
                 }
             } else {
@@ -231,7 +233,7 @@ class App_Model extends CI_Model
             $baseQuery->where($this->table . '.is_deleted', false);
         }
 
-        if($resultRow === 'COUNT') {
+        if ($resultRow === 'COUNT') {
             return $baseQuery->count_all_results();
         } else if ($resultRow) {
             return $baseQuery->get()->row_array();
@@ -362,5 +364,4 @@ class App_Model extends CI_Model
         }
         return $this->db->delete($this->table, (is_array($id) ? $id : [$this->id => $id]));
     }
-
 }

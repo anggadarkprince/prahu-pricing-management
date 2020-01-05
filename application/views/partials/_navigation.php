@@ -78,8 +78,8 @@ $segment2 = $this->uri->segment(2);
                             <i class="mdi mdi-account-supervisor-outline mr-2"></i>Marketing
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item<?= $segment2 == 'price' ? ' active' : '' ?>" href="<?= site_url('master/price') ?>">
-                            <i class="mdi mdi-currency-usd mr-2"></i>Vendor Pricing
+                        <a class="dropdown-item<?= $segment2 == 'price' ? ' active' : '' ?>" href="<?= site_url('master/component-price') ?>">
+                            <i class="mdi mdi-currency-usd mr-2"></i>Component Price
                         </a>
                     </div>
                 </li>
@@ -107,11 +107,11 @@ $segment2 = $this->uri->segment(2);
                         <a class="dropdown-item<?= $segment2 == 'package-combination' ? ' active' : '' ?>" href="<?= site_url('report/package-combination') ?>">
                             <i class="mdi mdi-archive-arrow-down-outline mr-2"></i>Package Combination
                         </a>
-                        <a class="dropdown-item<?= $segment2 == 'vendor-pricing' ? ' active' : '' ?>" href="<?= site_url('report/vendor-pricing') ?>">
-                            <i class="mdi mdi-cart-plus mr-2"></i>Vendor Pricing
+                        <a class="dropdown-item<?= $segment2 == 'component-pricing' ? ' active' : '' ?>" href="<?= site_url('report/component-pricing') ?>">
+                            <i class="mdi mdi-shopping-outline mr-2"></i>Component Pricing
                         </a>
-                        <a class="dropdown-item<?= $segment2 == 'consumable-history' ? ' active' : '' ?>" href="<?= site_url('report/consumable-history') ?>">
-                            <i class="mdi mdi-shopping-outline mr-2"></i>Consumable Pricing
+                        <a class="dropdown-item<?= $segment2 == 'consumable-pricing' ? ' active' : '' ?>" href="<?= site_url('report/consumable-pricing') ?>">
+                            <i class="mdi mdi-cart-plus mr-2"></i>Consumable Pricing
                         </a>
                     </div>
                 </li>

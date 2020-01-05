@@ -36,9 +36,9 @@
     <?php foreach ($packages['data'] as $package): ?>
         <tr>
             <td class="responsive-hide text-center"><?= ++$no ?></td>
-            <td class="font-weight-bold"><?= $package['component'] ?></td>
+            <td><?= $package['component'] ?></td>
             <td class="font-weight-bold"><?= $package['package'] ?></td>
-            <td class="font-weight-bold"><?= $package['total_sub_component'] ?></td>
+            <td><?= $package['total_sub_component'] ?></td>
             <td><?= if_empty($package['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">

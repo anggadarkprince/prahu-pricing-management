@@ -162,3 +162,9 @@ defined('PERMISSION_SERVICE_VIEW') or define('PERMISSION_SERVICE_VIEW', 'service
 defined('PERMISSION_SERVICE_CREATE') or define('PERMISSION_SERVICE_CREATE', 'service-create');
 defined('PERMISSION_SERVICE_EDIT') or define('PERMISSION_SERVICE_EDIT', 'service-edit');
 defined('PERMISSION_SERVICE_DELETE') or define('PERMISSION_SERVICE_DELETE', 'service-delete');
+
+// Master component price permission
+defined('PERMISSION_COMPONENT_PRICE_VIEW') or define('PERMISSION_COMPONENT_PRICE_VIEW', 'component-price-view');
+defined('PERMISSION_COMPONENT_PRICE_CREATE') or define('PERMISSION_COMPONENT_PRICE_CREATE', 'component-price-create');
+defined('PERMISSION_COMPONENT_PRICE_EDIT') or define('PERMISSION_COMPONENT_PRICE_EDIT', 'component-price-edit');
+defined('PERMISSION_COMPONENT_PRICE_DELETE') or define('PERMISSION_COMPONENT_PRICE_DELETE', 'component-price-delete');

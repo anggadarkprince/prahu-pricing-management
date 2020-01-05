@@ -45,6 +45,10 @@ try {
         import("./pages/package").then(packages => packages.default());
     }
 
+    if ($('#form-component-price').length) {
+        import("./pages/component-price").then(componentPrice => componentPrice.default());
+    }
+
 } catch (e) {
     console.log(e);
 }

@@ -8,6 +8,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property ServiceComponentModel $serviceComponent
  * @property PackageModel $package
  * @property PackageSubComponentModel $packageSubComponent
+ * @property ComponentPriceModel $componentPrice
  * @property Exporter $exporter
  */
 class Component extends App_Controller
@@ -23,6 +24,7 @@ class Component extends App_Controller
         $this->load->model('ServiceComponentModel', 'serviceComponent');
         $this->load->model('PackageModel', 'package');
         $this->load->model('PackageSubComponentModel', 'packageSubComponent');
+        $this->load->model('ComponentPriceModel', 'componentPrice');
         $this->load->model('modules/Exporter', 'exporter');
     }
 
@@ -65,12 +67,13 @@ class Component extends App_Controller
                 'ref_package_sub_components.id_package' => $package['id']
             ]);
         }
+        $componentPrices = $this->componentPrice->getComponentPriceList($id);
 
         if (empty($component)) {
             redirect('error404');
         }
 
-        $this->render('component/view', compact('component', 'subComponents', 'serviceComponents', 'packages'));
+        $this->render('component/view', compact('component', 'subComponents', 'serviceComponents', 'packages', 'componentPrices'));
     }
 
     /**

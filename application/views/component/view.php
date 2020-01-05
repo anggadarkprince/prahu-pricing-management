@@ -50,7 +50,7 @@
 
     <p class="form-section-title">Package combination</p>
 
-    <table class="table table-sm mt-3 table-hover responsive">
+    <table class="table table-sm mt-3 mb-4 table-hover responsive">
         <thead class="thead-dark">
             <tr>
                 <th class="text-center" style="width: 60px">No</th>
@@ -96,9 +96,59 @@
         </tbody>
     </table>
 
+    <p class="form-section-title">Component Price</p>
+
+    <div class="table-responsive mb-4">
+        <table class="table table-sm mb-0 table-hover text-nowrap">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center" style="width: 60px">No</th>
+                    <th>Vendor</th>
+                    <th>Port</th>
+                    <th>Port destination</th>
+                    <th>Location</th>
+                    <th>Container size</th>
+                    <th>Container type</th>
+                    <?php foreach ($subComponents as $subComponent) : ?>
+                        <th><?= $subComponent['sub_component'] ?></th>
+                    <?php endforeach ?>
+                    <?php foreach ($packages as $package) : ?>
+                        <th><?= $package['package'] ?></th>
+                    <?php endforeach ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($componentPrices as $index => $componentPrice) : ?>
+                    <tr>
+                        <td class="text-md-center"><?= $index + 1 ?></td>
+                        <td><?= $componentPrice['vendor'] ?></td>
+                        <td><?= $componentPrice['port'] ?></td>
+                        <td><?= $componentPrice['port_destination'] ?></td>
+                        <td><?= $componentPrice['location'] ?></td>
+                        <td><?= $componentPrice['container_size'] ?></td>
+                        <td><?= $componentPrice['container_type'] ?></td>
+                        <?php foreach ($subComponents as $subComponent) : ?>
+                            <td>Rp. <?= numerical($componentPrice[$subComponent['sub_component']]) ?></td>
+                        <?php endforeach ?>
+                        <?php foreach ($packages as $package) : ?>
+                            <td class="table-success px-2"><strong>Rp. <?= numerical($componentPrice[$package['package']]) ?></strong></td>
+                        <?php endforeach ?>
+                    </tr>
+                <?php endforeach ?>
+                <?php if (empty($componentPrices)) : ?>
+                    <tr>
+                        <td colspan="<?= 7 + count($subComponents) + count($packages) ?>">
+                            No component price data available
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
     <p class="form-section-title">Sub components</p>
 
-    <table class="table table-sm mt-3 table-hover responsive">
+    <table class="table table-sm mt-3 mb-4 table-hover responsive">
         <thead class="thead-dark">
             <tr>
                 <th class="text-center" style="width: 60px">No</th>

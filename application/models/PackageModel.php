@@ -4,6 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class PackageModel extends App_Model
 {
     protected $table = 'ref_packages';
+	protected $filteredFields = ['*', 'ref_components.component'];
+	protected $filteredMaps = [
+		'components' => 'ref_components.id'
+	];
 
 	/**
 	 * Get base query of table.

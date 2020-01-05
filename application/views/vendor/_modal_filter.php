@@ -25,6 +25,7 @@
 										'created_at' => 'CREATED AT',
 										'vendor' => 'VENDOR',
 										'type' => 'TYPE',
+										'term_payment' => 'TERM OF PAYMENT',
 										'description' => 'DESCRIPTION',
 									]
 									?>

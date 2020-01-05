@@ -17,17 +17,28 @@
         <input type="text" class="form-control" id="vendor" name="vendor" required maxlength="50" value="<?= set_value('vendor', $vendor['vendor']) ?>" placeholder="Vendor data">
         <?= form_error('vendor') ?>
     </div>
-    <div class="form-group">
-        <label for="type">Type</label>
-        <select class="custom-select" name="type" id="type" required>
-            <option value="TRUCKING" <?= set_select('type', 'TRUCKING', 'TRUCKING' == $vendor['type']) ?>>
-                TRUCKING
-            </option>
-            <option value="SHIPPING LINE" <?= set_select('type', 'SHIPPING LINE', 'SHIPPING LINE' == $vendor['type']) ?>>
-                SHIPPING LINE
-            </option>
-        </select>
-        <?= form_error('type') ?>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select class="custom-select" name="type" id="type" required>
+                    <option value="TRUCKING" <?= set_select('type', 'TRUCKING', 'TRUCKING' == $vendor['type']) ?>>
+                        TRUCKING
+                    </option>
+                    <option value="SHIPPING LINE" <?= set_select('type', 'SHIPPING LINE', 'SHIPPING LINE' == $vendor['type']) ?>>
+                        SHIPPING LINE
+                    </option>
+                </select>
+                <?= form_error('type') ?>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="term_payment">Term of Payment (%)</label>
+                <input type="number" min="0" max="100" class="form-control" id="term_payment" name="term_payment" required value="<?= set_value('term_payment', $vendor['term_payment']) ?>" placeholder="Term of payment percent">
+                <?= form_error('term_payment') ?>
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <label for="description">Description</label>

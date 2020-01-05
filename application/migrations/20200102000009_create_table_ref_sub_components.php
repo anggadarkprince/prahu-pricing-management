@@ -11,6 +11,7 @@ class Migration_Create_table_ref_sub_components extends CI_Migration
     {
         $this->dbforge->add_field([
             'id' => ['type' => 'INT', 'unsigned' => TRUE, 'constraint' => 11, 'auto_increment' => TRUE],
+            'id_component' => ['type' => 'INT', 'unsigned' => TRUE, 'constraint' => 11],
             'sub_component' => ['type' => 'VARCHAR', 'constraint' => '100'],
             'description' => ['type' => 'TEXT', 'null' => TRUE],
             'is_deleted' => ['type' => 'INT', 'constraint' => 1, 'default' => 0],
@@ -20,7 +21,8 @@ class Migration_Create_table_ref_sub_components extends CI_Migration
             'updated_by' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => TRUE, 'null' => TRUE],
             'deleted_at' => ['type' => 'TIMESTAMP', 'null' => TRUE],
             'deleted_by' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => TRUE, 'null' => TRUE]
-        ]);
+        ])
+            ->add_field('CONSTRAINT fk_service_component_component FOREIGN KEY (id_component) REFERENCES ref_components(id) ON DELETE CASCADE ON UPDATE CASCADE');
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('ref_sub_components');
         echo 'Migrating Migration_Create_table_ref_sub_components' . PHP_EOL;

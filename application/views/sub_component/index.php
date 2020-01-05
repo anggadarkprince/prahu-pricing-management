@@ -1,10 +1,10 @@
 <?php $this->load->view('partials/_breadcrumb', [
-    'breadcrumbs' => ['component' => 'master/component']
+    'breadcrumbs' => ['sub component' => 'master/sub-component']
 ]) ?>
 
 <div class="d-flex justify-content-between align-items-center">
-    <h4 class="card-title mb-1 text-primary">Components</h4>
-    <span class="text-muted d-none d-sm-block ml-2 mr-auto text-light-gray">main checkpoint</span>
+    <h4 class="card-title mb-1 text-primary">Sub Component</h4>
+    <span class="text-muted d-none d-sm-block ml-2 mr-auto text-light-gray">vendor services</span>
     <div>
         <a href="#modal-filter" data-toggle="modal" class="btn btn-sm btn-outline-primary pr-2 pl-2">
             <i class="mdi mdi-filter-variant"></i>
@@ -24,6 +24,7 @@
     <thead class="thead-dark">
     <tr>
         <th class="text-center" style="width: 60px">No</th>
+        <th>Component</th>
         <th>Sub component</th>
         <th>Description</th>
         <th style="width: 80px">Action</th>
@@ -34,6 +35,7 @@
     <?php foreach ($subComponents['data'] as $subComponent): ?>
         <tr>
             <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="font-weight-bold"><?= $subComponent['component'] ?></td>
             <td class="font-weight-bold"><?= $subComponent['sub_component'] ?></td>
             <td><?= if_empty($subComponent['description'], 'No description') ?></td>
             <td>
@@ -67,7 +69,7 @@
     <?php endforeach; ?>
     <?php if (empty($subComponents['data'])): ?>
         <tr>
-            <td colspan="4" class="text-center">No sub component available</td>
+            <td colspan="5" class="text-center">No sub component available</td>
         </tr>
     <?php endif; ?>
     </tbody>
@@ -75,7 +77,7 @@
 
 <?php $this->load->view('partials/_pagination', ['pagination' => $subComponents]) ?>
 
-<?php $this->load->view('component/_modal_filter') ?>
+<?php $this->load->view('sub_component/_modal_filter') ?>
 <?php if(AuthorizationModel::isAuthorized(PERMISSION_SUB_COMPONENT_DELETE)): ?>
     <?php $this->load->view('partials/modals/_delete') ?>
 <?php endif; ?>

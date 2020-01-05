@@ -13,6 +13,7 @@ class Migration_Create_table_ref_vendors extends CI_Migration
             'id' => ['type' => 'INT', 'unsigned' => TRUE, 'constraint' => 11, 'auto_increment' => TRUE],
             'vendor' => ['type' => 'VARCHAR', 'constraint' => '100'],
             'type' => ['type' => 'VARCHAR', 'constraint' => '50'],
+            'term_payment' => ['type' => 'INT', 'unsigned' => TRUE, 'constraint' => 4, 'default' => 100],
             'description' => ['type' => 'TEXT', 'null' => TRUE],
             'is_deleted' => ['type' => 'INT', 'constraint' => 1, 'default' => 0],
             'created_at' => ['type' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP'],

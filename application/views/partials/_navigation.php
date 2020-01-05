@@ -8,9 +8,9 @@ $segment2 = $this->uri->segment(2);
             <span class="navbar-toggler-icon"></span>
         </button>
         <span class="navbar-brand">
-			<img src="<?= base_url('assets/dist/img/layouts/icon.jpg') ?>" alt="Logo" class="mr-2" style="max-width: 35px; border-radius: 3px">
-			<?= $this->config->item('app_name') ?>
-		</span>
+            <img src="<?= base_url('assets/dist/img/layouts/icon.jpg') ?>" alt="Logo" class="mr-2" style="max-width: 35px; border-radius: 3px">
+            <?= $this->config->item('app_name') ?>
+        </span>
         <ul class="navbar-nav ml-auto d-block d-lg-none">
             <li class="nav-item dropdown">
                 <a class="nav-link p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,12 +31,12 @@ $segment2 = $this->uri->segment(2);
             <ul class="navbar-nav ml-3 mr-auto">
                 <li class="nav-item<?= $segment1 == 'dashboard' ? ' active' : '' ?>">
                     <a class="nav-link" href="<?= site_url('dashboard') ?>">
-						<i class="mdi mdi-speedometer-slow mr-1"></i>Dashboard
+                        <i class="mdi mdi-speedometer-slow mr-1"></i>Dashboard
                     </a>
                 </li>
                 <li class="nav-item dropdown<?= $segment1 == 'master' ? ' active' : '' ?>">
                     <a class="nav-link dropdown-toggle" href="#" id="nav-master" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="mdi mdi-cube-outline mr-1"></i>Master
+                        <i class="mdi mdi-cube-outline mr-1"></i>Master
                     </a>
                     <div class="dropdown-menu" aria-labelledby="nav-master">
                         <a class="dropdown-item<?= $segment2 == 'role' ? ' active' : '' ?>" href="<?= site_url('master/role') ?>">
@@ -46,24 +46,24 @@ $segment2 = $this->uri->segment(2);
                             <i class="mdi mdi-account-outline mr-2"></i>Users
                         </a>
                         <div class="dropdown-divider"></div>
-						<a class="dropdown-item<?= $segment2 == 'component' ? ' active' : '' ?>" href="<?= site_url('master/component') ?>">
-							<i class="mdi mdi-layers-triple-outline mr-2"></i>Component
-						</a>
-						<a class="dropdown-item<?= $segment2 == 'sub-component' ? ' active' : '' ?>" href="<?= site_url('master/sub-component') ?>">
-							<i class="mdi mdi-layers-search mr-2"></i>Sub-component
-						</a>
-						<a class="dropdown-item<?= $segment2 == 'service' ? ' active' : '' ?>" href="<?= site_url('master/service') ?>">
-							<i class="mdi mdi-cube-scan mr-2"></i>Services
-						</a>
-						<a class="dropdown-item<?= $segment2 == 'port' ? ' active' : '' ?>" href="<?= site_url('master/port') ?>">
-							<i class="mdi mdi-anchor mr-2"></i>Ports
-						</a>
-						<a class="dropdown-item<?= $segment2 == 'location' ? ' active' : '' ?>" href="<?= site_url('master/location') ?>">
-							<i class="mdi mdi-map-marker-outline mr-2"></i>Location
-						</a>
-						<a class="dropdown-item<?= $segment2 == 'vendor' ? ' active' : '' ?>" href="<?= site_url('master/vendor') ?>">
-							<i class="mdi mdi-factory mr-2"></i>Vendor
-						</a>
+                        <a class="dropdown-item<?= $segment2 == 'component' ? ' active' : '' ?>" href="<?= site_url('master/component') ?>">
+                            <i class="mdi mdi-layers-triple-outline mr-2"></i>Component
+                        </a>
+                        <a class="dropdown-item<?= $segment2 == 'sub-component' ? ' active' : '' ?>" href="<?= site_url('master/sub-component') ?>">
+                            <i class="mdi mdi-layers-search mr-2"></i>Sub-component
+                        </a>
+                        <a class="dropdown-item<?= $segment2 == 'service' ? ' active' : '' ?>" href="<?= site_url('master/service') ?>">
+                            <i class="mdi mdi-cube-scan mr-2"></i>Services
+                        </a>
+                        <a class="dropdown-item<?= $segment2 == 'port' ? ' active' : '' ?>" href="<?= site_url('master/port') ?>">
+                            <i class="mdi mdi-anchor mr-2"></i>Ports
+                        </a>
+                        <a class="dropdown-item<?= $segment2 == 'location' ? ' active' : '' ?>" href="<?= site_url('master/location') ?>">
+                            <i class="mdi mdi-map-marker-outline mr-2"></i>Location
+                        </a>
+                        <a class="dropdown-item<?= $segment2 == 'vendor' ? ' active' : '' ?>" href="<?= site_url('master/vendor') ?>">
+                            <i class="mdi mdi-factory mr-2"></i>Vendor
+                        </a>
                         <a class="dropdown-item<?= $segment2 == 'container-size' ? ' active' : '' ?>" href="<?= site_url('master/container-size') ?>">
                             <i class="mdi mdi-move-resize-variant mr-2"></i>Cargo Sizes
                         </a>
@@ -73,13 +73,13 @@ $segment2 = $this->uri->segment(2);
                         <a class="dropdown-item<?= $segment2 == 'marketing' ? ' active' : '' ?>" href="<?= site_url('master/marketing') ?>">
                             <i class="mdi mdi-account-supervisor-outline mr-2"></i>Marketing
                         </a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item<?= $segment2 == 'price' ? ' active' : '' ?>" href="<?= site_url('master/price') ?>">
-							<i class="mdi mdi-currency-usd mr-2"></i>Price Setup
-						</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item<?= $segment2 == 'price' ? ' active' : '' ?>" href="<?= site_url('master/price') ?>">
+                            <i class="mdi mdi-currency-usd mr-2"></i>Price Setup
+                        </a>
                     </div>
                 </li>
-                <li class="nav-item dropdown<?= $segment1 == 'inbound' ? ' active' : '' ?>">
+                <li class="nav-item dropdown<?= $segment1 == 'pricing' ? ' active' : '' ?>">
                     <a class="nav-link dropdown-toggle" href="#" id="nav-inbound" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="mdi mdi-cart-outline mr-1"></i>Pricing
                     </a>
@@ -92,9 +92,25 @@ $segment2 = $this->uri->segment(2);
                         </a>
                     </div>
                 </li>
+                <li class="nav-item dropdown<?= $segment1 == 'report' ? ' active' : '' ?>">
+                    <a class="nav-link dropdown-toggle" href="#" id="nav-inbound" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-file-outline mr-1"></i>Report
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="nav-inbound">
+                        <a class="dropdown-item<?= $segment2 == 'service-combination' ? ' active' : '' ?>" href="<?= site_url('pricing/service-combination') ?>">
+                            <i class="mdi mdi-file-outline mr-2"></i>Service Combination
+                        </a>
+                        <a class="dropdown-item<?= $segment2 == 'vendor-pricing' ? ' active' : '' ?>" href="<?= site_url('pricing/vendor-pricing') ?>">
+                            <i class="mdi mdi-file-outline mr-2"></i>Vendor Pricing
+                        </a>
+                        <a class="dropdown-item<?= $segment2 == 'consumable-history' ? ' active' : '' ?>" href="<?= site_url('pricing/consumable-history') ?>">
+                            <i class="mdi mdi-file-outline mr-2"></i>Consumable Pricing
+                        </a>
+                    </div>
+                </li>
                 <li class="nav-item<?= $segment1 == 'setting' ? ' active' : '' ?>">
                     <a class="nav-link" href="<?= site_url('setting') ?>">
-						<i class="mdi mdi-tune mr-1"></i>Setting
+                        <i class="mdi mdi-tune mr-1"></i>Setting
                     </a>
                 </li>
             </ul>
@@ -109,12 +125,12 @@ $segment2 = $this->uri->segment(2);
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<?= site_url('account') ?>">
-						<i class="mdi mdi-account-outline mr-2"></i>My Account
-					</a>
+                        <i class="mdi mdi-account-outline mr-2"></i>My Account
+                    </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?= site_url('auth/logout') ?>">
-						<i class="mdi mdi-logout-variant mr-2"></i>Sign Out
-					</a>
+                        <i class="mdi mdi-logout-variant mr-2"></i>Sign Out
+                    </a>
                 </div>
             </li>
         </ul>

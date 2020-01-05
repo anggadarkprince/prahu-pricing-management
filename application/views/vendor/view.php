@@ -26,6 +26,14 @@
         </div>
     </div>
     <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="term_payment">Term of Payment</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="term_payment">
+                <?= if_empty($vendor['term_payment'], '0') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
         <label class="col-sm-3 col-lg-2 col-form-label" for="description">Description</label>
         <div class="col-sm-9 col-lg-10">
             <p class="form-control-plaintext" id="description">

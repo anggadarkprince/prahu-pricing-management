@@ -26,6 +26,7 @@
         <th class="text-center" style="width: 60px">No</th>
         <th>Vendor</th>
         <th>Type</th>
+        <th>Term Payment</th>
         <th>Description</th>
         <th style="width: 80px">Action</th>
     </tr>
@@ -37,6 +38,7 @@
             <td class="responsive-hide text-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $vendor['vendor'] ?></td>
             <td><?= $vendor['type'] ?></td>
+            <td><?= $vendor['term_payment'] ?>%</td>
             <td><?= if_empty($vendor['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">
@@ -69,7 +71,7 @@
     <?php endforeach; ?>
     <?php if (empty($vendors['data'])): ?>
         <tr>
-            <td colspan="5" class="text-center">No vendor available</td>
+            <td colspan="6" class="text-center">No vendor available</td>
         </tr>
     <?php endif; ?>
     </tbody>

@@ -25,6 +25,8 @@
     <tr>
         <th class="text-center" style="width: 60px">No</th>
         <th>Component</th>
+        <th>Sub Component</th>
+        <th>Service</th>
         <th>Description</th>
         <th style="width: 80px">Action</th>
     </tr>
@@ -35,6 +37,8 @@
         <tr>
             <td class="responsive-hide text-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $component['component'] ?></td>
+            <td><?= numerical(if_empty($component['total_sub_component'], 0)) ?></td>
+            <td><?= numerical(if_empty($component['total_service'], 0)) ?></td>
             <td><?= if_empty($component['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">
@@ -67,7 +71,7 @@
     <?php endforeach; ?>
     <?php if (empty($components['data'])): ?>
         <tr>
-            <td colspan="4" class="text-center">No component available</td>
+            <td colspan="5" class="text-center">No component available</td>
         </tr>
     <?php endif; ?>
     </tbody>

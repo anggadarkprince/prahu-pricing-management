@@ -77,11 +77,13 @@ class Vendor extends App_Controller
         if ($this->validate()) {
             $vendor = $this->input->post('vendor');
             $type = $this->input->post('type');
+            $termPayment = $this->input->post('term_payment');
             $description = $this->input->post('description');
 
             $save = $this->vendor->create([
                 'vendor' => $vendor,
                 'type' => $type,
+                'term_payment' => $termPayment,
                 'description' => $description
             ]);
 
@@ -120,11 +122,13 @@ class Vendor extends App_Controller
         if ($this->validate()) {
             $vendor = $this->input->post('vendor');
             $type = $this->input->post('type');
+            $termPayment = $this->input->post('term_payment');
             $description = $this->input->post('description');
 
             $update = $this->vendor->update([
                 'vendor' => $vendor,
                 'type' => $type,
+                'term_payment' => $termPayment,
                 'description' => $description
             ], $id);
 

@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Class Sub_component
+ * @property ComponentModel $Component
  * @property SubComponentModel $subComponent
  * @property Exporter $exporter
  */
@@ -15,6 +16,7 @@ class Sub_component extends App_Controller
     {
         parent::__construct();
         $this->load->model('SubComponentModel', 'subComponent');
+        $this->load->model('ComponentModel', 'component');
         $this->load->model('modules/Exporter', 'exporter');
     }
 
@@ -35,8 +37,9 @@ class Sub_component extends App_Controller
         if ($export) {
             $this->exporter->exportFromArray('Sub components', $subComponents);
         }
+        $components = $this->component->getAll();
 
-        $this->render('sub_component/index', compact('subComponents'));
+        $this->render('sub_component/index', compact('subComponents', 'components'));
     }
 
     /**
@@ -64,7 +67,9 @@ class Sub_component extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_SUB_COMPONENT_CREATE);
 
-        $this->render('sub_component/create');
+        $components = $this->component->getAll();
+
+        $this->render('sub_component/create', compact('components'));
     }
 
     /**
@@ -75,10 +80,12 @@ class Sub_component extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_SUB_COMPONENT_CREATE);
 
         if ($this->validate()) {
+            $componentId = $this->input->post('component');
             $subComponent = $this->input->post('sub_component');
             $description = $this->input->post('description');
 
             $save = $this->subComponent->create([
+                'id_component' => $componentId,
                 'sub_component' => $subComponent,
                 'description' => $description
             ]);
@@ -102,8 +109,9 @@ class Sub_component extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_SUB_COMPONENT_EDIT);
 
         $subComponent = $this->subComponent->getById($id);
+        $components = $this->component->getAll();
 
-        $this->render('sub_component/edit', compact('subComponent'));
+        $this->render('sub_component/edit', compact('subComponent', 'components'));
     }
 
     /**
@@ -116,10 +124,12 @@ class Sub_component extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_SUB_COMPONENT_EDIT);
 
         if ($this->validate()) {
+            $componentId = $this->input->post('component');
             $subComponent = $this->input->post('sub_component');
             $description = $this->input->post('description');
 
             $update = $this->subComponent->update([
+                'id_component' => $componentId,
                 'sub_component' => $subComponent,
                 'description' => $description
             ], $id);

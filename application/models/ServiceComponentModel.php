@@ -14,8 +14,10 @@ class ServiceComponentModel extends App_Model
 	{
 		return parent::getBaseQuery()
 			->select([
-				'ref_components.component'
+				'ref_services.service',
+				'ref_components.component',
 			])
-			->join('ref_components', 'ref_components.id = ref_service_components.id_component');
+			->join('ref_components', 'ref_components.id = ref_service_components.id_component')
+			->join('ref_services', 'ref_services.id = ref_service_components.id_service');
 	}
 }

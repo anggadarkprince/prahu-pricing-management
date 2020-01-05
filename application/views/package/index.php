@@ -1,10 +1,10 @@
 <?php $this->load->view('partials/_breadcrumb', [
-    'breadcrumbs' => ['component' => 'master/component']
+    'breadcrumbs' => ['package' => 'master/package']
 ]) ?>
 
 <div class="d-flex justify-content-between align-items-center">
-    <h4 class="card-title mb-1 text-primary">Components</h4>
-    <span class="text-muted d-none d-sm-block ml-2 mr-auto text-light-gray">main checkpoint</span>
+    <h4 class="card-title mb-1 text-primary">Package</h4>
+    <span class="text-muted d-none d-sm-block ml-2 mr-auto text-light-gray">vendor services</span>
     <div>
         <a href="#modal-filter" data-toggle="modal" class="btn btn-sm btn-outline-primary pr-2 pl-2">
             <i class="mdi mdi-filter-variant"></i>
@@ -12,8 +12,8 @@
         <a href="<?= base_url(uri_string()) ?>?<?= $_SERVER['QUERY_STRING'] ?>&export=true" class="btn btn-sm btn-outline-primary pr-2 pl-2">
             <i class="mdi mdi-file-download-outline"></i>
         </a>
-        <?php if(AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_CREATE)): ?>
-            <a href="<?= site_url('master/component/create') ?>" class="btn btn-sm btn-primary">
+        <?php if(AuthorizationModel::isAuthorized(PERMISSION_PACKAGE_CREATE)): ?>
+            <a href="<?= site_url('master/package/create') ?>" class="btn btn-sm btn-primary">
                 <i class="mdi mdi-plus-box-multiple-outline mr-1"></i>Create
             </a>
         <?php endif; ?>
@@ -25,44 +25,42 @@
     <tr>
         <th class="text-center" style="width: 60px">No</th>
         <th>Component</th>
-        <th>Sub Component</th>
         <th>Package</th>
-        <th>Service</th>
+        <th>Sub Component</th>
         <th>Description</th>
         <th style="width: 80px">Action</th>
     </tr>
     </thead>
     <tbody>
-    <?php $no = isset($components) ? ($components['current_page'] - 1) * $components['per_page'] : 0 ?>
-    <?php foreach ($components['data'] as $component): ?>
+    <?php $no = isset($packages) ? ($packages['current_page'] - 1) * $packages['per_page'] : 0 ?>
+    <?php foreach ($packages['data'] as $package): ?>
         <tr>
             <td class="responsive-hide text-center"><?= ++$no ?></td>
-            <td class="font-weight-bold"><?= $component['component'] ?></td>
-            <td><?= numerical(if_empty($component['total_sub_component'], 0)) ?></td>
-            <td><?= numerical(if_empty($component['total_package'], 0)) ?></td>
-            <td><?= numerical(if_empty($component['total_service'], 0)) ?></td>
-            <td><?= if_empty($component['description'], 'No description') ?></td>
+            <td class="font-weight-bold"><?= $package['component'] ?></td>
+            <td class="font-weight-bold"><?= $package['package'] ?></td>
+            <td class="font-weight-bold"><?= $package['total_sub_component'] ?></td>
+            <td><?= if_empty($package['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">
                     <button class="btn btn-danger btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                         Action
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <?php if(AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_VIEW)): ?>
-                            <a class="dropdown-item" href="<?= site_url('master/component/view/' . $component['id']) ?>">
+                        <?php if(AuthorizationModel::isAuthorized(PERMISSION_PACKAGE_VIEW)): ?>
+                            <a class="dropdown-item" href="<?= site_url('master/package/view/' . $package['id']) ?>">
                                 <i class="mdi mdi-eye-outline mr-2"></i> View
                             </a>
                         <?php endif; ?>
-                        <?php if(AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_EDIT)): ?>
-                            <a class="dropdown-item" href="<?= site_url('master/component/edit/' . $component['id']) ?>">
+                        <?php if(AuthorizationModel::isAuthorized(PERMISSION_PACKAGE_EDIT)): ?>
+                            <a class="dropdown-item" href="<?= site_url('master/package/edit/' . $package['id']) ?>">
                                 <i class="mdi mdi-square-edit-outline mr-2"></i> Edit
                             </a>
                         <?php endif; ?>
-                        <?php if(AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_DELETE)): ?>
+                        <?php if(AuthorizationModel::isAuthorized(PERMISSION_PACKAGE_DELETE)): ?>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item btn-delete" href="#modal-delete" data-toggle="modal"
-                               data-id="<?= $component['id'] ?>" data-label="<?= $component['component'] ?>" data-title="Component"
-                               data-url="<?= site_url('master/component/delete/' . $component['id']) ?>">
+                               data-id="<?= $package['id'] ?>" data-label="<?= $package['package'] ?>" data-title="Sub Component"
+                               data-url="<?= site_url('master/package/delete/' . $package['id']) ?>">
                                 <i class="mdi mdi-trash-can-outline mr-2"></i> Delete
                             </a>
                         <?php endif; ?>
@@ -71,17 +69,17 @@
             </td>
         </tr>
     <?php endforeach; ?>
-    <?php if (empty($components['data'])): ?>
+    <?php if (empty($packages['data'])): ?>
         <tr>
-            <td colspan="7" class="text-center">No component available</td>
+            <td colspan="5" class="text-center">No package available</td>
         </tr>
     <?php endif; ?>
     </tbody>
 </table>
 
-<?php $this->load->view('partials/_pagination', ['pagination' => $components]) ?>
+<?php $this->load->view('partials/_pagination', ['pagination' => $packages]) ?>
 
-<?php $this->load->view('component/_modal_filter') ?>
-<?php if(AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_DELETE)): ?>
+<?php $this->load->view('package/_modal_filter') ?>
+<?php if(AuthorizationModel::isAuthorized(PERMISSION_PACKAGE_DELETE)): ?>
     <?php $this->load->view('partials/modals/_delete') ?>
 <?php endif; ?>

@@ -127,6 +127,12 @@ defined('PERMISSION_COMPONENT_CREATE') or define('PERMISSION_COMPONENT_CREATE', 
 defined('PERMISSION_COMPONENT_EDIT') or define('PERMISSION_COMPONENT_EDIT', 'component-edit');
 defined('PERMISSION_COMPONENT_DELETE') or define('PERMISSION_COMPONENT_DELETE', 'component-delete');
 
+// Package permission
+defined('PERMISSION_PACKAGE_VIEW') or define('PERMISSION_PACKAGE_VIEW', 'package-view');
+defined('PERMISSION_PACKAGE_CREATE') or define('PERMISSION_PACKAGE_CREATE', 'package-create');
+defined('PERMISSION_PACKAGE_EDIT') or define('PERMISSION_PACKAGE_EDIT', 'package-edit');
+defined('PERMISSION_PACKAGE_DELETE') or define('PERMISSION_PACKAGE_DELETE', 'package-delete');
+
 // Port permission
 defined('PERMISSION_PORT_VIEW') or define('PERMISSION_PORT_VIEW', 'port-view');
 defined('PERMISSION_PORT_CREATE') or define('PERMISSION_PORT_CREATE', 'port-create');

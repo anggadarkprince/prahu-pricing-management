@@ -18,6 +18,10 @@ class Sub_component extends App_Controller
         $this->load->model('SubComponentModel', 'subComponent');
         $this->load->model('ComponentModel', 'component');
         $this->load->model('modules/Exporter', 'exporter');
+
+        $this->setFilterMethods([
+            'ajax_get_by_component' => 'GET'
+        ]);
     }
 
     /**
@@ -174,4 +178,20 @@ class Sub_component extends App_Controller
             'description' => 'max_length[500]',
         ];
     }
+
+    /**
+     * Get sub component by component
+     *
+     * @return array
+     */
+    public function ajax_get_by_component()
+    {
+        $componentId = get_url_param('id_component');
+        $subComponents = $this->subComponent->getBy([
+            'ref_components.id' => $componentId,
+        ]);
+
+        $this->render_json($subComponents);
+    }
+
 }

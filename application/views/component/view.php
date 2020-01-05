@@ -56,14 +56,18 @@
                 <th class="text-center" style="width: 60px">No</th>
                 <th>Sub Component</th>
                 <th style="width: 220px">Description</th>
-                <th style="width: 170px">Created At</th>
+                <th style="width: 180px">Created At</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($subComponents as $index => $subComponent) : ?>
                 <tr>
                     <td class="text-md-center"><?= $index + 1 ?></td>
-                    <td class="font-weight-bold"><?= $subComponent['sub_component'] ?></td>
+                    <td class="font-weight-bold">
+                        <a href="<?= site_url('master/sub-component/view/' . $subComponent['id']) ?>">
+                            <?= $subComponent['sub_component'] ?>
+                        </a>
+                    </td>
                     <td><?= if_empty($subComponent['description'], 'No description') ?></td>
                     <td><?= format_date($subComponent['created_at'], 'd F Y H:i') ?></td>
                 </tr>
@@ -78,6 +82,40 @@
         </tbody>
     </table>
 
+    <p class="form-section-title">Package of component</p>
+
+    <table class="table table-sm mt-3 table-hover responsive">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center" style="width: 60px">No</th>
+                <th>Package</th>
+                <th style="width: 220px">Description</th>
+                <th style="width: 180px">Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($packages as $index => $package) : ?>
+                <tr>
+                    <td class="text-md-center"><?= $index + 1 ?></td>
+                    <td class="font-weight-bold">
+                        <a href="<?= site_url('master/package/view/' . $package['id']) ?>">
+                            <?= $package['package'] ?>
+                        </a>
+                    </td>
+                    <td><?= if_empty($package['description'], 'No description') ?></td>
+                    <td><?= format_date($package['created_at'], 'd F Y H:i') ?></td>
+                </tr>
+            <?php endforeach ?>
+            <?php if (empty($packages)) : ?>
+                <tr>
+                    <td colspan="4">
+                        No package data available
+                    </td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+
     <p class="form-section-title">Service of component</p>
 
     <table class="table table-sm mt-3 table-hover responsive">
@@ -86,14 +124,18 @@
                 <th class="text-center" style="width: 60px">No</th>
                 <th>Service</th>
                 <th style="width: 220px">Description</th>
-                <th style="width: 170px">Created At</th>
+                <th style="width: 180px">Created At</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($serviceComponents as $index => $serviceComponent) : ?>
                 <tr>
                     <td class="text-md-center"><?= $index + 1 ?></td>
-                    <td class="font-weight-bold"><?= $serviceComponent['service'] ?></td>
+                    <td class="font-weight-bold">
+                        <a href="<?= site_url('master/service/view/' . $serviceComponent['id_service']) ?>">
+                            <?= $serviceComponent['service'] ?>
+                        </a>
+                    </td>
                     <td><?= if_empty($serviceComponent['description'], 'No description') ?></td>
                     <td><?= format_date($serviceComponent['created_at'], 'd F Y H:i') ?></td>
                 </tr>

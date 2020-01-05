@@ -52,9 +52,13 @@ $segment2 = $this->uri->segment(2);
                         <a class="dropdown-item<?= $segment2 == 'sub-component' ? ' active' : '' ?>" href="<?= site_url('master/sub-component') ?>">
                             <i class="mdi mdi-layers-search mr-2"></i>Sub-component
                         </a>
-                        <a class="dropdown-item<?= $segment2 == 'service' ? ' active' : '' ?>" href="<?= site_url('master/service') ?>">
-                            <i class="mdi mdi-cube-scan mr-2"></i>Services
+                        <a class="dropdown-item<?= $segment2 == 'package' ? ' active' : '' ?>" href="<?= site_url('master/package') ?>">
+                            <i class="mdi mdi-archive-arrow-down-outline mr-2"></i>Packages
                         </a>
+                        <a class="dropdown-item<?= $segment2 == 'service' ? ' active' : '' ?>" href="<?= site_url('master/service') ?>">
+                            <i class="mdi mdi-inbox-full-outline mr-2"></i>Services
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item<?= $segment2 == 'port' ? ' active' : '' ?>" href="<?= site_url('master/port') ?>">
                             <i class="mdi mdi-anchor mr-2"></i>Ports
                         </a>
@@ -68,14 +72,14 @@ $segment2 = $this->uri->segment(2);
                             <i class="mdi mdi-move-resize-variant mr-2"></i>Cargo Sizes
                         </a>
                         <a class="dropdown-item<?= $segment2 == 'container-type' ? ' active' : '' ?>" href="<?= site_url('master/container-type') ?>">
-                            <i class="mdi mdi-truck-delivery-outline mr-2"></i>Cargo Types
+                            <i class="mdi mdi-truck-outline mr-2"></i>Cargo Types
                         </a>
                         <a class="dropdown-item<?= $segment2 == 'marketing' ? ' active' : '' ?>" href="<?= site_url('master/marketing') ?>">
                             <i class="mdi mdi-account-supervisor-outline mr-2"></i>Marketing
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item<?= $segment2 == 'price' ? ' active' : '' ?>" href="<?= site_url('master/price') ?>">
-                            <i class="mdi mdi-currency-usd mr-2"></i>Price Setup
+                            <i class="mdi mdi-currency-usd mr-2"></i>Vendor Pricing
                         </a>
                     </div>
                 </li>

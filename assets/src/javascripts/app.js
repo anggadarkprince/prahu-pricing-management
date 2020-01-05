@@ -41,6 +41,10 @@ try {
         import("./pages/role").then(role => role.default());
     }
 
+    if ($('#form-package').length) {
+        import("./pages/package").then(packages => packages.default());
+    }
+
 } catch (e) {
     console.log(e);
 }

@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property ComponentModel $component
  * @property SubComponentModel $subComponent
  * @property ServiceComponentModel $serviceComponent
+ * @property PackageModel $package
  * @property Exporter $exporter
  */
 class Component extends App_Controller
@@ -19,6 +20,7 @@ class Component extends App_Controller
         $this->load->model('ComponentModel', 'component');
         $this->load->model('SubComponentModel', 'subComponent');
         $this->load->model('ServiceComponentModel', 'serviceComponent');
+        $this->load->model('PackageModel', 'package');
         $this->load->model('modules/Exporter', 'exporter');
     }
 
@@ -53,14 +55,15 @@ class Component extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_VIEW);
 
         $component = $this->component->getById($id);
-        $subComponents = $this->subComponent->getBy(['ref_components.id' => $id]);
-        $serviceComponents = $this->serviceComponent->getBy(['ref_components.id' => $id]);
+        $subComponents = $this->subComponent->getBy(['ref_sub_components.id_component' => $id]);
+        $serviceComponents = $this->serviceComponent->getBy(['ref_service_components.id_component' => $id]);
+        $packages = $this->package->getBy(['ref_packages.id_component' => $id]);
 
         if (empty($component)) {
             redirect('error404');
         }
 
-        $this->render('component/view', compact('component', 'subComponents', 'serviceComponents'));
+        $this->render('component/view', compact('component', 'subComponents', 'serviceComponents', 'packages'));
     }
 
     /**

@@ -19,12 +19,13 @@
 	</div>
 	<div class="form-group">
 		<label for="type">Type</label>
-		<select class="custom-select" name="type" id="type" required>
-			<option value="PACKAGING" <?= set_select('type', 'PACKAGING') ?>>
-				PACKAGING
+		<select class="form-control select2" data-placeholder="Select consumable type" name="type" id="type" required>
+			<option value=""></option>
+			<option value="<?= ConsumableModel::TYPE_PACKAGING ?>"<?= set_select('type', ConsumableModel::TYPE_PACKAGING) ?>>
+				<?= ConsumableModel::TYPE_PACKAGING ?>
 			</option>
-			<option value="ACTIVITY DURATION" <?= set_select('type', 'ACTIVITY DURATION') ?>>
-				ACTIVITY DURATION
+			<option value="<?= ConsumableModel::TYPE_ACTIVITY_DURATION ?>"<?= set_select('type', ConsumableModel::TYPE_ACTIVITY_DURATION) ?>>
+				<?= ConsumableModel::TYPE_ACTIVITY_DURATION ?>
 			</option>
 		</select>
 		<?= form_error('type') ?>
@@ -36,14 +37,15 @@
         <?= form_error('description') ?>
     </div>
 
-	<table class="table table-sm mt-4">
+	<p class="form-section-title mt-4">Consumable Price</p>
+	<table class="table table-sm">
 		<thead>
 		<tr>
 			<th style="width: 60px">No</th>
 			<th>Container Size</th>
-			<th style="width: 200px">Price</th>
-			<th style="width: 180px">Percent %</th>
-			<th style="width: 400px">From Component</th>
+			<th style="width: 220px" class="mode-value">Price</th>
+			<th style="width: 200px" class="mode-percent">Percent %</th>
+			<th style="width: 400px" class="mode-percent">From Component</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -51,12 +53,12 @@
 			<tr>
 				<td><?= $index + 1 ?></td>
 				<td><strong><?= $containerSize['container_size'] ?>"</strong></td>
-				<td>
+				<td class="mode-value">
 					<input type="text" maxlength="20" required value="<?= set_value('container_sizes[' . $containerSize['id'] . '][price]') ?>"
 						   class="form-control currency" placeholder="Price <?= $containerSize['container_size'] ?>"
 						   name="container_sizes[<?= $containerSize['id'] ?>][price]" aria-label="Price <?= $containerSize['container_size'] ?>">
 				</td>
-				<td>
+				<td class="mode-percent">
 					<div class="input-group">
 						<input type="number" step="1" min="0" max="100" value="<?= set_value('container_sizes[' . $containerSize['id'] . '][percent]') ?>"
 							   class="form-control" placeholder="Price percent"
@@ -66,8 +68,9 @@
 						</div>
 					</div>
 				</td>
-				<td>
-					<select class="form-control select2" multiple name="container_sizes[<?= $containerSize['id'] ?>][components][]" id="component_<?= $containerSize['id'] ?>" style="width: 100%">
+				<td class="mode-percent">
+					<select class="form-control select2" multiple name="container_sizes[<?= $containerSize['id'] ?>][components][]"
+							id="component_<?= $containerSize['id'] ?>" aria-label="Component" required style="width: 100%">
 						<?php foreach ($components as $component): ?>
 							<option value="<?= $component['id'] ?>"<?= set_select('components[]', $component['id']) ?>>
 								<?= $component['component'] ?>

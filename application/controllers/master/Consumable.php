@@ -31,7 +31,7 @@ class Consumable extends App_Controller
 	 */
 	public function index()
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_VIEW);
+		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_VIEW);
 
 		$filters = array_merge($_GET, ['page' => get_url_param('page', 1)]);
 
@@ -54,15 +54,23 @@ class Consumable extends App_Controller
 	 */
 	public function view($id)
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_VIEW);
+		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_VIEW);
 
 		$consumable = $this->consumable->getById($id);
+		$consumablePrices = $this->consumablePrice->getBy([
+			'ref_consumable_prices.id_consumable' => $id,
+		]);
+		foreach ($consumablePrices as &$consumablePrice) {
+			$consumablePrice['components'] = $this->consumablePriceComponent->getBy([
+				'ref_consumable_price_components.id_consumable_price' => $consumablePrice['id']
+			]);
+		}
 
 		if (empty($consumable)) {
 			redirect('error404');
 		}
 
-		$this->render('consumable/view', compact('consumable'));
+		$this->render('consumable/view', compact('consumable', 'consumablePrices'));
 	}
 
 	/**
@@ -70,7 +78,7 @@ class Consumable extends App_Controller
 	 */
 	public function create()
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_CREATE);
+		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_CREATE);
 
 		$components = $this->component->getAll();
 		$containerSizes = $this->containerSize->getAll();
@@ -83,36 +91,56 @@ class Consumable extends App_Controller
 	 */
 	public function save()
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_CREATE);
+		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_CREATE);
 
 		if ($this->validate()) {
 			$consumable = $this->input->post('consumable');
+			$type = $this->input->post('type');
 			$description = $this->input->post('description');
-			$services = $this->input->post('services');
+			$containerSizes = $this->input->post('container_sizes');
 
 			$this->db->trans_start();
 
 			$this->consumable->create([
 				'consumable' => $consumable,
+				'type' => $type,
 				'description' => $description
 			]);
-			$paymentTypeId = $this->db->insert_id();
+			$consumableId = $this->db->insert_id();
 
-			if (!empty($services)) {
-				foreach ($services as $serviceId => $service) {
-					$this->servicePaymentType->create([
-						'id_service' => $serviceId,
-						'id_payment_type' => $paymentTypeId,
-						'payment_percent' => $service['payment_percent'],
-						'margin_percent' => $service['margin_percent'],
-					]);
+			if (!empty($containerSizes)) {
+				if ($type == ConsumableModel::TYPE_PACKAGING) {
+					foreach ($containerSizes as $containerSizeId => $price) {
+						$this->consumablePrice->create([
+							'id_consumable' => $consumableId,
+							'id_container_size' => $containerSizeId,
+							'price' => extract_number($price['price']),
+						]);
+					}
+				} else {
+					foreach ($containerSizes as $containerSizeId => $price) {
+						$this->consumablePrice->create([
+							'id_consumable' => $consumableId,
+							'id_container_size' => $containerSizeId,
+							'percent' => $price['percent'],
+						]);
+						$consumablePriceId = $this->db->insert_id();
+						if (isset($price['components']) && !empty($price['components'])) {
+							foreach ($price['components'] as $consumableComponent) {
+								$this->consumablePriceComponent->create([
+									'id_consumable_price' => $consumablePriceId,
+									'id_component' => $consumableComponent
+								]);
+							}
+						}
+					}
 				}
 			}
 
 			$this->db->trans_complete();
 
 			if ($this->db->trans_status()) {
-				flash('success', "Payment type {$consumable} successfully created", 'master/payment-type');
+				flash('success', "Consumable {$consumable} successfully created", 'master/consumable');
 			} else {
 				flash('danger', 'Create consumable failed, try again or contact administrator');
 			}
@@ -127,22 +155,32 @@ class Consumable extends App_Controller
 	 */
 	public function edit($id)
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_EDIT);
+		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_EDIT);
 
 		$consumable = $this->consumable->getById($id);
+		$components = $this->component->getAll();
+		$containerSizes = $this->containerSize->getAll();
 
-		$services = $this->service->getAll();
-		foreach ($services as &$service) {
-			$servicePayment = $this->servicePaymentType->getBy([
-				'ref_service_payment_types.id_service' => $service['id'],
-				'ref_service_payment_types.id_payment_type' => $id
+		foreach ($containerSizes as &$containerSize) {
+			$consumablePrice = $this->consumablePrice->getBy([
+				'ref_consumable_prices.id_consumable' => $id,
+				'ref_consumable_prices.id_container_size' => $containerSize['id'],
 			], true);
+			if (empty($consumablePrice)) {
+				$containerSize['price'] = 0;
+				$containerSize['percent'] = 0;
+				$containerSize['components'] = [];
+			} else {
+				$containerSize['price'] = $consumablePrice['price'];
+				$containerSize['percent'] = $consumablePrice['percent'];
 
-			$service['payment_percent'] = get_if_exist($servicePayment, 'payment_percent', 0);
-			$service['margin_percent'] = get_if_exist($servicePayment, 'margin_percent', 0);
+				$containerSize['components'] = $this->consumablePriceComponent->getBy([
+					'ref_consumable_price_components.id_consumable_price' => $consumablePrice['id']
+				]);
+			}
 		}
 
-		$this->render('consumable/edit', compact('consumable', 'services'));
+		$this->render('consumable/edit', compact('consumable', 'components', 'containerSizes'));
 	}
 
 	/**
@@ -152,36 +190,56 @@ class Consumable extends App_Controller
 	 */
 	public function update($id)
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_EDIT);
+		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_EDIT);
 
 		if ($this->validate($this->_validation_rules($id))) {
 			$consumable = $this->input->post('consumable');
+			$type = $this->input->post('type');
 			$description = $this->input->post('description');
-			$services = $this->input->post('services');
+			$containerSizes = $this->input->post('container_sizes');
 
 			$this->db->trans_start();
 
 			$this->consumable->update([
 				'consumable' => $consumable,
+				'type' => $type,
 				'description' => $description
 			], $id);
 
-			if (!empty($services)) {
-				$this->servicePaymentType->delete(['id_payment_type' => $id]);
-				foreach ($services as $serviceId => $service) {
-					$this->servicePaymentType->create([
-						'id_service' => $serviceId,
-						'id_payment_type' => $id,
-						'payment_percent' => $service['payment_percent'],
-						'margin_percent' => $service['margin_percent'],
-					]);
+			$this->consumablePrice->delete(['id_consumable' => $id]);
+			if (!empty($containerSizes)) {
+				if ($type == ConsumableModel::TYPE_PACKAGING) {
+					foreach ($containerSizes as $containerSizeId => $price) {
+						$this->consumablePrice->create([
+							'id_consumable' => $id,
+							'id_container_size' => $containerSizeId,
+							'price' => extract_number($price['price']),
+						]);
+					}
+				} else {
+					foreach ($containerSizes as $containerSizeId => $price) {
+						$this->consumablePrice->create([
+							'id_consumable' => $id,
+							'id_container_size' => $containerSizeId,
+							'percent' => $price['percent'],
+						]);
+						$consumablePriceId = $this->db->insert_id();
+						if (isset($price['components']) && !empty($price['components'])) {
+							foreach ($price['components'] as $consumableComponent) {
+								$this->consumablePriceComponent->create([
+									'id_consumable_price' => $consumablePriceId,
+									'id_component' => $consumableComponent
+								]);
+							}
+						}
+					}
 				}
 			}
 
 			$this->db->trans_complete();
 
 			if ($this->db->trans_status()) {
-				flash('success', "Payment type {$consumable} successfully updated", 'master/payment-type');
+				flash('success', "Consumable {$consumable} successfully updated", 'master/consumable');
 			} else {
 				flash('danger', "Update consumable failed, try again or contact administrator");
 			}
@@ -196,16 +254,16 @@ class Consumable extends App_Controller
 	 */
 	public function delete($id)
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_DELETE);
+		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_DELETE);
 
 		$consumable = $this->consumable->getById($id);
 
 		if ($this->consumable->delete($id, true)) {
-			flash('warning', "Payment type {$consumable['consumable']} successfully deleted");
+			flash('warning', "Consumable {$consumable['consumable']} successfully deleted");
 		} else {
 			flash('danger', 'Delete consumable failed, try again or contact administrator');
 		}
-		redirect('master/payment-type');
+		redirect('master/consumable');
 	}
 
 	/**
@@ -219,14 +277,15 @@ class Consumable extends App_Controller
 		$id = isset($params[0]) ? $params[0] : 0;
 		return [
 			'consumable' => [
-				'trim', 'required', 'max_length[50]', ['payment_exists', function ($input) use ($id) {
-					$this->form_validation->set_message('payment_exists', 'The %s has been exist, try another');
+				'trim', 'required', 'max_length[50]', ['consumable_exists', function ($input) use ($id) {
+					$this->form_validation->set_message('consumable_exists', 'The %s has been exist, try another');
 					return empty($this->consumable->getBy([
-						'ref_payment_types.consumable' => $input,
-						'ref_payment_types.id!=' => $id
+						'ref_consumables.consumable' => $input,
+						'ref_consumables.id!=' => $id
 					]));
 				}]
 			],
+			'type' => 'max_length[50]|in_list[PACKAGING,ACTIVITY DURATION]',
 			'description' => 'max_length[500]',
 		];
 	}

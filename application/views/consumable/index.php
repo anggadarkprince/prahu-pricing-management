@@ -25,6 +25,7 @@
     <tr>
         <th class="text-md-center" style="width: 60px">No</th>
         <th>Consumable</th>
+        <th>Type</th>
         <th>Description</th>
         <th>Last Updated</th>
         <th style="width: 80px">Action</th>
@@ -36,6 +37,7 @@
         <tr>
             <td class="text-md-center"><?= ++$no ?></td>
             <td><?= $consumable['consumable'] ?></td>
+            <td><?= $consumable['type'] ?></td>
             <td><?= if_empty($consumable['description'], 'No description') ?></td>
 			<td><?= format_date(if_empty($consumable['updated_at'], $consumable['created_at']), 'd F Y H:i') ?></td>
             <td>

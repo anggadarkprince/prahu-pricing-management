@@ -116,12 +116,15 @@ $segment2 = $this->uri->segment(2);
                         <a class="dropdown-item<?= $segment2 == 'package-combination' ? ' active' : '' ?>" href="<?= site_url('report/package-combination') ?>">
                             <i class="mdi mdi-archive-arrow-down-outline mr-2"></i>Package Combination
                         </a>
-                        <a class="dropdown-item<?= $segment2 == 'component-pricing' ? ' active' : '' ?>" href="<?= site_url('report/component-pricing') ?>">
-                            <i class="mdi mdi-shopping-outline mr-2"></i>Component Pricing
+                        <a class="dropdown-item<?= $segment2 == 'payment-service' ? ' active' : '' ?>" href="<?= site_url('report/payment-service') ?>">
+                            <i class="mdi mdi-cart-plus mr-2"></i>Payment Service
                         </a>
                         <a class="dropdown-item<?= $segment2 == 'consumable-pricing' ? ' active' : '' ?>" href="<?= site_url('report/consumable-pricing') ?>">
-                            <i class="mdi mdi-cart-plus mr-2"></i>Consumable Pricing
+                            <i class="mdi mdi-note-plus-outline mr-2"></i>Consumable Pricing
                         </a>
+						<a class="dropdown-item<?= $segment2 == 'component-pricing' ? ' active' : '' ?>" href="<?= site_url('report/component-pricing') ?>">
+							<i class="mdi mdi-shopping-outline mr-2"></i>Component Pricing
+						</a>
                     </div>
                 </li>
                 <li class="nav-item<?= $segment1 == 'setting' ? ' active' : '' ?>">

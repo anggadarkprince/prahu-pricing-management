@@ -20,7 +20,7 @@
     <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description" name="description" maxlength="500"
-                  placeholder="Component description"><?= set_value('description') ?></textarea>
+                  placeholder="Location description"><?= set_value('description') ?></textarea>
         <?= form_error('description') ?>
     </div>
 

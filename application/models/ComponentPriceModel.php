@@ -85,7 +85,7 @@ class ComponentPriceModel extends App_Model
             $packageSubComponents = $this->packageSubComponent->getBy([
                 'ref_package_sub_components.id_package' => $package['id']
             ]);
-            $selectList[] = "SUM(IF(ref_component_prices.id_sub_component IN (" . if_empty(implode(',', array_column($packageSubComponents, 'id_sub_component')), '') . "), ref_component_prices.price, 0)) AS `{$package['package']}`";
+            $selectList[] = "SUM(IF(ref_component_prices.id_sub_component IN (" . if_empty(implode(',', array_column($packageSubComponents, 'id_sub_component')), '""') . "), ref_component_prices.price, 0)) AS `{$package['package']}`";
         }
 
         $baseQuery = $this->db->select($selectList)

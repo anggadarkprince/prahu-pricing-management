@@ -23,7 +23,7 @@
 <table class="table table-sm table-hover mt-3 responsive" id="table-component">
     <thead class="thead-dark">
     <tr>
-        <th class="text-center" style="width: 60px">No</th>
+        <th class="text-md-center" style="width: 60px">No</th>
         <th>Component</th>
         <th>Package</th>
         <th>Sub Component</th>
@@ -35,7 +35,7 @@
     <?php $no = isset($packages) ? ($packages['current_page'] - 1) * $packages['per_page'] : 0 ?>
     <?php foreach ($packages['data'] as $package): ?>
         <tr>
-            <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="text-md-center"><?= ++$no ?></td>
             <td><?= $package['component'] ?></td>
             <td class="font-weight-bold"><?= $package['package'] ?></td>
             <td><?= $package['total_sub_component'] ?></td>

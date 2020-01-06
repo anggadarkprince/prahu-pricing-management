@@ -33,7 +33,7 @@
     <?php $no = isset($containerSizes) ? ($containerSizes['current_page'] - 1) * $containerSizes['per_page'] : 0 ?>
     <?php foreach ($containerSizes['data'] as $containerSize): ?>
         <tr>
-            <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $containerSize['container_size'] ?>" feet</td>
             <td><?= if_empty($containerSize['description'], 'No description') ?></td>
             <td>

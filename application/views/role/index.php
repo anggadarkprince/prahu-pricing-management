@@ -23,7 +23,7 @@
 <table class="table table-sm table-hover mt-3 responsive" id="table-role">
     <thead class="thead-dark">
     <tr>
-        <th class="text-center" style="width: 60px">No</th>
+        <th class="text-md-center" style="width: 60px">No</th>
         <th>Role</th>
         <th>Description</th>
         <th>Total Permissions</th>
@@ -34,7 +34,7 @@
     <?php $no = isset($roles) ? ($roles['current_page'] - 1) * $roles['per_page'] : 0 ?>
     <?php foreach ($roles['data'] as $role): ?>
         <tr>
-            <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $role['role'] ?></td>
             <td><?= if_empty($role['description'], 'No description') ?></td>
             <td><?= numerical($role['total_permission']) ?> privileges</td>

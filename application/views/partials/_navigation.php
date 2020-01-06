@@ -77,10 +77,10 @@ $segment2 = $this->uri->segment(2);
                         <a class="dropdown-item<?= $segment2 == 'marketing' ? ' active' : '' ?>" href="<?= site_url('master/marketing') ?>">
                             <i class="mdi mdi-account-supervisor-outline mr-2"></i>Marketing
                         </a>
-                        <a class="dropdown-item<?= $segment2 == 'payment-type' ? ' active' : '' ?>" href="<?= site_url('master/payment-type') ?>">
-                            <i class="mdi mdi-calendar-text-outline mr-2"></i>Payment Type
-                        </a>
                         <div class="dropdown-divider"></div>
+						<a class="dropdown-item<?= $segment2 == 'payment-type' ? ' active' : '' ?>" href="<?= site_url('master/payment-type') ?>">
+							<i class="mdi mdi-calendar-text-outline mr-2"></i>Payment Type
+						</a>
                         <a class="dropdown-item<?= $segment2 == 'service-payment' ? ' active' : '' ?>" href="<?= site_url('master/service-payment') ?>">
                             <i class="mdi mdi-script-text-outline mr-2"></i>Service Payment
                         </a>

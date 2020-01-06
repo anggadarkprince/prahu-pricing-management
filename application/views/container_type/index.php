@@ -33,7 +33,7 @@
     <?php $no = isset($containerTypes) ? ($containerTypes['current_page'] - 1) * $containerTypes['per_page'] : 0 ?>
     <?php foreach ($containerTypes['data'] as $containerType): ?>
         <tr>
-            <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $containerType['container_type'] ?></td>
             <td><?= if_empty($containerType['description'], 'No description') ?></td>
             <td>

@@ -2,10 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Class Migration_Create_table_ref_service_payemnt_types
+ * Class Migration_Create_table_ref_service_payment_types
  * @property CI_DB_forge $dbforge
  */
-class Migration_Create_table_ref_service_payemnt_types extends CI_Migration
+class Migration_Create_table_ref_service_payment_types extends CI_Migration
 {
     public function up()
     {
@@ -22,12 +22,12 @@ class Migration_Create_table_ref_service_payemnt_types extends CI_Migration
             ->add_field('CONSTRAINT fk_service_payment_type_payment_type FOREIGN KEY (id_payment_type) REFERENCES ref_payment_types(id) ON DELETE CASCADE ON UPDATE CASCADE');
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('ref_service_payment_types');
-        echo 'Migrating Migration_Create_table_ref_service_payemnt_types' . PHP_EOL;
+        echo 'Migrating Migration_Create_table_ref_service_payment_types' . PHP_EOL;
     }
 
     public function down()
     {
         $this->dbforge->drop_table('ref_service_payment_types',TRUE);
-        echo 'Rollback Migration_Create_table_ref_service_payemnt_types' . PHP_EOL;
+        echo 'Rollback Migration_Create_table_ref_service_payment_types' . PHP_EOL;
     }
 }

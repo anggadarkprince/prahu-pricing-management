@@ -21,7 +21,7 @@
     <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description" name="description" maxlength="500"
-                  placeholder="Size description"><?= set_value('description', $location['description']) ?></textarea>
+                  placeholder="Location description"><?= set_value('description', $location['description']) ?></textarea>
         <?= form_error('description') ?>
     </div>
 

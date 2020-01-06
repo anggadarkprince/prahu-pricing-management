@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Class Package
- * @property ComponentModel $Component
+ * @property ComponentModel $component
  * @property SubComponentModel $subComponent
  * @property PackageModel $package
  * @property PackageSubComponentModel $packageSubComponent

@@ -145,6 +145,12 @@ defined('PERMISSION_LOCATION_CREATE') or define('PERMISSION_LOCATION_CREATE', 'l
 defined('PERMISSION_LOCATION_EDIT') or define('PERMISSION_LOCATION_EDIT', 'location-edit');
 defined('PERMISSION_LOCATION_DELETE') or define('PERMISSION_LOCATION_DELETE', 'location-delete');
 
+// Payment type permission
+defined('PERMISSION_PAYMENT_TYPE_VIEW') or define('PERMISSION_PAYMENT_TYPE_VIEW', 'payment-type-view');
+defined('PERMISSION_PAYMENT_TYPE_CREATE') or define('PERMISSION_PAYMENT_TYPE_CREATE', 'payment-type-create');
+defined('PERMISSION_PAYMENT_TYPE_EDIT') or define('PERMISSION_PAYMENT_TYPE_EDIT', 'payment-type-edit');
+defined('PERMISSION_PAYMENT_TYPE_DELETE') or define('PERMISSION_PAYMENT_TYPE_DELETE', 'payment-type-delete');
+
 // Sub component permission
 defined('PERMISSION_SUB_COMPONENT_VIEW') or define('PERMISSION_SUB_COMPONENT_VIEW', 'sub-component-view');
 defined('PERMISSION_SUB_COMPONENT_CREATE') or define('PERMISSION_SUB_COMPONENT_CREATE', 'sub-component-create');

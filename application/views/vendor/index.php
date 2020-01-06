@@ -23,7 +23,7 @@
 <table class="table table-sm table-hover mt-3 responsive" id="table-vendor">
     <thead class="thead-dark">
     <tr>
-        <th class="text-center" style="width: 60px">No</th>
+        <th class="text-md-center" style="width: 60px">No</th>
         <th>Vendor</th>
         <th>Type</th>
         <th>Term Payment</th>
@@ -35,7 +35,7 @@
     <?php $no = isset($vendors) ? ($vendors['current_page'] - 1) * $vendors['per_page'] : 0 ?>
     <?php foreach ($vendors['data'] as $vendor): ?>
         <tr>
-            <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $vendor['vendor'] ?></td>
             <td><?= $vendor['type'] ?></td>
             <td><?= $vendor['term_payment'] ?>%</td>

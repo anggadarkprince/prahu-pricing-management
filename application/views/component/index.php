@@ -36,7 +36,7 @@
     <?php $no = isset($components) ? ($components['current_page'] - 1) * $components['per_page'] : 0 ?>
     <?php foreach ($components['data'] as $component): ?>
         <tr>
-            <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $component['component'] ?></td>
             <td><?= numerical(if_empty($component['total_sub_component'], 0)) ?></td>
             <td><?= numerical(if_empty($component['total_package'], 0)) ?></td>

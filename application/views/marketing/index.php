@@ -35,7 +35,7 @@
     <?php $no = isset($marketings) ? ($marketings['current_page'] - 1) * $marketings['per_page'] : 0 ?>
     <?php foreach ($marketings['data'] as $marketing): ?>
         <tr>
-            <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $marketing['name'] ?></td>
             <td><?= $marketing['email'] ?></td>
             <td><?= $marketing['contact'] ?></td>

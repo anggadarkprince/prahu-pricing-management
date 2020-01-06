@@ -23,7 +23,7 @@
 <table class="table table-sm table-hover mt-3 responsive" id="table-port">
     <thead class="thead-dark">
     <tr>
-        <th class="text-center" style="width: 60px">No</th>
+        <th class="text-md-center" style="width: 60px">No</th>
         <th>Port Code</th>
         <th>Port Name</th>
         <th>Description</th>
@@ -34,7 +34,7 @@
     <?php $no = isset($ports) ? ($ports['current_page'] - 1) * $ports['per_page'] : 0 ?>
     <?php foreach ($ports['data'] as $port): ?>
         <tr>
-            <td class="responsive-hide text-center"><?= ++$no ?></td>
+            <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $port['code'] ?></td>
             <td><?= $port['port'] ?></td>
             <td><?= if_empty($port['description'], 'No description') ?></td>

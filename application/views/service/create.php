@@ -19,13 +19,16 @@
     </div>
 	<div class="form-group">
 		<label for="components">Components</label>
-		<select class="form-control select2" multiple name="components[]" id="components" required style="width: 100%">
+		<div>
 			<?php foreach ($components as $component): ?>
-				<option value="<?= $component['id'] ?>"<?= set_select('components[]', $component['id']) ?>>
-					<?= $component['component'] ?>
-				</option>
+				<div class="custom-control custom-checkbox custom-control-inline">
+					<input type="checkbox" class="custom-control-input" <?= set_checkbox('components[' . $component['id'] . ']', $component['id']) ?> id="component_<?= $component['id'] ?>" name="components[<?= $component['id'] ?>]" value="<?= $component['id'] ?>">
+					<label class="custom-control-label" for="component_<?= $component['id'] ?>">
+						<?= $component['component'] ?>
+					</label>
+				</div>
 			<?php endforeach; ?>
-		</select>
+		</div>
 		<?= form_error('components') ?>
 	</div>
     <div class="form-group">

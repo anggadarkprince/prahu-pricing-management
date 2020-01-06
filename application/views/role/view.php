@@ -96,7 +96,7 @@
 			<i class="mdi mdi-arrow-left mr-2"></i>Back
 		</button>
         <?php if(AuthorizationModel::isAuthorized(PERMISSION_ROLE_EDIT)): ?>
-			<a href="<?= site_url('master/role/edit/' . $role['id']) ?>" type="submit" class="btn btn-primary">
+			<a href="<?= site_url('master/role/edit/' . $role['id']) ?>" class="btn btn-primary">
 				Edit Role<i class="mdi mdi-square-edit-outline ml-2"></i>
 			</a>
         <?php endif; ?>

@@ -49,7 +49,7 @@
             <i class="mdi mdi-arrow-left mr-2"></i>Back
         </button>
         <?php if (AuthorizationModel::isAuthorized(PERMISSION_SUB_COMPONENT_EDIT)) : ?>
-            <a href="<?= site_url('master/sub-component/edit/' . $subComponent['id']) ?>" type="submit" class="btn btn-primary">
+            <a href="<?= site_url('master/sub-component/edit/' . $subComponent['id']) ?>" class="btn btn-primary">
                 Edit Sub Component<i class="mdi mdi-square-edit-outline ml-2"></i>
             </a>
         <?php endif; ?>

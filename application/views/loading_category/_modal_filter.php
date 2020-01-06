@@ -23,7 +23,7 @@
 									<?php
 									$columns = [
 										'created_at' => 'CREATED AT',
-										'payment_type' => 'PAYMENT TYPE',
+										'loading_category' => 'LOADING CATEGORY',
 										'description' => 'DESCRIPTION',
 									]
 									?>

@@ -42,7 +42,7 @@
         </div>
     </div>
 
-	<p class="form-section-title">Service payament schemas</p>
+	<p class="form-section-title">Service payment schemas</p>
 
 	<table class="table table-sm mt-3 mb-4 table-hover responsive">
 		<thead class="thead-dark">
@@ -83,7 +83,7 @@
 			<i class="mdi mdi-arrow-left mr-2"></i>Back
 		</button>
         <?php if(AuthorizationModel::isAuthorized(PERMISSION_PAYMENT_TYPE_EDIT)): ?>
-			<a href="<?= site_url('master/payment-type/edit/' . $paymentType['id']) ?>" type="submit" class="btn btn-primary">
+			<a href="<?= site_url('master/payment-type/edit/' . $paymentType['id']) ?>" class="btn btn-primary">
 				Edit Payment Type<i class="mdi mdi-square-edit-outline ml-2"></i>
 			</a>
         <?php endif; ?>

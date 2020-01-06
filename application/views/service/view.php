@@ -59,7 +59,7 @@
 			<i class="mdi mdi-arrow-left mr-2"></i>Back
 		</button>
         <?php if(AuthorizationModel::isAuthorized(PERMISSION_SERVICE_EDIT)): ?>
-			<a href="<?= site_url('master/service/edit/' . $service['id']) ?>" type="submit" class="btn btn-primary">
+			<a href="<?= site_url('master/service/edit/' . $service['id']) ?>" class="btn btn-primary">
 				Edit Service<i class="mdi mdi-square-edit-outline ml-2"></i>
 			</a>
         <?php endif; ?>

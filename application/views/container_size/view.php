@@ -49,7 +49,7 @@
 			<i class="mdi mdi-arrow-left mr-2"></i>Back
 		</button>
         <?php if(AuthorizationModel::isAuthorized(PERMISSION_CONTAINER_SIZE_EDIT)): ?>
-			<a href="<?= site_url('master/container-size/edit/' . $containerSize['id']) ?>" type="submit" class="btn btn-primary">
+			<a href="<?= site_url('master/container-size/edit/' . $containerSize['id']) ?>" class="btn btn-primary">
 				Edit Container Size<i class="mdi mdi-square-edit-outline ml-2"></i>
 			</a>
         <?php endif; ?>

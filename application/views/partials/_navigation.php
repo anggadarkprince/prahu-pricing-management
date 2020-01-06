@@ -74,6 +74,9 @@ $segment2 = $this->uri->segment(2);
                         <a class="dropdown-item<?= $segment2 == 'container-type' ? ' active' : '' ?>" href="<?= site_url('master/container-type') ?>">
                             <i class="mdi mdi-truck-outline mr-2"></i>Cargo Types
                         </a>
+                        <a class="dropdown-item<?= $segment2 == 'loading-category' ? ' active' : '' ?>" href="<?= site_url('master/loading-category') ?>">
+                            <i class="mdi mdi-tray-full mr-2"></i>Category
+                        </a>
                         <a class="dropdown-item<?= $segment2 == 'marketing' ? ' active' : '' ?>" href="<?= site_url('master/marketing') ?>">
                             <i class="mdi mdi-account-supervisor-outline mr-2"></i>Marketing
                         </a>
@@ -81,8 +84,8 @@ $segment2 = $this->uri->segment(2);
 						<a class="dropdown-item<?= $segment2 == 'payment-type' ? ' active' : '' ?>" href="<?= site_url('master/payment-type') ?>">
 							<i class="mdi mdi-calendar-text-outline mr-2"></i>Payment Type
 						</a>
-                        <a class="dropdown-item<?= $segment2 == 'service-payment' ? ' active' : '' ?>" href="<?= site_url('master/service-payment') ?>">
-                            <i class="mdi mdi-script-text-outline mr-2"></i>Service Payment
+                        <a class="dropdown-item<?= $segment2 == 'consumable-price' ? ' active' : '' ?>" href="<?= site_url('master/consumable-price') ?>">
+                            <i class="mdi mdi-note-plus-outline mr-2"></i>Consumable Price
                         </a>
                         <a class="dropdown-item<?= $segment2 == 'price' ? ' active' : '' ?>" href="<?= site_url('master/component-price') ?>">
                             <i class="mdi mdi-currency-usd mr-2"></i>Component Price

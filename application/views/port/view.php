@@ -57,7 +57,7 @@
 			<i class="mdi mdi-arrow-left mr-2"></i>Back
 		</button>
         <?php if(AuthorizationModel::isAuthorized(PERMISSION_PORT_EDIT)): ?>
-			<a href="<?= site_url('master/port/edit/' . $port['id']) ?>" type="submit" class="btn btn-primary">
+			<a href="<?= site_url('master/port/edit/' . $port['id']) ?>" class="btn btn-primary">
 				Edit Port<i class="mdi mdi-square-edit-outline ml-2"></i>
 			</a>
         <?php endif; ?>

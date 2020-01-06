@@ -145,6 +145,12 @@ defined('PERMISSION_LOCATION_CREATE') or define('PERMISSION_LOCATION_CREATE', 'l
 defined('PERMISSION_LOCATION_EDIT') or define('PERMISSION_LOCATION_EDIT', 'location-edit');
 defined('PERMISSION_LOCATION_DELETE') or define('PERMISSION_LOCATION_DELETE', 'location-delete');
 
+// Loading category permission
+defined('PERMISSION_LOADING_CATEGORY_VIEW') or define('PERMISSION_LOADING_CATEGORY_VIEW', 'loading-category-view');
+defined('PERMISSION_LOADING_CATEGORY_CREATE') or define('PERMISSION_LOADING_CATEGORY_CREATE', 'loading-category-create');
+defined('PERMISSION_LOADING_CATEGORY_EDIT') or define('PERMISSION_LOADING_CATEGORY_EDIT', 'loading-category-edit');
+defined('PERMISSION_LOADING_CATEGORY_DELETE') or define('PERMISSION_LOADING_CATEGORY_DELETE', 'loading-category-delete');
+
 // Payment type permission
 defined('PERMISSION_PAYMENT_TYPE_VIEW') or define('PERMISSION_PAYMENT_TYPE_VIEW', 'payment-type-view');
 defined('PERMISSION_PAYMENT_TYPE_CREATE') or define('PERMISSION_PAYMENT_TYPE_CREATE', 'payment-type-create');

@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
-        'payment-type' => 'master/payment-type',
+        'payment type' => 'master/payment-type',
         'create' => 'master/payment-type/create'
     ]
 ]) ?>

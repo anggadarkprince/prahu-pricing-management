@@ -1,61 +1,14 @@
 $(function () {
-    // mobile sidebar
-    $('[data-toggle="offcanvas"]').on("click", function () {
-        $('.sidebar-offcanvas').toggleClass('active')
-    });
-
-    const body = $('body');
-    // On click, capture state and save it in localStorage
-    if ($(window).width() > 992) {
-        if (localStorage.getItem('finance-sidebar-closed') === '1') {
-            body.addClass("sidebar-icon-only");
-        }
-    }
-
-    // Open submenu on hover in compact sidebar mode and horizontal menu mode
-    $(document).on('mouseenter mouseleave', '.sidebar .nav-item', function (ev) {
-        const sidebarIconOnly = body.hasClass("sidebar-icon-only");
-        const sidebarFixed = body.hasClass("sidebar-fixed");
-        if (!('ontouchstart' in document.documentElement)) {
-            if (sidebarIconOnly) {
-                if (sidebarFixed) {
-                    if (ev.type === 'mouseenter') {
-                        body.removeClass('sidebar-icon-only');
-                    }
-                } else {
-                    const $menuItem = $(this);
-                    if (ev.type === 'mouseenter') {
-                        $menuItem.addClass('hover-open')
-                    } else {
-                        $menuItem.removeClass('hover-open')
-                    }
-                }
-            }
-        }
-    });
-
-    const sidebar = $('.sidebar');
-    sidebar.on('show.bs.collapse', '.collapse', function () {
-        sidebar.find('.collapse.show').collapse('hide');
-    });
-
-    // change sidebar
-    $('[data-toggle="minimize"]').on("click", function () {
-        body.toggleClass('sidebar-icon-only');
-        localStorage.setItem('finance-sidebar-closed', body.hasClass('sidebar-icon-only') ? 1 : 0);
-    });
-
-    // checkbox and radios
-    $(".form-check label,.form-radio label").append('<i class="input-helper"></i>');
-
     // initialize date picker
     $('.datepicker:not([readonly])').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
+        drops: $('#modal-filter').length ? 'up' : 'down',
         autoUpdateInput: false,
         locale: {
             format: 'DD/MM/YYYY'
-        }
+        },
+        parentEl: ".modal-body"
     }).on("apply.daterangepicker", function (e, picker) {
         picker.element.val(picker.startDate.format(picker.locale.format));
     }).on("hide.daterangepicker", function (e, picker) {

@@ -37,8 +37,8 @@
         <tr>
             <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $marketing['name'] ?></td>
-            <td><?= $marketing['email'] ?></td>
-            <td><?= $marketing['contact'] ?></td>
+            <td><?= if_empty($marketing['email'], '-') ?></td>
+            <td><?= if_empty($marketing['contact'], '-') ?></td>
             <td><?= if_empty($marketing['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">

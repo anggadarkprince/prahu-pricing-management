@@ -25,7 +25,6 @@ try {
     require('./scripts/table-responsive');
     require('./scripts/currency-value');
     require('./scripts/one-touch-submit');
-    require('./scripts/save-filter');
     require('./scripts/miscellaneous');
 
     // load async page scripts

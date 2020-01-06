@@ -79,7 +79,7 @@
 
 <?php $this->load->view('partials/_pagination', ['pagination' => $consumables]) ?>
 
-<?php $this->load->view('payment_type/_modal_filter') ?>
+<?php $this->load->view('consumable/_modal_filter') ?>
 <?php if(AuthorizationModel::isAuthorized(PERMISSION_CONSUMABLE_DELETE)): ?>
     <?php $this->load->view('partials/modals/_delete') ?>
 <?php endif; ?>

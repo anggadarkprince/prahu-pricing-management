@@ -1,27 +1,83 @@
 <?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
-        'sub component' => 'master/package',
-        'view' => 'master/package/view/' . $package['id']
+        'sub component' => 'master/componentPrice',
+        'view' => 'master/componentPrice/view/' . $componentPrice['id']
     ]
 ]) ?>
 
 <h4 class="text-primary"><?= $title ?></h4>
-<p class="form-section-title">Package component</p>
+<p class="form-section-title">Component price detail</p>
 
 <form class="form-plaintext">
     <div class="form-group row">
         <label class="col-sm-3 col-lg-2 col-form-label" for="component">Component</label>
         <div class="col-sm-9 col-lg-10">
             <p class="form-control-plaintext" id="component">
-                <?= if_empty($package['component'], 'No component') ?>
+                <?= if_empty($componentPrice['component'], 'No component') ?>
             </p>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-3 col-lg-2 col-form-label" for="package">Package Name</label>
+        <label class="col-sm-3 col-lg-2 col-form-label" for="vendor">Vendor</label>
         <div class="col-sm-9 col-lg-10">
-            <p class="form-control-plaintext" id="package">
-                <?= if_empty($package['package'], 'No package') ?>
+            <p class="form-control-plaintext" id="vendor">
+                <?= if_empty($componentPrice['vendor'], 'No vendor') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="port">Port</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="port">
+                <?= if_empty($componentPrice['port'], 'No port') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="port_destination">Port Destination</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="port_destination">
+                <?= if_empty($componentPrice['port_destination'], 'No port destination') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="location">Location</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="location">
+                <?= if_empty($componentPrice['location'], 'No location') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="container_size">Container Size</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="container_size">
+                <?= if_empty($componentPrice['container_size'], 'No container size') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="container_type">Container Type</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="container_type">
+                <?= if_empty($componentPrice['container_type'], 'No container type') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="sub_component">Sub Component</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="sub_component">
+                <?= if_empty($componentPrice['sub_component'], 'No sub component') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="price">Price</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="price">
+                Rp. <?= numerical($componentPrice['price']) ?>
             </p>
         </div>
     </div>
@@ -29,7 +85,7 @@
         <label class="col-sm-3 col-lg-2 col-form-label" for="description">Description</label>
         <div class="col-sm-9 col-lg-10">
             <p class="form-control-plaintext" id="description">
-                <?= if_empty($package['description'], 'No description') ?>
+                <?= if_empty($componentPrice['description'], 'No description') ?>
             </p>
         </div>
     </div>
@@ -37,7 +93,7 @@
         <label class="col-sm-3 col-lg-2 col-form-label" for="created_at">Created At</label>
         <div class="col-sm-9 col-lg-10">
             <p class="form-control-plaintext" id="created_at">
-                <?= format_date($package['created_at'], 'd F Y H:i') ?>
+                <?= format_date($componentPrice['created_at'], 'd F Y H:i') ?>
             </p>
         </div>
     </div>
@@ -45,38 +101,10 @@
         <label class="col-sm-3 col-lg-2 col-form-label" for="updated_at">Updated At</label>
         <div class="col-sm-9 col-lg-10">
             <p class="form-control-plaintext" id="updated_at">
-                <?= if_empty(format_date($package['updated_at'], 'd F Y H:i'), '-') ?>
+                <?= if_empty(format_date($componentPrice['updated_at'], 'd F Y H:i'), '-') ?>
             </p>
         </div>
     </div>
-
-    <p class="form-section-title">Package sub component</p>
-
-    <table class="table table-sm mt-3 table-hover responsive">
-        <thead class="thead-dark">
-            <tr>
-                <th class="text-center" style="width: 60px">No</th>
-                <th>Sub Component</th>
-                <th style="width: 180px">Created At</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($packageSubComponents as $index => $packageSubComponent) : ?>
-                <tr>
-                    <td class="text-md-center"><?= $index + 1 ?></td>
-                    <td class="font-weight-bold"><?= $packageSubComponent['sub_component'] ?></td>
-                    <td><?= format_date($packageSubComponent['created_at'], 'd F Y H:i') ?></td>
-                </tr>
-            <?php endforeach ?>
-            <?php if (empty($packageSubComponents)) : ?>
-                <tr>
-                    <td colspan="4">
-                        No sub component data available
-                    </td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
 
     <hr class="mt-5">
 
@@ -84,9 +112,9 @@
         <button onclick="history.back()" type="button" class="btn btn-outline-primary">
             <i class="mdi mdi-arrow-left mr-2"></i>Back
         </button>
-        <?php if (AuthorizationModel::isAuthorized(PERMISSION_PACKAGE_EDIT)) : ?>
-            <a href="<?= site_url('master/package/edit/' . $package['id']) ?>" class="btn btn-primary">
-                Edit Package<i class="mdi mdi-square-edit-outline ml-2"></i>
+        <?php if (AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_PRICE_EDIT)) : ?>
+            <a href="<?= site_url('master/component-price/edit/' . $componentPrice['id']) ?>" class="btn btn-primary">
+                Edit Price<i class="mdi mdi-square-edit-outline ml-2"></i>
             </a>
         <?php endif; ?>
     </div>

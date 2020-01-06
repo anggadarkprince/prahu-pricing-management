@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
-        'sub component' => 'master/package',
+        'package' => 'master/package',
         'view' => 'master/package/view/' . $package['id']
     ]
 ]) ?>

@@ -35,7 +35,7 @@
                         <td class="text-md-center"><?= $index + 1 ?></td>
                         <td><?= $componentPrice['vendor'] ?></td>
                         <td><?= $componentPrice['port'] ?></td>
-                        <td><?= $componentPrice['port_destination'] ?></td>
+                        <td><?= if_empty($componentPrice['port_destination'], '-') ?></td>
                         <td><?= $componentPrice['location'] ?></td>
                         <td><?= $componentPrice['container_size'] ?></td>
                         <td><?= $componentPrice['container_type'] ?></td>

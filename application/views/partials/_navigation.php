@@ -66,7 +66,7 @@ $segment2 = $this->uri->segment(2);
                             <i class="mdi mdi-map-marker-outline mr-2"></i>Location
                         </a>
                         <a class="dropdown-item<?= $segment2 == 'vendor' ? ' active' : '' ?>" href="<?= site_url('master/vendor') ?>">
-                            <i class="mdi mdi-factory mr-2"></i>Vendor
+                            <i class="mdi mdi-factory mr-2"></i>Vendors
                         </a>
                         <a class="dropdown-item<?= $segment2 == 'container-size' ? ' active' : '' ?>" href="<?= site_url('master/container-size') ?>">
                             <i class="mdi mdi-move-resize-variant mr-2"></i>Cargo Sizes
@@ -75,20 +75,20 @@ $segment2 = $this->uri->segment(2);
                             <i class="mdi mdi-truck-outline mr-2"></i>Cargo Types
                         </a>
                         <a class="dropdown-item<?= $segment2 == 'loading-category' ? ' active' : '' ?>" href="<?= site_url('master/loading-category') ?>">
-                            <i class="mdi mdi-tray-full mr-2"></i>Category
+                            <i class="mdi mdi-tray-full mr-2"></i>Categories
                         </a>
                         <a class="dropdown-item<?= $segment2 == 'marketing' ? ' active' : '' ?>" href="<?= site_url('master/marketing') ?>">
                             <i class="mdi mdi-account-supervisor-outline mr-2"></i>Marketing
                         </a>
                         <div class="dropdown-divider"></div>
 						<a class="dropdown-item<?= $segment2 == 'payment-type' ? ' active' : '' ?>" href="<?= site_url('master/payment-type') ?>">
-							<i class="mdi mdi-calendar-text-outline mr-2"></i>Payment Type
+							<i class="mdi mdi-calendar-text-outline mr-2"></i>Payment Types
 						</a>
-                        <a class="dropdown-item<?= $segment2 == 'consumable-price' ? ' active' : '' ?>" href="<?= site_url('master/consumable-price') ?>">
-                            <i class="mdi mdi-note-plus-outline mr-2"></i>Consumable Price
+                        <a class="dropdown-item<?= $segment2 == 'consumable' ? ' active' : '' ?>" href="<?= site_url('master/consumable') ?>">
+                            <i class="mdi mdi-note-plus-outline mr-2"></i>Consumables
                         </a>
-                        <a class="dropdown-item<?= $segment2 == 'price' ? ' active' : '' ?>" href="<?= site_url('master/component-price') ?>">
-                            <i class="mdi mdi-currency-usd mr-2"></i>Component Price
+                        <a class="dropdown-item<?= $segment2 == 'component-price' ? ' active' : '' ?>" href="<?= site_url('master/component-price') ?>">
+                            <i class="mdi mdi-currency-usd mr-2"></i>Component Prices
                         </a>
                     </div>
                 </li>

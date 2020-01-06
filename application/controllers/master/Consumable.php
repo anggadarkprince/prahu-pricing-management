@@ -2,103 +2,98 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Class Payment_type
- * @property PaymentTypeModel $paymentType
- * @property ServiceModel $service
- * @property ServicePaymentTypeModel $servicePaymentType
+ * Class Consumable
+ * @property ConsumableModel $consumable
+ * @property ConsumablePriceModel $consumablePrice
+ * @property ConsumablePriceComponentModel $consumablePriceComponent
+ * @property ComponentModel $component
+ * @property ContainerSizeModel $containerSize
  * @property Exporter $exporter
  */
-class Payment_type extends App_Controller
+class Consumable extends App_Controller
 {
 	/**
-	 * Payment_type constructor.
+	 * Consumable constructor.
 	 */
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('PaymentTypeModel', 'paymentType');
-		$this->load->model('ServicePaymentTypeModel', 'servicePaymentType');
-		$this->load->model('ServiceModel', 'service');
+		$this->load->model('ConsumableModel', 'consumable');
+		$this->load->model('ConsumablePriceModel', 'consumablePrice');
+		$this->load->model('ConsumablePriceComponentModel', 'consumablePriceComponent');
+		$this->load->model('ComponentModel', 'component');
+		$this->load->model('ContainerSizeModel', 'containerSize');
 		$this->load->model('modules/Exporter', 'exporter');
 	}
 
 	/**
-	 * Show payment type index page.
+	 * Show consumable index page.
 	 */
 	public function index()
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_PAYMENT_TYPE_VIEW);
+		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_VIEW);
 
 		$filters = array_merge($_GET, ['page' => get_url_param('page', 1)]);
 
 		$export = $this->input->get('exporter');
 		if ($export) unset($filters['page']);
 
-		$paymentTypes = $this->paymentType->getAll($filters);
+		$consumables = $this->consumable->getAll($filters);
 
 		if ($export) {
-			$this->exporter->exportFromArray('Payment types', $paymentTypes);
+			$this->exporter->exportFromArray('Consumables', $consumables);
 		}
 
-		$this->render('payment_type/index', compact('paymentTypes'));
+		$this->render('consumable/index', compact('consumables'));
 	}
 
 	/**
-	 * Show payment type data.
+	 * Show consumable data.
 	 *
 	 * @param $id
 	 */
 	public function view($id)
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_PAYMENT_TYPE_VIEW);
+		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_VIEW);
 
-		$paymentType = $this->paymentType->getById($id);
+		$consumable = $this->consumable->getById($id);
 
-		if (empty($paymentType)) {
+		if (empty($consumable)) {
 			redirect('error404');
 		}
-		$services = $this->service->getAll();
-		foreach ($services as &$service) {
-			$servicePayment = $this->servicePaymentType->getBy([
-				'ref_service_payment_types.id_service' => $service['id'],
-				'ref_service_payment_types.id_payment_type' => $id
-			], true);
 
-			$service['payment_percent'] = get_if_exist($servicePayment, 'payment_percent', 0);
-			$service['margin_percent'] = get_if_exist($servicePayment, 'margin_percent', 0);
-		}
-
-		$this->render('payment_type/view', compact('paymentType', 'services'));
+		$this->render('consumable/view', compact('consumable'));
 	}
 
 	/**
-	 * Show create payment type.
+	 * Show create consumable.
 	 */
 	public function create()
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_PAYMENT_TYPE_CREATE);
+		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_CREATE);
 
-		$services = $this->service->getAll();
+		$components = $this->component->getAll();
+		$containerSizes = $this->containerSize->getAll();
 
-		$this->render('payment_type/create', compact('services'));
+		$this->render('consumable/create', compact('components', 'containerSizes'));
 	}
 
 	/**
-	 * Save new payment type data.
+	 * Save new consumable data.
 	 */
 	public function save()
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_PAYMENT_TYPE_CREATE);
+		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_CREATE);
 
 		if ($this->validate()) {
-			$paymentType = $this->input->post('payment_type');
+			$consumable = $this->input->post('consumable');
 			$description = $this->input->post('description');
 			$services = $this->input->post('services');
 
 			$this->db->trans_start();
 
-			$this->paymentType->create([
-				'payment_type' => $paymentType,
+			$this->consumable->create([
+				'consumable' => $consumable,
 				'description' => $description
 			]);
 			$paymentTypeId = $this->db->insert_id();
@@ -117,24 +112,24 @@ class Payment_type extends App_Controller
 			$this->db->trans_complete();
 
 			if ($this->db->trans_status()) {
-				flash('success', "Payment type {$paymentType} successfully created", 'master/payment-type');
+				flash('success', "Payment type {$consumable} successfully created", 'master/payment-type');
 			} else {
-				flash('danger', 'Create payment type failed, try again or contact administrator');
+				flash('danger', 'Create consumable failed, try again or contact administrator');
 			}
 		}
 		$this->create();
 	}
 
 	/**
-	 * Show edit payment type form.
+	 * Show edit consumable form.
 	 *
 	 * @param $id
 	 */
 	public function edit($id)
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_PAYMENT_TYPE_EDIT);
+		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_EDIT);
 
-		$paymentType = $this->paymentType->getById($id);
+		$consumable = $this->consumable->getById($id);
 
 		$services = $this->service->getAll();
 		foreach ($services as &$service) {
@@ -147,27 +142,27 @@ class Payment_type extends App_Controller
 			$service['margin_percent'] = get_if_exist($servicePayment, 'margin_percent', 0);
 		}
 
-		$this->render('payment_type/edit', compact('paymentType', 'services'));
+		$this->render('consumable/edit', compact('consumable', 'services'));
 	}
 
 	/**
-	 * Update data payment type by id.
+	 * Update data consumable by id.
 	 *
 	 * @param $id
 	 */
 	public function update($id)
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_PAYMENT_TYPE_EDIT);
+		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_EDIT);
 
 		if ($this->validate($this->_validation_rules($id))) {
-			$paymentType = $this->input->post('payment_type');
+			$consumable = $this->input->post('consumable');
 			$description = $this->input->post('description');
 			$services = $this->input->post('services');
 
 			$this->db->trans_start();
 
-			$this->paymentType->update([
-				'payment_type' => $paymentType,
+			$this->consumable->update([
+				'consumable' => $consumable,
 				'description' => $description
 			], $id);
 
@@ -186,29 +181,29 @@ class Payment_type extends App_Controller
 			$this->db->trans_complete();
 
 			if ($this->db->trans_status()) {
-				flash('success', "Payment type {$paymentType} successfully updated", 'master/payment-type');
+				flash('success', "Payment type {$consumable} successfully updated", 'master/payment-type');
 			} else {
-				flash('danger', "Update payment type failed, try again or contact administrator");
+				flash('danger', "Update consumable failed, try again or contact administrator");
 			}
 		}
 		$this->edit($id);
 	}
 
 	/**
-	 * Perform deleting payment type data.
+	 * Perform deleting consumable data.
 	 *
 	 * @param $id
 	 */
 	public function delete($id)
 	{
-		AuthorizationModel::mustAuthorized(PERMISSION_PAYMENT_TYPE_DELETE);
+		AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_DELETE);
 
-		$paymentType = $this->paymentType->getById($id);
+		$consumable = $this->consumable->getById($id);
 
-		if ($this->paymentType->delete($id, true)) {
-			flash('warning', "Payment type {$paymentType['payment_type']} successfully deleted");
+		if ($this->consumable->delete($id, true)) {
+			flash('warning', "Payment type {$consumable['consumable']} successfully deleted");
 		} else {
-			flash('danger', 'Delete payment type failed, try again or contact administrator');
+			flash('danger', 'Delete consumable failed, try again or contact administrator');
 		}
 		redirect('master/payment-type');
 	}
@@ -223,11 +218,11 @@ class Payment_type extends App_Controller
 	{
 		$id = isset($params[0]) ? $params[0] : 0;
 		return [
-			'payment_type' => [
+			'consumable' => [
 				'trim', 'required', 'max_length[50]', ['payment_exists', function ($input) use ($id) {
 					$this->form_validation->set_message('payment_exists', 'The %s has been exist, try another');
-					return empty($this->paymentType->getBy([
-						'ref_payment_types.payment_type' => $input,
+					return empty($this->consumable->getBy([
+						'ref_payment_types.consumable' => $input,
 						'ref_payment_types.id!=' => $id
 					]));
 				}]

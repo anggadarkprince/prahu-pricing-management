@@ -145,6 +145,12 @@ defined('PERMISSION_LOCATION_CREATE') or define('PERMISSION_LOCATION_CREATE', 'l
 defined('PERMISSION_LOCATION_EDIT') or define('PERMISSION_LOCATION_EDIT', 'location-edit');
 defined('PERMISSION_LOCATION_DELETE') or define('PERMISSION_LOCATION_DELETE', 'location-delete');
 
+// Consumable permission
+defined('PERMISSION_CONSUMABLE_VIEW') or define('PERMISSION_CONSUMABLE_VIEW', 'consumable-view');
+defined('PERMISSION_CONSUMABLE_CREATE') or define('PERMISSION_CONSUMABLE_CREATE', 'consumable-create');
+defined('PERMISSION_CONSUMABLE_EDIT') or define('PERMISSION_CONSUMABLE_EDIT', 'consumable-edit');
+defined('PERMISSION_CONSUMABLE_DELETE') or define('PERMISSION_CONSUMABLE_DELETE', 'consumable-delete');
+
 // Loading category permission
 defined('PERMISSION_LOADING_CATEGORY_VIEW') or define('PERMISSION_LOADING_CATEGORY_VIEW', 'loading-category-view');
 defined('PERMISSION_LOADING_CATEGORY_CREATE') or define('PERMISSION_LOADING_CATEGORY_CREATE', 'loading-category-create');

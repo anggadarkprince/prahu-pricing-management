@@ -12,18 +12,6 @@
 
     <p class="form-section-title">Sub Component Information</p>
     <div class="form-group">
-        <label for="component">Component</label>
-        <select class="form-control select2" name="component" id="component" data-placeholder="Select component" required style="width: 100%">
-            <option value=""></option>
-            <?php foreach ($components as $component) : ?>
-                <option value="<?= $component['id'] ?>" <?= set_select('component', $component['id']) ?>>
-                    <?= $component['component'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <?= form_error('component') ?>
-    </div>
-    <div class="form-group">
         <label for="sub_component">Sub Component</label>
         <input type="text" class="form-control" id="sub_component" name="sub_component" required maxlength="50" value="<?= set_value('sub_component') ?>" placeholder="Sub component">
         <?= form_error('sub_component') ?>

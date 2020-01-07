@@ -21,7 +21,8 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="type">Type</label>
-                <select class="custom-select" name="type" id="type" required>
+                <select class="form-control select2" name="type" id="type" data-placeholder="Select partner type" required>
+                    <option value=""></option>
                     <option value="TRUCKING" <?= set_select('type', 'TRUCKING', 'TRUCKING' == $vendor['type']) ?>>
                         TRUCKING
                     </option>

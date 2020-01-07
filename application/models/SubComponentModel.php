@@ -18,8 +18,10 @@ class SubComponentModel extends App_Model
     {
         return parent::getBaseQuery()
             ->select([
-                'ref_components.component'
+                'GROUP_CONCAT(DISTINCT ref_components.component) AS components'
             ])
-            ->join('ref_components', 'ref_components.id = ref_sub_components.id_component');
+            ->join('ref_component_sub_components', 'ref_component_sub_components.id_sub_component = ref_sub_components.id', 'left')
+            ->join('ref_components', 'ref_components.id = ref_component_sub_components.id_component', 'left')
+            ->group_by('ref_sub_components.id');
     }
 }

@@ -71,9 +71,7 @@ class Sub_component extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_SUB_COMPONENT_CREATE);
 
-        $components = $this->component->getAll();
-
-        $this->render('sub_component/create', compact('components'));
+        $this->render('sub_component/create');
     }
 
     /**
@@ -84,12 +82,10 @@ class Sub_component extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_SUB_COMPONENT_CREATE);
 
         if ($this->validate()) {
-            $componentId = $this->input->post('component');
             $subComponent = $this->input->post('sub_component');
             $description = $this->input->post('description');
 
             $save = $this->subComponent->create([
-                'id_component' => $componentId,
                 'sub_component' => $subComponent,
                 'description' => $description
             ]);
@@ -113,9 +109,8 @@ class Sub_component extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_SUB_COMPONENT_EDIT);
 
         $subComponent = $this->subComponent->getById($id);
-        $components = $this->component->getAll();
 
-        $this->render('sub_component/edit', compact('subComponent', 'components'));
+        $this->render('sub_component/edit', compact('subComponent'));
     }
 
     /**
@@ -127,13 +122,11 @@ class Sub_component extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_SUB_COMPONENT_EDIT);
 
-        if ($this->validate()) {
-            $componentId = $this->input->post('component');
+        if ($this->validate($this->_validation_rules($id))) {
             $subComponent = $this->input->post('sub_component');
             $description = $this->input->post('description');
 
             $update = $this->subComponent->update([
-                'id_component' => $componentId,
                 'sub_component' => $subComponent,
                 'description' => $description
             ], $id);
@@ -171,10 +164,19 @@ class Sub_component extends App_Controller
      *
      * @return array
      */
-    protected function _validation_rules()
+    protected function _validation_rules(...$params)
     {
+        $id = isset($params[0]) ? $params[0] : 0;
         return [
-            'sub_component' => 'trim|required|max_length[50]',
+            'sub_component' => [
+                'trim', 'required', 'max_length[100]', ['value_exists', function ($input) use ($id) {
+                    $this->form_validation->set_message('value_exists', 'The %s has been exist, try another');
+                    return empty($this->subComponent->getBy([
+                        'ref_sub_components.sub_component' => $input,
+                        'ref_sub_components.id!=' => $id
+                    ]));
+                }]
+            ],
             'description' => 'max_length[500]',
         ];
     }

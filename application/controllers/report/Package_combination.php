@@ -32,7 +32,7 @@ class Package_combination extends App_Controller
         $components = $this->component->getAll();
         foreach ($components as &$component) {
             $component['sub_components'] = $this->subComponent->getBy([
-                'ref_sub_components.id_component' => $component['id']
+                'ref_component_sub_components.id_component' => $component['id']
             ]);
             $packages = $this->package->getBy(['ref_packages.id_component' => $component['id']]);
             foreach ($packages as &$package) {

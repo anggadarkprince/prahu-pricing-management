@@ -13,6 +13,7 @@ class Migration_Create_table_ref_components extends CI_Migration
             'id' => ['type' => 'INT', 'unsigned' => TRUE, 'constraint' => 11, 'auto_increment' => TRUE],
             'component' => ['type' => 'VARCHAR', 'constraint' => '100'],
             'order' => ['type' => 'INT', 'constraint' => '4', 'unsigned' => TRUE, 'null' => TRUE],
+            'provider' => ['type' => 'VARCHAR', 'constraint' => '50', 'null' => TRUE],
             'description' => ['type' => 'TEXT', 'null' => TRUE],
             'is_deleted' => ['type' => 'INT', 'constraint' => 1, 'default' => 0],
             'created_at' => ['type' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP'],

@@ -8,7 +8,8 @@
                     <i class="mdi mdi-anchor mr-2"></i>Ports
                 </h5>
                 <h6 class="card-subtitle mb-1 text-muted small">Port master data</h6>
-                <h4 class="mb-3">345
+                <h4 class="mb-3">
+                    <?= numerical($totalPort) ?>
                     <small>Port</small>
                 </h4>
                 <a href="<?= site_url('master/port') ?>" class="btn btn-sm btn-outline-success">
@@ -24,7 +25,8 @@
                     <i class="mdi mdi-factory mr-2"></i>Vendor
                 </h5>
                 <h6 class="card-subtitle mb-1 text-muted small">Partner and vendors</h6>
-                <h4 class="mb-3">732
+                <h4 class="mb-3">
+                    <?= numerical($totalVendor) ?>
                     <small>Partners</small>
                 </h4>
                 <a href="<?= site_url('master/vendor') ?>" class="btn btn-sm btn-outline-danger">
@@ -37,10 +39,11 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="text-info card-title">
-                    <i class="mdi mdi-cube-outline mr-2"></i>Locations
+                    <i class="mdi mdi-map-marker-outline mr-2"></i>Locations
                 </h5>
                 <h6 class="card-subtitle mb-1 text-muted small">Area pickup and destination</h6>
-                <h4 class="mb-3">34
+                <h4 class="mb-3">
+                    <?= numerical($totalLocation) ?>
                     <small>Items</small>
                 </h4>
                 <a href="<?= site_url('report/location') ?>" class="btn btn-sm btn-outline-info">
@@ -67,7 +70,7 @@
     </div>
 </div>
 
-<div class="mt-2" style="position: relative;">
+<div class="mt-2 d-none" style="position: relative;">
     <canvas id="movement-chart" height="70">
         Your browser does not support the canvas element.
     </canvas>

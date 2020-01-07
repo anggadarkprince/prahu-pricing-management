@@ -19,7 +19,8 @@ class ComponentModel extends App_Model
                 'COUNT(DISTINCT ref_packages.id) AS total_package',
                 'COUNT(DISTINCT ref_service_components.id) AS total_service',
             ])
-            ->join('ref_sub_components', 'ref_sub_components.id_component = ref_components.id', 'left')
+            ->join('ref_component_sub_components', 'ref_component_sub_components.id_component = ref_components.id', 'left')
+            ->join('ref_sub_components', 'ref_sub_components.id = ref_component_sub_components.id_sub_component', 'left')
             ->join('ref_packages', 'ref_packages.id_component = ref_components.id', 'left')
             ->join('ref_service_components', 'ref_service_components.id_component =  ref_components.id', 'left')
             ->group_by('ref_components.id');

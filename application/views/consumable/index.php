@@ -71,7 +71,7 @@
     <?php endforeach; ?>
     <?php if (empty($consumables['data'])): ?>
         <tr>
-            <td colspan="5" class="text-center">No consumable available</td>
+            <td colspan="6" class="text-center">No consumable available</td>
         </tr>
     <?php endif; ?>
     </tbody>

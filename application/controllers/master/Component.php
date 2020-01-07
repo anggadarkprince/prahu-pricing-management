@@ -5,6 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Class Component
  * @property ComponentModel $component
  * @property SubComponentModel $subComponent
+ * @property ComponentSubComponentModel $componentSubComponent
  * @property ServiceComponentModel $serviceComponent
  * @property PackageModel $package
  * @property PackageSubComponentModel $packageSubComponent
@@ -21,6 +22,7 @@ class Component extends App_Controller
         parent::__construct();
         $this->load->model('ComponentModel', 'component');
         $this->load->model('SubComponentModel', 'subComponent');
+        $this->load->model('ComponentSubComponentModel', 'componentSubComponent');
         $this->load->model('ServiceComponentModel', 'serviceComponent');
         $this->load->model('PackageModel', 'package');
         $this->load->model('PackageSubComponentModel', 'packageSubComponent');
@@ -59,7 +61,7 @@ class Component extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_VIEW);
 
         $component = $this->component->getById($id);
-        $subComponents = $this->subComponent->getBy(['ref_sub_components.id_component' => $id]);
+        $subComponents = $this->subComponent->getBy(['ref_component_sub_components.id_component' => $id]);
         $serviceComponents = $this->serviceComponent->getBy(['ref_service_components.id_component' => $id]);
         $packages = $this->package->getBy(['ref_packages.id_component' => $id]);
         foreach($packages as &$package) {
@@ -83,7 +85,9 @@ class Component extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_CREATE);
 
-        $this->render('component/create');
+        $subComponents = $this->subComponent->getAll();
+
+        $this->render('component/create', compact('subComponents'));
     }
 
     /**
@@ -95,14 +99,31 @@ class Component extends App_Controller
 
         if ($this->validate()) {
             $component = $this->input->post('component');
+            $subComponents = $this->input->post('sub_components');
+            $provider = $this->input->post('provider');
             $description = $this->input->post('description');
 
-            $save = $this->component->create([
+            $this->db->trans_start();
+
+            $this->component->create([
                 'component' => $component,
+                'provider' => $provider,
                 'description' => $description
             ]);
+            $componentId = $this->db->insert_id();
 
-            if ($save) {
+            if (!empty($subComponents)) {
+                foreach ($subComponents as $subComponentId) {
+                    $this->componentSubComponent->create([
+                        'id_component' => $componentId,
+                        'id_sub_component' => $subComponentId
+                    ]);
+                }
+            }
+
+            $this->db->trans_complete();
+
+            if ($this->db->trans_status()) {
                 flash('success', "Component {$component} successfully created", 'master/component');
             } else {
                 flash('danger', 'Create component failed, try again or contact administrator');
@@ -121,8 +142,15 @@ class Component extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_EDIT);
 
         $component = $this->component->getById($id);
+        $componentSubComponent = $this->componentSubComponent->getBy([
+            'ref_component_sub_components.id_component' => $id
+        ]);
+        $subComponents = $this->subComponent->getAll();
+        foreach ($subComponents as &$subComponent) {
+            $subComponent['is_selected'] = in_array($subComponent['id'], array_column($componentSubComponent, 'id_sub_component'));
+        }
 
-        $this->render('component/edit', compact('component'));
+        $this->render('component/edit', compact('component', 'subComponents'));
     }
 
     /**
@@ -136,14 +164,31 @@ class Component extends App_Controller
 
         if ($this->validate()) {
             $component = $this->input->post('component');
+            $subComponents = $this->input->post('sub_components');
+            $provider = $this->input->post('provider');
             $description = $this->input->post('description');
 
-            $update = $this->component->update([
+            $this->db->trans_start();
+
+            $this->component->update([
                 'component' => $component,
+                'provider' => $provider,
                 'description' => $description
             ], $id);
 
-            if ($update) {
+            $this->componentSubComponent->delete(['id_component' => $id]);
+            if (!empty($subComponents)) {
+                foreach ($subComponents as $subComponentId) {
+                    $this->componentSubComponent->create([
+                        'id_component' => $id,
+                        'id_sub_component' => $subComponentId
+                    ]);
+                }
+            }
+
+            $this->db->trans_complete();
+
+            if ($this->db->trans_status()) {
                 flash('success', "Component {$component} successfully updated", 'master/component');
             } else {
                 flash('danger', "Update component failed, try again or contact administrator");

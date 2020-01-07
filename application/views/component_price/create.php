@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
-        'sub component' => 'master/component-price',
+        'component price' => 'master/component-price',
         'create' => 'master/component-price/create'
     ]
 ]) ?>

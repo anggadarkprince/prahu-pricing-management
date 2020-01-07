@@ -24,7 +24,7 @@
     <thead class="thead-dark">
     <tr>
         <th class="text-md-center" style="width: 60px">No</th>
-        <th>Vendor</th>
+        <th>Partner</th>
         <th>Type</th>
         <th>Term Payment</th>
         <th>Description</th>

@@ -17,7 +17,7 @@
         <select class="form-control select2" name="component" id="component" data-placeholder="Select component" required style="width: 100%">
             <option value=""></option>
             <?php foreach ($components as $component) : ?>
-                <option value="<?= $component['id'] ?>" <?= set_select('component', $component['id'], $component['id'] == $componentPrice['id_component']) ?>>
+                <option value="<?= $component['id'] ?>" <?= set_select('component', $component['id'], $component['id'] == $componentPrice['id_component']) ?> data-provider="<?= $component['provider'] ?>">
                     <?= $component['component'] ?>
                 </option>
             <?php endforeach; ?>

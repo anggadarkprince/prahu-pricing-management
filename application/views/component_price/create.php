@@ -16,7 +16,7 @@
         <select class="form-control select2" name="component" id="component" data-placeholder="Select component" required style="width: 100%">
             <option value=""></option>
             <?php foreach ($components as $component) : ?>
-                <option value="<?= $component['id'] ?>" <?= set_select('component', $component['id']) ?>>
+                <option value="<?= $component['id'] ?>" <?= set_select('component', $component['id']) ?> data-provider="<?= $component['provider'] ?>">
                     <?= $component['component'] ?>
                 </option>
             <?php endforeach; ?>
@@ -30,7 +30,7 @@
                 <select class="form-control select2" name="vendor" id="vendor" data-placeholder="Select vendor" required style="width: 100%">
                     <option value=""></option>
                     <?php foreach ($vendors as $vendor) : ?>
-                        <option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id']) ?>>
+                        <option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id']) ?> data-type="<?= $vendor['type'] ?>">
                             <?= $vendor['vendor'] ?> - <?= $vendor['type'] ?>
                         </option>
                     <?php endforeach; ?>

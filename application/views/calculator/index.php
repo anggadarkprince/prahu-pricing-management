@@ -1,5 +1,5 @@
 <form action="<?= site_url('pricing/calculator/save') ?>" method="POST" id="form-calculator">
-    <?= _csrf() ?>
+	<?= _csrf() ?>
 
 	<div class="d-flex justify-content-between">
 		<h4 class="text-primary mb-3"><?= $title ?></h4>
@@ -88,7 +88,7 @@
 							<select class="form-control select2" name="activity_duration_from" id="activity_duration_from" data-placeholder="Select activity duration" required style="width: 100%">
 								<option value=""></option>
 								<?php foreach ($consumables as $consumable) : ?>
-									<?php if($consumable['type'] == ConsumableModel::TYPE_ACTIVITY_DURATION): ?>
+									<?php if ($consumable['type'] == ConsumableModel::TYPE_ACTIVITY_DURATION) : ?>
 										<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
 											<?= $consumable['consumable'] ?>
 										</option>
@@ -178,7 +178,7 @@
 							<select class="form-control select2" name="activity_duration_to" id="activity_duration_to" data-placeholder="Select activity duration" required style="width: 100%">
 								<option value=""></option>
 								<?php foreach ($consumables as $consumable) : ?>
-									<?php if($consumable['type'] == ConsumableModel::TYPE_ACTIVITY_DURATION): ?>
+									<?php if ($consumable['type'] == ConsumableModel::TYPE_ACTIVITY_DURATION) : ?>
 										<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
 											<?= $consumable['consumable'] ?>
 										</option>
@@ -201,8 +201,7 @@
 					<div class="form-group row">
 						<label for="customer_name" class="col-sm-3 col-form-label">Customer</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="customer_name" name="customer_name"
-								   required maxlength="50" placeholder="Full name">
+							<input type="text" class="form-control" id="customer_name" name="customer_name" required maxlength="50" placeholder="Full name">
 							<?= form_error('customer_name') ?>
 						</div>
 					</div>
@@ -211,8 +210,7 @@
 					<div class="form-group row">
 						<label for="company" class="col-sm-3 col-form-label">Company</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="company" name="company"
-								   required maxlength="50" placeholder="Company name">
+							<input type="text" class="form-control" id="company" name="company" required maxlength="50" placeholder="Company name">
 							<?= form_error('company') ?>
 						</div>
 					</div>
@@ -226,8 +224,7 @@
 							<select class="form-control select2" name="marketing" id="marketing" data-placeholder="Select marketing" required style="width: 100%">
 								<option value=""></option>
 								<?php foreach ($marketings as $marketing) : ?>
-									<option value="<?= $marketing['id'] ?>"
-											<?= set_select('marketing', $marketing['id']) ?>>
+									<option value="<?= $marketing['id'] ?>" <?= set_select('marketing', $marketing['id']) ?>>
 										<?= $marketing['name'] ?>
 									</option>
 								<?php endforeach; ?>
@@ -243,7 +240,7 @@
 							<select class="form-control select2" name="loading_category" id="loading_category" data-placeholder="Select loading category" required style="width: 100%">
 								<option value=""></option>
 								<?php foreach ($loadingCategories as $loadingCategory) : ?>
-									<option value="<?= $loadingCategory['id'] ?>"<?= set_select('loading_category', $loadingCategory['id']) ?>>
+									<option value="<?= $loadingCategory['id'] ?>" <?= set_select('loading_category', $loadingCategory['id']) ?>>
 										<?= $loadingCategory['loading_category'] ?>
 									</option>
 								<?php endforeach; ?>
@@ -261,7 +258,7 @@
 							<select class="form-control select2" name="container_size" id="container_size" data-placeholder="Select container size" required style="width: 100%">
 								<option value=""></option>
 								<?php foreach ($containerSizes as $containerSize) : ?>
-									<option value="<?= $containerSize['id'] ?>"<?= set_select('container_size', $containerSize['id']) ?>>
+									<option value="<?= $containerSize['id'] ?>" <?= set_select('container_size', $containerSize['id']) ?>>
 										<?= $containerSize['container_size'] ?>
 									</option>
 								<?php endforeach; ?>
@@ -277,7 +274,7 @@
 							<select class="form-control select2" name="container_type" id="container_type" data-placeholder="Select container type" required style="width: 100%">
 								<option value=""></option>
 								<?php foreach ($containerTypes as $containerType) : ?>
-									<option value="<?= $containerType['id'] ?>"<?= set_select('container_type', $containerType['id']) ?>>
+									<option value="<?= $containerType['id'] ?>" <?= set_select('container_type', $containerType['id']) ?>>
 										<?= $containerType['container_type'] ?>
 									</option>
 								<?php endforeach; ?>
@@ -290,12 +287,12 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group row mb-0">
-						<label for="services" class="col-sm-3 col-form-label">Services</label>
+						<label for="service" class="col-sm-3 col-form-label">Service</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="services" id="services" data-placeholder="Select service type" required style="width: 100%">
+							<select class="form-control select2 select-service" name="service" id="service" data-placeholder="Select service type" required style="width: 100%">
 								<option value=""></option>
 								<?php foreach ($services as $service) : ?>
-									<option value="<?= $service['id'] ?>"<?= set_select('service', $service['id']) ?>>
+									<option value="<?= $service['id'] ?>" <?= set_select('service', $service['id']) ?>>
 										<?= $service['service'] ?>
 									</option>
 								<?php endforeach; ?>
@@ -335,7 +332,7 @@
 								<option value=""></option>
 								<option value="0">ALL</option>
 								<?php foreach ($vendors as $vendor) : ?>
-									<?php if ($vendor['type'] == VendorModel::TYPE_SHIPPING_LINE): ?>
+									<?php if ($vendor['type'] == VendorModel::TYPE_SHIPPING_LINE) : ?>
 										<option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id']) ?>>
 											<?= $vendor['vendor'] ?>
 										</option>
@@ -362,7 +359,7 @@
 								<option value=""></option>
 								<option value="0">NO</option>
 								<?php foreach ($consumables as $consumable) : ?>
-									<?php if($consumable['type'] == ConsumableModel::TYPE_PACKAGING): ?>
+									<?php if ($consumable['type'] == ConsumableModel::TYPE_PACKAGING) : ?>
 										<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
 											<?= $consumable['consumable'] ?>
 										</option>
@@ -373,6 +370,21 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-sm-6">
+					<div class="form-group row">
+						<label for="income_tax" class="col-sm-3 col-form-label">Income Tax 2%</label>
+						<div class="col-sm-9">
+							<select class="form-control select2" name="income_tax" id="income_tax" data-placeholder="Include tax" required style="width: 100%">
+								<option value=""></option>
+								<option value="1">YES</option>
+								<option value="0">NO</option>
+							</select>
+							<?= form_error('income_tax') ?>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group row">
 						<label for="insurance" class="col-sm-3 col-form-label">Insurance</label>
@@ -386,28 +398,12 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group row">
 						<label for="goods_value" class="col-sm-3 col-form-label">Goods Value</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control currency" id="goods_value" name="goods_value"
-								   required maxlength="50" placeholder="Per container min Rp. 125.000.000">
+							<input type="text" class="form-control currency" id="goods_value" readonly name="goods_value" required maxlength="50" placeholder="Per container min Rp. 125.000.000">
 							<?= form_error('goods_value') ?>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group row">
-						<label for="income_tax" class="col-sm-3 col-form-label">Income Tax (2%)</label>
-						<div class="col-sm-9">
-							<select class="form-control select2" name="income_tax" id="income_tax" data-placeholder="Include tax" required style="width: 100%">
-								<option value=""></option>
-								<option value="1">YES</option>
-								<option value="0">NO</option>
-							</select>
-							<?= form_error('income_tax') ?>
 						</div>
 					</div>
 				</div>
@@ -416,81 +412,127 @@
 	</div>
 
 	<div id="pricing-wrapper">
-		<table class="table table-sm">
+		<table class="table table-sm mb-4">
 			<thead class="thead-dark">
-			<tr>
-				<th style="width: 200px">Component</th>
-				<th style="width: 200px">Package</th>
-				<th style="width: 250px">Partner</th>
-				<th class="text-md-center">Price</th>
-				<th style="width: 80px"></th>
-			</tr>
+				<tr>
+					<th style="width: 200px">Component</th>
+					<th style="width: 200px">Package</th>
+					<th style="width: 250px">Partner</th>
+					<th class="text-md-center">Price</th>
+					<th style="width: 80px"></th>
+				</tr>
 			</thead>
 			<tbody>
-			<?php foreach ($components as $component): ?>
+				<?php foreach ($components as $component) : ?>
+					<tr class="row-component">
+						<td class="font-weight-bold"><?= $component['component'] ?></td>
+						<td>
+							<select class="form-control select2 select-package" name="pricing[0][components][<?= $component['id'] ?>][package]" aria-label="Package" data-placeholder="Package <?= $component['component'] ?>" style="max-width: 150px">
+								<option value=""></option>
+								<?php foreach ($component['packages'] as $package) : ?>
+									<option value="<?= $package['id'] ?>" <?= set_select('package', $package['id']) ?>>
+										<?= $package['package'] ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+						</td>
+						<td>
+							<select class="form-control select2 select-vendor" name="pricing[0][components][<?= $component['id'] ?>][vendor]" aria-label="Vendor" data-placeholder="Select <?= strtolower($component['provider']) ?>" style="width: 100%">
+								<option value=""></option>
+								<?php if ($component['provider'] == VendorModel::TYPE_SHIPPING_LINE) : ?>
+									<?php foreach ($vendors as $vendor) : ?>
+										<?php if ($vendor['type'] == VendorModel::TYPE_SHIPPING_LINE) : ?>
+											<option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id']) ?>>
+												<?= $vendor['vendor'] ?>
+											</option>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								<?php else : ?>
+									<?php foreach ($vendors as $vendor) : ?>
+										<?php if ($vendor['type'] == VendorModel::TYPE_TRUCKING) : ?>
+											<option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id']) ?>>
+												<?= $vendor['vendor'] ?>
+											</option>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								<?php endif; ?>
+							</select>
+						</td>
+						<td class="text-md-right label-component-price">Rp. 0</td>
+						<td class="text-md-right">
+							<button class="btn btn-sm btn-outline-danger btn-reveal-price" type="button">
+								<i class="mdi mdi-magnify"></i>
+							</button>
+						</td>
+					</tr>
+				<?php endforeach; ?>
 				<tr>
-					<td class="font-weight-bold"><?= $component['component'] ?></td>
+					<td colspan="2">Packaging</td>
 					<td>
-						<select class="form-control select2" name="components[<?= $component['id'] ?>][package]" id="package_<?= $component['id'] ?>" aria-label="Package" data-placeholder="Package <?= $component['component'] ?>" style="width: 100%">
+						<select class="form-control select2" name="pricing[0][packaging][]" aria-label="Packaging" data-placeholder="Add packaging" style="width: 100%">
 							<option value=""></option>
-							<?php foreach ($component['packages'] as $package) : ?>
-								<option value="<?= $package['id'] ?>" <?= set_select('package', $package['id']) ?>>
-									<?= $package['package'] ?>
-								</option>
+							<option value="0">No Packaging</option>
+							<?php foreach ($consumables as $consumable) : ?>
+								<?php if ($consumable['type'] == ConsumableModel::TYPE_PACKAGING) : ?>
+									<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
+										<?= $consumable['consumable'] ?>
+									</option>
+								<?php endif; ?>
 							<?php endforeach; ?>
-						</select>
-					</td>
-					<td>
-						<select class="form-control select2" name="components[<?= $component['id'] ?>][vendor]" id="vendor_<?= $component['id'] ?>" aria-label="Vendor" data-placeholder="Select <?= strtolower($component['provider']) ?>" style="width: 100%">
-							<option value=""></option>
-							<?php if ($component['provider'] == VendorModel::TYPE_SHIPPING_LINE): ?>
-								<?php foreach ($vendors as $vendor) : ?>
-									<?php if ($vendor['type'] == VendorModel::TYPE_SHIPPING_LINE): ?>
-										<option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id']) ?>>
-											<?= $vendor['vendor'] ?>
-										</option>
-									<?php endif; ?>
-								<?php endforeach; ?>
-							<?php else: ?>
-								<?php foreach ($vendors as $vendor) : ?>
-									<?php if ($vendor['type'] == VendorModel::TYPE_TRUCKING): ?>
-										<option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id']) ?>>
-											<?= $vendor['vendor'] ?>
-										</option>
-									<?php endif; ?>
-								<?php endforeach; ?>
-							<?php endif; ?>
 						</select>
 					</td>
 					<td class="text-md-right">Rp. 0</td>
 					<td class="text-md-right">
-						<button class="btn btn-sm btn-outline-danger" type="button">
-							<i class="mdi mdi-magnify"></i>
+						<button class="btn btn-sm btn-primary btn-add-packaging" type="button">
+							<i class="mdi mdi-plus"></i>
 						</button>
 					</td>
 				</tr>
-			<?php endforeach; ?>
-			<tr>
-				<td colspan="2">Packaging</td>
-				<td>
-					<select class="form-control select2" name="consumable_packaging[]" id="consumable_packaging" data-placeholder="Add packaging" style="width: 100%">
-						<option value=""></option>
-						<?php foreach ($consumables as $consumable) : ?>
-							<?php if($consumable['type'] == ConsumableModel::TYPE_PACKAGING): ?>
-								<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
-									<?= $consumable['consumable'] ?>
-								</option>
-							<?php endif; ?>
-						<?php endforeach; ?>
-					</select>
-				</td>
-				<td></td>
-				<td class="text-md-right">
-					<button class="btn btn-sm btn-primary" type="button">
-						<i class="mdi mdi-plus"></i>
-					</button>
-				</td>
-			</tr>
+				<tr>
+					<td colspan="2">Surcharge</td>
+					<td>
+						<input type="text" class="form-control" name="pricing[0][surcharges][0][title]" maxlength="50" placeholder="Surcharge title">
+					</td>
+					<td class="text-md-right">
+						<input type="text" class="form-control text-right ml-auto currency" name="pricing[0][surcharges][0][amount]" maxlength="50" style="max-width: 220px" placeholder="Surcharge amount">
+					</td>
+					<td class="text-md-right">
+						<button class="btn btn-sm btn-primary btn-add-surcharge" type="button">
+							<i class="mdi mdi-plus"></i>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">Insurance</td>
+					<td class="text-md-right label-insurance">
+						Rp. 0
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="5">&nbsp;</td>
+				</tr>
+				<tr class="font-weight-bold">
+					<td colspan="3">Purchase Amount</td>
+					<td class="text-md-right label-purchase-amount">
+						Rp. 0
+					</td>
+					<td></td>
+				</tr>
+				<tr class="font-weight-bold">
+					<td colspan="3">Sell Amount (Before Tax)</td>
+					<td class="text-md-right label-sell-before-tax">
+						Rp. 0
+					</td>
+					<td></td>
+				</tr>
+				<tr class="font-weight-bold table-success">
+					<td colspan="3">Sell Amount (After Tax)</td>
+					<td class="text-md-right label-sell-after-tax">
+						Rp. 0
+					</td>
+					<td></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

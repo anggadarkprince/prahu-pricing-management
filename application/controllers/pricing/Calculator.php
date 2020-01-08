@@ -64,4 +64,9 @@ class Calculator extends App_Controller
 
 		$this->render('calculator/index', compact('components', 'ports', 'locations', 'services', 'loadingCategories', 'consumables', 'marketings', 'containerSizes', 'containerTypes', 'paymentTypes', 'vendors'));
 	}
+
+	public function save()
+	{
+		print_debug($_POST);
+	}
 }

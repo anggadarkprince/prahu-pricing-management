@@ -20,6 +20,10 @@ class Service extends App_Controller
 		$this->load->model('ServiceComponentModel', 'serviceComponent');
 		$this->load->model('ComponentModel', 'component');
 		$this->load->model('modules/Exporter', 'exporter');
+
+		$this->setFilterMethods([
+			'ajax_get_service' => 'GET'
+		]);
 	}
 
 	/**
@@ -209,5 +213,25 @@ class Service extends App_Controller
 			'service' => 'trim|required|max_length[50]',
 			'description' => 'max_length[500]',
 		];
+	}
+
+	/**
+	 * Get service by service
+	 *
+	 * @return array
+	 */
+	public function ajax_get_service()
+	{
+		$serviceId = get_url_param('id_service');
+
+		$service = $this->service->getById($serviceId);
+		$serviceComponents = $this->serviceComponent->getBy([
+			'id_service' => $service['id']
+		]);
+
+		$this->render_json([
+			'service' => $service,
+			'service_components' => $serviceComponents
+		]);
 	}
 }

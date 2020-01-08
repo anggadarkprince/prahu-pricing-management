@@ -52,6 +52,10 @@ try {
         import("./pages/component-price").then(componentPrice => componentPrice.default());
     }
 
+    if ($('#form-calculator').length) {
+        import("./pages/calculator-price").then(calculatorPrice => calculatorPrice.default());
+    }
+
 } catch (e) {
     console.log(e);
 }

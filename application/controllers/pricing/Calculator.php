@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property ContainerTypeModel $containerType
  * @property ServiceModel $service
  * @property PaymentTypeModel $paymentType
+ * @property PackageModel $package
  * @property Exporter $exporter
  */
 class Calculator extends App_Controller
@@ -37,6 +38,7 @@ class Calculator extends App_Controller
 		$this->load->model('ContainerTypeModel', 'containerType');
 		$this->load->model('PaymentTypeModel', 'paymentType');
 		$this->load->model('ServiceModel', 'service');
+		$this->load->model('PackageModel', 'package');
 		$this->load->model('modules/Exporter', 'exporter');
 	}
 
@@ -46,6 +48,9 @@ class Calculator extends App_Controller
 	public function index()
 	{
 		$components = $this->component->getAll();
+		foreach ($components as &$component) {
+			$component['packages'] = $this->package->getBy(['ref_packages.id_component' => $component['id']]);
+		}
 		$ports = $this->port->getAll();
 		$locations = $this->location->getAll();
 		$services = $this->service->getAll();

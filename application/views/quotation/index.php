@@ -27,6 +27,7 @@
         <th>Customer</th>
         <th>Marketing</th>
         <th>Service</th>
+        <th>Container</th>
         <th>Price</th>
         <th style="width: 80px">Action</th>
     </tr>
@@ -39,6 +40,7 @@
             <td class="font-weight-bold"><?= $quotation['customer'] ?></td>
             <td><?= $quotation['marketing'] ?></td>
             <td><?= $quotation['service'] ?></td>
+            <td><?= $quotation['container_size'] ?>' <?= $quotation['container_type'] ?></td>
             <td>Rp. <?= numerical($quotation['total_price_after_tax']) ?></td>
             <td>
                 <div class="dropdown">
@@ -47,10 +49,10 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <?php if(AuthorizationModel::isAuthorized(PERMISSION_QUOTATION_VIEW)): ?>
-                            <a class="dropdown-item" href="<?= site_url('master/quotation/view/' . $quotation['id']) ?>">
+                            <a class="dropdown-item" href="<?= site_url('pricing/quotation/view/' . $quotation['id']) ?>">
                                 <i class="mdi mdi-eye-outline mr-2"></i> View
                             </a>
-                            <a class="dropdown-item" href="<?= site_url('master/quotation/print-quotation/' . $quotation['id']) ?>">
+                            <a class="dropdown-item" href="<?= site_url('pricing/quotation/print-quotation/' . $quotation['id']) ?>">
                                 <i class="mdi mdi-cloud-print-outline mr-2"></i> Print
                             </a>
                         <?php endif; ?>
@@ -58,7 +60,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item btn-delete" href="#modal-delete" data-toggle="modal"
                                data-id="<?= $quotation['id'] ?>" data-label="<?= $quotation['customer'] ?>" data-title="Quotation"
-                               data-url="<?= site_url('master/quotation/delete/' . $quotation['id']) ?>">
+                               data-url="<?= site_url('pricing/quotation/delete/' . $quotation['id']) ?>">
                                 <i class="mdi mdi-trash-can-outline mr-2"></i> Delete
                             </a>
                         <?php endif; ?>

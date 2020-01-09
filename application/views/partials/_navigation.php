@@ -100,7 +100,7 @@ $segment2 = $this->uri->segment(2);
                         <a class="dropdown-item<?= $segment2 == 'calculator' ? ' active' : '' ?>" href="<?= site_url('pricing/calculator') ?>">
                             <i class="mdi mdi-ballot-outline mr-2"></i>Calculators
                         </a>
-                        <a class="dropdown-item<?= $segment2 == 'price-history' ? ' active' : '' ?>" href="<?= site_url('pricing/price-history') ?>">
+                        <a class="dropdown-item<?= $segment2 == 'quotation' ? ' active' : '' ?>" href="<?= site_url('pricing/quotation') ?>">
                             <i class="mdi mdi-file-document-box-check-outline mr-2"></i>Quotation
                         </a>
                     </div>

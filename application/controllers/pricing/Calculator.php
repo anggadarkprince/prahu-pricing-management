@@ -47,6 +47,8 @@ class Calculator extends App_Controller
 	 */
 	public function index()
 	{
+		AuthorizationModel::mustAuthorized(PERMISSION_PRICING_CALCULATE);
+
 		$components = $this->component->getAll();
 		foreach ($components as &$component) {
 			$component['packages'] = $this->package->getBy(['ref_packages.id_component' => $component['id']]);

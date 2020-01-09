@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
-        'sub component' => 'master/package',
+        'package' => 'master/package',
         'create' => 'master/package/create'
     ]
 ]) ?>
@@ -44,7 +44,7 @@
                 <?php endforeach ?>
             <?php endif ?>
         </div>
-        <?= form_error('sub_components') ?>
+        <?= form_error('sub_components[]') ?>
     </div>
     <div class="form-group">
         <label for="description">Description</label>

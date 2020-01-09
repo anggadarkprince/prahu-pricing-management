@@ -25,6 +25,7 @@
     <tr>
         <th class="text-center" style="width: 60px">No</th>
         <th>Component</th>
+        <th>Related Partner</th>
         <th>Sub Component</th>
         <th>Package</th>
         <th>Service</th>
@@ -38,9 +39,22 @@
         <tr>
             <td class="text-md-center"><?= ++$no ?></td>
             <td class="font-weight-bold"><?= $component['component'] ?></td>
-            <td><?= numerical(if_empty($component['total_sub_component'], 0)) ?></td>
-            <td><?= numerical(if_empty($component['total_package'], 0)) ?></td>
-            <td><?= numerical(if_empty($component['total_service'], 0)) ?></td>
+            <td><?= $component['provider'] ?></td>
+            <td>
+				<a href="<?= site_url('master/sub-component?components=' . $component['id']) ?>">
+					<?= numerical(if_empty($component['total_sub_component'], 0)) ?> subs
+				</a>
+			</td>
+            <td>
+				<a href="<?= site_url('master/package?components=' . $component['id']) ?>">
+					<?= numerical(if_empty($component['total_package'], 0)) ?> packages
+				</a>
+			</td>
+            <td>
+				<a href="<?= site_url('master/service?components=' . $component['id']) ?>">
+					<?= numerical(if_empty($component['total_service'], 0)) ?> services
+				</a>
+			</td>
             <td><?= if_empty($component['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">
@@ -73,7 +87,7 @@
     <?php endforeach; ?>
     <?php if (empty($components['data'])): ?>
         <tr>
-            <td colspan="7" class="text-center">No component available</td>
+            <td colspan="8" class="text-center">No component available</td>
         </tr>
     <?php endif; ?>
     </tbody>

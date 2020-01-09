@@ -34,7 +34,7 @@
     <?php foreach ($loadingCategories['data'] as $paymentType): ?>
         <tr>
             <td class="text-md-center"><?= ++$no ?></td>
-            <td><?= $paymentType['loading_category'] ?></td>
+            <td class="font-weight-bold"><?= $paymentType['loading_category'] ?></td>
             <td><?= if_empty($paymentType['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">

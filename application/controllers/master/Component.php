@@ -162,7 +162,7 @@ class Component extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_EDIT);
 
-        if ($this->validate()) {
+		if ($this->validate($this->_validation_rules($id))) {
             $component = $this->input->post('component');
             $subComponents = $this->input->post('sub_components');
             $provider = $this->input->post('provider');
@@ -216,15 +216,32 @@ class Component extends App_Controller
         redirect('master/component');
     }
 
-    /**
-     * Return general validation rules.
-     *
-     * @return array
-     */
-    protected function _validation_rules()
+	/**
+	 * Return general validation rules.
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+    protected function _validation_rules(...$params)
     {
+		$id = isset($params[0]) ? $params[0] : 0;
         return [
-            'component' => 'trim|required|max_length[50]',
+			'component' => [
+				'trim', 'required', 'max_length[50]', ['value_exists', function ($input) use ($id) {
+					$this->form_validation->set_message('value_exists', 'The %s has been exist, try another');
+					return empty($this->component->getBy([
+						'ref_components.component' => $input,
+						'ref_components.id!=' => $id
+					]));
+				}]
+			],
+			'sub_components[]' => [
+				'trim', 'required', ['not_empty', function ($input) {
+					$this->form_validation->set_message('not_empty', 'The {field} field must be selected at least one.');
+					return !empty($input);
+				}]
+			],
+            'provider' => 'in_list[TRUCKING,SHIPPING LINE]',
             'description' => 'max_length[500]',
         ];
     }

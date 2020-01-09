@@ -14,7 +14,7 @@
     <p class="form-section-title">Container Information</p>
     <div class="form-group">
         <label for="container_size">Cargo Size</label>
-        <input type="text" class="form-control" id="container_size" name="container_size" required maxlength="50"
+		<input type="number" class="form-control" id="container_size" name="container_size" step="1" required maxlength="2"
                value="<?= set_value('container_type', $containerSize['container_size']) ?>" placeholder="Container size or dimension">
         <?= form_error('container_size') ?>
     </div>

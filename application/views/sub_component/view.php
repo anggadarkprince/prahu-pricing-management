@@ -18,6 +18,22 @@
         </div>
     </div>
     <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="components">Used in Components</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="components">
+                <?= if_empty(str_replace(',', ', ', $subComponent['components']), '-') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="packages">Used in Packages</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="packages">
+                <?= if_empty(str_replace(',', ', ', $subComponent['packages']), '-') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
         <label class="col-sm-3 col-lg-2 col-form-label" for="description">Description</label>
         <div class="col-sm-9 col-lg-10">
             <p class="form-control-plaintext" id="description">

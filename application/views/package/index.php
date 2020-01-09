@@ -38,7 +38,11 @@
             <td class="text-md-center"><?= ++$no ?></td>
             <td><?= $package['component'] ?></td>
             <td class="font-weight-bold"><?= $package['package'] ?></td>
-            <td><?= $package['total_sub_component'] ?></td>
+            <td>
+				<a href="<?= site_url('master/sub-component?packages=' . $package['id']) ?>">
+					<?= numerical(if_empty($package['total_sub_component'], 0)) ?> subs
+				</a>
+			</td>
             <td><?= if_empty($package['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">

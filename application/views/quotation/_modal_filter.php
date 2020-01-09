@@ -11,40 +11,27 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="search">Search</label>
-                        <input type="text" class="form-control" name="search" id="search"
-                               value="<?= get_url_param('search') ?>" placeholder="Search a data">
+                        <input type="text" class="form-control" name="search" id="search" value="<?= get_url_param('search') ?>" placeholder="Search a data">
                         <?= form_error('search'); ?>
                     </div>
-					<div class="form-group">
-						<label for="components">Components</label>
-						<select class="form-control select2" name="components" id="components" data-placeholder="Select component" style="width: 100%">
-							<option value=""></option>
-							<?php foreach ($components as $component) : ?>
-								<option value="<?= $component['id'] ?>" <?= set_select('components', $component['id'], get_url_param('components') == $component['id']) ?>>
-									<?= $component['component'] ?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-						<?= form_error('components') ?>
-					</div>
                     <div class="row">
                         <div class="col-8 col-sm-6">
                             <div class="form-group">
                                 <label for="sort_by">Sort By</label>
                                 <select class="custom-select" name="sort_by" id="sort_by" required>
-									<?php
-									$columns = [
-										'created_at' => 'CREATED AT',
-										'service' => 'SERVICE',
-										'component' => 'COMPONENT',
-										'description' => 'DESCRIPTION',
-									]
-									?>
-									<?php foreach ($columns as $field => $label): ?>
-										<option value="<?= $field ?>"<?= set_select('sort_by', $field, get_url_param('sort_by') == $field) ?>>
-											<?= $label ?>
-										</option>
-									<?php endforeach; ?>
+                                    <?php
+                                    $columns = [
+                                        'created_at' => 'CREATED AT',
+                                        'component' => 'COMPONENT',
+                                        'sub_component' => 'SUB COMPONENT',
+                                        'description' => 'DESCRIPTION',
+                                    ]
+                                    ?>
+                                    <?php foreach ($columns as $field => $label) : ?>
+                                        <option value="<?= $field ?>" <?= set_select('sort_by', $field, get_url_param('sort_by') == $field) ?>>
+                                            <?= $label ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <?= form_error('sort_by'); ?>
                             </div>
@@ -53,12 +40,10 @@
                             <div class="form-group">
                                 <label for="order_method">Order</label>
                                 <select class="custom-select" name="order_method" id="order_method" required>
-                                    <option value="desc"
-                                        <?= set_select('order_method', 'desc', get_url_param('order_method') == 'desc') ?>>
+                                    <option value="desc" <?= set_select('order_method', 'desc', get_url_param('order_method') == 'desc') ?>>
                                         DESCENDING
                                     </option>
-                                    <option value="asc"
-                                        <?= set_select('order_method', 'asc', get_url_param('order_method') == 'asc') ?>>
+                                    <option value="asc" <?= set_select('order_method', 'asc', get_url_param('order_method') == 'asc') ?>>
                                         ASCENDING
                                     </option>
                                 </select>
@@ -70,16 +55,14 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="date_from">Date From</label>
-                                <input type="text" class="form-control datepicker" name="date_from" id="date_from" autocomplete="off"
-                                       value="<?= get_url_param('date_from') ?>" placeholder="Pick create date from">
+                                <input type="text" class="form-control datepicker" name="date_from" id="date_from" autocomplete="off" value="<?= get_url_param('date_from') ?>" placeholder="Pick create date from">
                                 <?= form_error('date_from'); ?>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="date_to">Date To</label>
-                                <input type="text" class="form-control datepicker" name="date_to" id="date_to" autocomplete="off"
-                                       value="<?= get_url_param('date_to') ?>" placeholder="Pick create date to">
+                                <input type="text" class="form-control datepicker" name="date_to" id="date_to" autocomplete="off" value="<?= get_url_param('date_to') ?>" placeholder="Pick create date to">
                                 <?= form_error('date_to'); ?>
                             </div>
                         </div>

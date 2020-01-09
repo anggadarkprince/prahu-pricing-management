@@ -20,6 +20,14 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-3 col-lg-3 col-form-label" for="provider">Provider</label>
+                <div class="col-sm-9 col-lg-9">
+                    <p class="form-control-plaintext" id="provider">
+                        <?= if_empty($component['provider'], 'No provider') ?>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-3 col-lg-3 col-form-label" for="description">Description</label>
                 <div class="col-sm-9 col-lg-9">
                     <p class="form-control-plaintext" id="description">

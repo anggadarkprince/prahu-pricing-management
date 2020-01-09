@@ -119,7 +119,7 @@ class Vendor extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_VENDOR_EDIT);
 
-        if ($this->validate()) {
+		if ($this->validate($this->_validation_rules($id))) {
             $vendor = $this->input->post('vendor');
             $type = $this->input->post('type');
             $termPayment = $this->input->post('term_payment');
@@ -160,15 +160,25 @@ class Vendor extends App_Controller
         redirect('master/vendor');
     }
 
-    /**
-     * Return general validation rules.
-     *
-     * @return array
-     */
-    protected function _validation_rules()
-    {
-        return [
-            'vendor' => 'trim|required|max_length[100]',
+	/**
+	 * Return general validation rules.
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+    protected function _validation_rules(...$params)
+	{
+		$id = isset($params[0]) ? $params[0] : 0;
+		return [
+			'vendor' => [
+				'trim', 'required', 'max_length[100]', ['value_exists', function ($input) use ($id) {
+					$this->form_validation->set_message('value_exists', 'The %s has been exist, try another');
+					return empty($this->vendor->getBy([
+						'ref_vendors.vendor' => $input,
+						'ref_vendors.id!=' => $id
+					]));
+				}]
+			],
             'type' => 'trim|required|max_length[50]',
             'description' => 'max_length[500]',
         ];

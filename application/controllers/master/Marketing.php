@@ -119,7 +119,7 @@ class Marketing extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_MARKETING_EDIT);
 
-        if ($this->validate()) {
+		if ($this->validate($this->_validation_rules($id))) {
             $name = $this->input->post('name');
             $email = $this->input->post('email');
             $contact = $this->input->post('contact');
@@ -160,15 +160,25 @@ class Marketing extends App_Controller
         redirect('master/marketing');
     }
 
-    /**
-     * Return general validation rules.
-     *
-     * @return array
-     */
-    protected function _validation_rules()
-    {
-        return [
-            'name' => 'trim|required|max_length[50]',
+	/**
+	 * Return general validation rules.
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+	protected function _validation_rules(...$params)
+	{
+		$id = isset($params[0]) ? $params[0] : 0;
+		return [
+			'name' => [
+				'trim', 'required', 'max_length[50]', ['value_exists', function ($input) use ($id) {
+					$this->form_validation->set_message('value_exists', 'The %s has been exist, try another');
+					return empty($this->marketing->getBy([
+						'ref_marketings.name' => $input,
+						'ref_marketings.id!=' => $id
+					]));
+				}]
+			],
             'email' => 'trim|max_length[50]',
             'contact' => 'trim|max_length[50]',
             'description' => 'max_length[500]',

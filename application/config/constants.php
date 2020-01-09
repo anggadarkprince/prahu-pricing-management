@@ -186,3 +186,10 @@ defined('PERMISSION_COMPONENT_PRICE_VIEW') or define('PERMISSION_COMPONENT_PRICE
 defined('PERMISSION_COMPONENT_PRICE_CREATE') or define('PERMISSION_COMPONENT_PRICE_CREATE', 'component-price-create');
 defined('PERMISSION_COMPONENT_PRICE_EDIT') or define('PERMISSION_COMPONENT_PRICE_EDIT', 'component-price-edit');
 defined('PERMISSION_COMPONENT_PRICE_DELETE') or define('PERMISSION_COMPONENT_PRICE_DELETE', 'component-price-delete');
+
+// Pricing calculator permission
+defined('PERMISSION_PRICING_CALCULATE') or define('PERMISSION_PRICING_CALCULATE', 'pricing-calculate');
+defined('PERMISSION_QUOTATION_VIEW') or define('PERMISSION_QUOTATION_VIEW', 'quotation-view');
+defined('PERMISSION_QUOTATION_CREATE') or define('PERMISSION_QUOTATION_CREATE', 'quotation-create');
+defined('PERMISSION_QUOTATION_EDIT') or define('PERMISSION_QUOTATION_EDIT', 'quotation-edit');
+defined('PERMISSION_QUOTATION_DELETE') or define('PERMISSION_QUOTATION_DELETE', 'quotation-delete');

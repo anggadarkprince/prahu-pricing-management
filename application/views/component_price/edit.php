@@ -149,7 +149,7 @@
             <i class="mdi mdi-arrow-left mr-2"></i>Back
         </button>
         <button type="submit" class="btn btn-primary" data-toggle="one-touch">
-            Update Package<i class="mdi mdi-square-edit-outline ml-2"></i>
+            Update Price<i class="mdi mdi-square-edit-outline ml-2"></i>
         </button>
     </div>
 </form>

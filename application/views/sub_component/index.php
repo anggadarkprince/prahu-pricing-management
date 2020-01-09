@@ -25,7 +25,7 @@
         <tr>
             <th class="text-md-center" style="width: 60px">No</th>
             <th>Sub component</th>
-            <th>Component</th>
+            <th>Components</th>
             <th>Description</th>
             <th style="width: 80px">Action</th>
         </tr>

@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ServiceModel extends App_Model
 {
     protected $table = 'ref_services';
+	protected $filteredMaps = [
+		'components' => 'ref_components.id'
+	];
 
 	/**
 	 * Get base query of table.

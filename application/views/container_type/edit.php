@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/_breadcrumb', [
 	'breadcrumbs' => [
-		'container size' => 'master/container-size',
+		'container type' => 'master/container-type',
 		'create' => 'master/container-size/edit/' . $containerType['id']
 	]
 ]) ?>

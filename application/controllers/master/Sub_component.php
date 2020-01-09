@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Class Sub_component
- * @property ComponentModel $Component
+ * @property ComponentModel $component
  * @property SubComponentModel $subComponent
  * @property Exporter $exporter
  */
@@ -159,11 +159,12 @@ class Sub_component extends App_Controller
         redirect('master/sub-component');
     }
 
-    /**
-     * Return general validation rules.
-     *
-     * @return array
-     */
+	/**
+	 * Return general validation rules.
+	 *
+	 * @param array $params
+	 * @return array
+	 */
     protected function _validation_rules(...$params)
     {
         $id = isset($params[0]) ? $params[0] : 0;

@@ -29,7 +29,7 @@
         <label class="col-sm-3 col-lg-2 col-form-label" for="term_payment">Term of Payment</label>
         <div class="col-sm-9 col-lg-10">
             <p class="form-control-plaintext" id="term_payment">
-                <?= if_empty($vendor['term_payment'], '0') ?>
+                <?= if_empty($vendor['term_payment'], '0') ?>%
             </p>
         </div>
     </div>

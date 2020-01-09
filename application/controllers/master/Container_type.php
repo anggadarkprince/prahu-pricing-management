@@ -115,7 +115,7 @@ class Container_type extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_CONTAINER_TYPE_EDIT);
 
-        if ($this->validate()) {
+		if ($this->validate($this->_validation_rules($id))) {
             $containerType = $this->input->post('container_type');
             $description = $this->input->post('description');
 
@@ -152,15 +152,25 @@ class Container_type extends App_Controller
         redirect('master/container-type');
     }
 
-    /**
-     * Return general validation rules.
-     *
-     * @return array
-     */
-    protected function _validation_rules()
-    {
-        return [
-            'container_type' => 'trim|required|max_length[50]',
+	/**
+	 * Return general validation rules.
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+    protected function _validation_rules(...$params)
+	{
+		$id = isset($params[0]) ? $params[0] : 0;
+		return [
+			'container_type' => [
+				'trim', 'required', 'max_length[50]', ['value_exists', function ($value) use ($id) {
+					$this->form_validation->set_message('value_exists', 'The %s has been registered before, try another');
+					return empty($this->containerType->getBy([
+						'ref_container_types.container_type' => $value,
+						'ref_container_types.id!=' => $id
+					]));
+				}]
+			],
             'description' => 'max_length[500]',
         ];
     }

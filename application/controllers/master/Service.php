@@ -43,8 +43,9 @@ class Service extends App_Controller
 		if ($export) {
 			$this->exporter->exportFromArray('Components', $services);
 		}
+		$components = $this->component->getAll();
 
-		$this->render('service/index', compact('services'));
+		$this->render('service/index', compact('services', 'components'));
 	}
 
 	/**
@@ -150,7 +151,7 @@ class Service extends App_Controller
 	{
 		AuthorizationModel::mustAuthorized(PERMISSION_SERVICE_EDIT);
 
-		if ($this->validate()) {
+		if ($this->validate($this->_validation_rules($id))) {
 			$service = $this->input->post('service');
 			$components = $this->input->post('components');
 			$description = $this->input->post('description');
@@ -205,12 +206,22 @@ class Service extends App_Controller
 	/**
 	 * Return general validation rules.
 	 *
+	 * @param array $params
 	 * @return array
 	 */
-	protected function _validation_rules()
+	protected function _validation_rules(...$params)
 	{
+		$id = isset($params[0]) ? $params[0] : 0;
 		return [
-			'service' => 'trim|required|max_length[50]',
+			'service' => [
+				'trim', 'required', 'max_length[50]', ['value_exists', function ($value) use ($id) {
+					$this->form_validation->set_message('value_exists', 'The %s has been registered before, try another');
+					return empty($this->service->getBy([
+						'ref_services.service' => $value,
+						'ref_services.id!=' => $id
+					]));
+				}]
+			],
 			'description' => 'max_length[500]',
 		];
 	}
@@ -218,7 +229,7 @@ class Service extends App_Controller
 	/**
 	 * Get service by service
 	 *
-	 * @return array
+	 * @return void
 	 */
 	public function ajax_get_service()
 	{

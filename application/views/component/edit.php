@@ -25,7 +25,7 @@
             <?php else : ?>
                 <div class="row">
                     <?php foreach ($subComponents as $subComponent) : ?>
-                        <div class="col-sm-2 col-md-3">
+                        <div class="col-sm-2 col-md-4">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" <?= set_checkbox('sub_components[' . $subComponent['id'] . ']', $subComponent['id'], $subComponent['is_selected']) ?> id="sub_component_<?= $subComponent['id'] ?>" name="sub_components[<?= $subComponent['id'] ?>]" value="<?= $subComponent['id'] ?>">
                                 <label class="custom-control-label" for="sub_component_<?= $subComponent['id'] ?>">
@@ -37,7 +37,7 @@
                 </div>
             <?php endif ?>
         </div>
-        <?= form_error('sub_components') ?>
+		<?= form_error('sub_components[]') ?>
     </div>
     <div class="form-group">
         <label for="provider">Related Partner</label>

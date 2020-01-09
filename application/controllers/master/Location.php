@@ -162,7 +162,15 @@ class Location extends App_Controller
     {
 		$id = isset($params[0]) ? $params[0] : 0;
         return [
-            'location' => 'trim|max_length[50]',
+			'location' => [
+				'trim', 'required', 'max_length[50]', ['value_exists', function ($value) use ($id) {
+					$this->form_validation->set_message('value_exists', 'The %s has been registered before, try another');
+					return empty($this->location->getBy([
+						'ref_locations.location' => $value,
+						'ref_locations.id!=' => $id
+					]));
+				}]
+			],
             'description' => 'max_length[500]',
         ];
     }

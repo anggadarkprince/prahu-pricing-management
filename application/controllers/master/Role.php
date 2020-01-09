@@ -142,7 +142,7 @@ class Role extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_ROLE_EDIT);
 
-        if ($this->validate()) {
+		if ($this->validate($this->_validation_rules($id))) {
             $role = $this->input->post('role');
             $description = $this->input->post('description');
             $permissions = $this->input->post('permissions');
@@ -201,15 +201,25 @@ class Role extends App_Controller
         redirect('master/role');
     }
 
-    /**
-     * Return general validation rules.
-     *
-     * @return array
-     */
-    protected function _validation_rules()
+	/**
+	 * Return general validation rules.
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+    protected function _validation_rules(...$params)
     {
+		$id = isset($params[0]) ? $params[0] : 0;
         return [
-            'role' => 'trim|required|max_length[50]',
+			'role' => [
+				'trim', 'required', 'max_length[50]', ['value_exists', function ($input) use ($id) {
+					$this->form_validation->set_message('value_exists', 'The %s has been exist, try another');
+					return empty($this->role->getBy([
+						'prv_roles.role' => $input,
+						'prv_roles.id!=' => $id
+					]));
+				}]
+			],
             'description' => 'max_length[500]',
             'permissions[]' => [
                 'trim', 'required', ['not_empty', function ($input) {

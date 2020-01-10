@@ -38,19 +38,41 @@
         </div>
         <?= form_error('sub_components[]') ?>
     </div>
-    <div class="form-group">
-        <label for="provider">Related Partner</label>
-        <select class="form-control select2" name="provider" id="provider" data-placeholder="Select partner" required>
-            <option value=""></option>
-            <option value="TRUCKING" <?= set_select('provider', 'TRUCKING') ?>>
-                TRUCKING
-            </option>
-            <option value="SHIPPING LINE" <?= set_select('provider', 'SHIPPING LINE') ?>>
-                SHIPPING LINE
-            </option>
-        </select>
-        <?= form_error('provider') ?>
-    </div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="provider">Related Partner</label>
+				<select class="form-control select2" name="provider" id="provider" data-placeholder="Select partner" required>
+					<option value=""></option>
+					<option value="TRUCKING" <?= set_select('provider', 'TRUCKING') ?>>
+						TRUCKING
+					</option>
+					<option value="SHIPPING LINE" <?= set_select('provider', 'SHIPPING LINE') ?>>
+						SHIPPING LINE
+					</option>
+				</select>
+				<?= form_error('provider') ?>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="service_section">Service Section</label>
+				<select class="form-control select2" name="service_section" id="service_section" data-placeholder="Select service location" required>
+					<option value=""></option>
+					<option value="ORIGIN" <?= set_select('service_section', 'ORIGIN') ?>>
+						ORIGIN
+					</option>
+					<option value="SHIPPING" <?= set_select('service_section', 'SHIPPING') ?>>
+						SHIPPING
+					</option>
+					<option value="DESTINATION" <?= set_select('service_section', 'DESTINATION') ?>>
+						DESTINATION
+					</option>
+				</select>
+				<?= form_error('service_section') ?>
+			</div>
+		</div>
+	</div>
     <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description" name="description" maxlength="500" placeholder="Component description"><?= set_value('description') ?></textarea>

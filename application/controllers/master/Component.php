@@ -101,6 +101,7 @@ class Component extends App_Controller
             $component = $this->input->post('component');
             $subComponents = $this->input->post('sub_components');
             $provider = $this->input->post('provider');
+            $serviceSection = $this->input->post('service_section');
             $description = $this->input->post('description');
 
             $this->db->trans_start();
@@ -108,6 +109,7 @@ class Component extends App_Controller
             $this->component->create([
                 'component' => $component,
                 'provider' => $provider,
+                'service_section' => $serviceSection,
                 'description' => $description
             ]);
             $componentId = $this->db->insert_id();
@@ -166,6 +168,7 @@ class Component extends App_Controller
             $component = $this->input->post('component');
             $subComponents = $this->input->post('sub_components');
             $provider = $this->input->post('provider');
+			$serviceSection = $this->input->post('service_section');
             $description = $this->input->post('description');
 
             $this->db->trans_start();
@@ -173,6 +176,7 @@ class Component extends App_Controller
             $this->component->update([
                 'component' => $component,
                 'provider' => $provider,
+				'service_section' => $serviceSection,
                 'description' => $description
             ], $id);
 
@@ -242,6 +246,7 @@ class Component extends App_Controller
 				}]
 			],
             'provider' => 'in_list[TRUCKING,SHIPPING LINE]',
+            'section' => 'in_list[ORIGIN,SHIPPING,DESTINATION]',
             'description' => 'max_length[500]',
         ];
     }

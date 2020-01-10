@@ -26,10 +26,10 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-3 col-lg-2 col-form-label" for="port">Port</label>
+        <label class="col-sm-3 col-lg-2 col-form-label" for="port_origin">Port Origin</label>
         <div class="col-sm-9 col-lg-10">
-            <p class="form-control-plaintext" id="port">
-                <?= if_empty($componentPrice['port'], 'No port') ?>
+            <p class="form-control-plaintext" id="port_origin">
+                <?= if_empty($componentPrice['port_origin'], 'No port') ?>
             </p>
         </div>
     </div>
@@ -42,10 +42,18 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-3 col-lg-2 col-form-label" for="location">Location</label>
+        <label class="col-sm-3 col-lg-2 col-form-label" for="location_origin">Location Origin</label>
         <div class="col-sm-9 col-lg-10">
-            <p class="form-control-plaintext" id="location">
-                <?= if_empty($componentPrice['location'], 'No location') ?>
+            <p class="form-control-plaintext" id="location_origin">
+                <?= if_empty($componentPrice['location_origin'], 'No location') ?>
+            </p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-lg-2 col-form-label" for="location_destination">Location Destination</label>
+        <div class="col-sm-9 col-lg-10">
+            <p class="form-control-plaintext" id="location_destination">
+                <?= if_empty($componentPrice['location_destination'], 'No location') ?>
             </p>
         </div>
     </div>

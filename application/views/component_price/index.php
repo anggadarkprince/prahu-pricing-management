@@ -26,9 +26,10 @@
         <th class="text-md-center" style="width: 60px">No</th>
         <th>Component</th>
         <th>Vendor</th>
-        <th>Port</th>
+        <th>Port Origin</th>
         <th>Port Dest</th>
-        <th>Location</th>
+        <th>Location Origin</th>
+        <th>Location Dest</th>
         <th>Container Size</th>
         <th>Container Type</th>
         <th>Sub Component</th>
@@ -43,9 +44,10 @@
             <td class="text-md-center"><?= ++$no ?></td>
             <td><?= $componentPrice['component'] ?></td>
             <td><?= $componentPrice['vendor'] ?></td>
-            <td><?= $componentPrice['port'] ?></td>
+            <td><?= $componentPrice['port_origin'] ?></td>
             <td><?= if_empty($componentPrice['port_destination'], '-') ?></td>
-            <td><?= $componentPrice['location'] ?></td>
+            <td><?= $componentPrice['location_origin'] ?></td>
+            <td><?= $componentPrice['location_destination'] ?></td>
             <td><?= $componentPrice['container_size'] ?></td>
             <td><?= $componentPrice['container_type'] ?></td>
             <td><?= $componentPrice['sub_component'] ?></td>
@@ -81,7 +83,7 @@
     <?php endforeach; ?>
     <?php if (empty($componentPrices['data'])): ?>
         <tr>
-            <td colspan="11" class="text-center">No component price available</td>
+            <td colspan="12" class="text-center">No component price available</td>
         </tr>
     <?php endif; ?>
     </tbody>

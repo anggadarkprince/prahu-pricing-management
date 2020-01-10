@@ -129,12 +129,17 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" class="form-control currency" id="price" name="price" required maxlength="50" value="<?= set_value('price') ?>" placeholder="Price amount">
-                <?= form_error('price') ?>
+                <label for="expired_date">Expired Date</label>
+                <input type="text" class="form-control datepicker" id="expired_date" name="expired_date" autocomplete="off" required maxlength="50" value="<?= set_value('expired_date') ?>" placeholder="Price will expired">
+                <?= form_error('expired_date') ?>
             </div>
         </div>
     </div>
+	<div class="form-group">
+		<label for="price">Price</label>
+		<input type="text" class="form-control currency" id="price" name="price" required maxlength="50" value="<?= set_value('price') ?>" placeholder="Price amount">
+		<?= form_error('price') ?>
+	</div>
     <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description" name="description" maxlength="500" placeholder="Price description"><?= set_value('description') ?></textarea>

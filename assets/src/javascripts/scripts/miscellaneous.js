@@ -8,7 +8,7 @@ $(function () {
         locale: {
             format: 'DD/MM/YYYY'
         },
-        parentEl: ".modal-body"
+        parentEl: $("#modal-filter").length ? ".modal-body" : 'body'
     }).on("apply.daterangepicker", function (e, picker) {
         picker.element.val(picker.startDate.format(picker.locale.format));
     }).on("hide.daterangepicker", function (e, picker) {

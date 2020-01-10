@@ -81,6 +81,14 @@
             </p>
         </div>
     </div>
+	<div class="form-group row">
+		<label class="col-sm-3 col-lg-2 col-form-label" for="expired_date">Expired Date</label>
+		<div class="col-sm-9 col-lg-10">
+			<p class="form-control-plaintext" id="expired_date">
+				<?= format_date($componentPrice['expired_date'], 'd F Y') ?>
+			</p>
+		</div>
+	</div>
     <div class="form-group row">
         <label class="col-sm-3 col-lg-2 col-form-label" for="description">Description</label>
         <div class="col-sm-9 col-lg-10">

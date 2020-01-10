@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
 	<style>
 		@page {
-			margin: 30px 40px;
+			margin: 25px 35px;
 		}
 
 		* {
@@ -21,7 +21,7 @@
 			background: none;
 			font-family: Roboto, sans-serif;
 			font-weight: normal;
-			font-size: 12px;
+			font-size: 11px;
 		}
 
 		hr {
@@ -66,7 +66,7 @@
 			vertical-align: middle;
 			border: 1px solid #000;
 			padding: 3px 6px;
-			line-height: 1.1;
+			line-height: 1;
 		}
 
 		table td {
@@ -81,11 +81,11 @@
 
 <body>
 	<div class="text-center">
-		<img src="<?= FCPATH . 'assets/dist/img/layouts/logo-header.png' ?>" style="width: 250px;">
+		<img src="<?= FCPATH . 'assets/dist/img/layouts/logo-header.png' ?>" style="width: 240px;">
 		<p><strong>Solusi Kirim Kontainer Mudah, Aman, Murah</strong></p>
 		<p class="subtitle">Telp 031-7482307 / 0811-3457863 , Email cs.prahu@gmail.com / www.prahu-hub.com</p>
-		<hr style="border-bottom: 1px solid #000">
-		<h3 style="margin-top: 0">PENAWARAN HARGA PENGIRIMAN BARANG</h3>
+		<hr style="border-bottom: 1px solid #000; margin-top: 5px; margin-bottom: 5px">
+		<h3 style="margin-top: 0; margin-bottom: 0">PENAWARAN HARGA PENGIRIMAN BARANG</h3>
 	</div>
 	<div>
 		<p>Kami yang bertandatangan di bawah ini:</p>
@@ -107,7 +107,7 @@
 				<td colspan="3">selanjutnya disebut sebagai <strong>"PIHAK PERTAMA"</strong></td>
 			</tr>
 			<tr>
-				<td colspan="4">&nbsp;</td>
+				<td colspan="4"></td>
 			</tr>
 			<tr>
 				<td>II</td>
@@ -133,14 +133,13 @@
 			</tr>
 		</table>
 
-		<p style="margin-top: 5px">
+		<p style="margin-bottom: 10px">
 			Dengan ini para pihak setuju membuat perjanjian pengangkatan barang dengan syarat dan ketentuan
 			sebagai berikut :
 		</p>
 
-		<br>
-		<p style="margin-bottom: 5px"><strong>A. &nbsp; DETAIL PENGIRIMAN</strong></p>
-		<table class="table" style="margin-bottom: 20px; margin-left: 17px">
+		<p style="margin-bottom: 7px"><strong>A. &nbsp; DETAIL PENGIRIMAN</strong></p>
+		<table class="table" style="margin-bottom: 10px; margin-left: 16px">
 			<tr>
 				<th style="width: 25%"></th>
 				<th style="width: 75%">DETAIL</th>
@@ -151,7 +150,7 @@
 			</tr>
 			<tr>
 				<td>Rute</td>
-				<td><?= $quotation['location_from'] ?> - <?= $quotation['location_to'] ?></td>
+				<td><?= $quotation['port_from'] ?> - <?= $quotation['port_to'] ?></td>
 			</tr>
 			<tr>
 				<td>Pelayaran</td>
@@ -191,27 +190,13 @@
 			<tr>
 				<td>Harga SUDAH termasuk</td>
 				<td>
-					<ul style="padding-left: 15px; margin: 0">
-						<?php foreach ($quotationSubComponents as $subComponent) : ?>
-							<li><?= $subComponent['sub_component'] ?></li>
-						<?php endforeach; ?>
-					</ul>
+					<?= implode(', ', array_column($quotationSubComponents, 'sub_component')) ?>
 				</td>
 			</tr>
 			<tr>
 				<td>Harga TIDAK termasuk</td>
 				<td>
-					<ul style="padding-left: 15px; margin: 0">
-						<?php if (empty($subComponent['tax_percent'])) : ?>
-							<li>Pajak</li>
-						<?php endif; ?>
-						<?php if (empty($subComponent['insurance'])) : ?>
-							<li>Asuransi</li>
-						<?php endif; ?>
-						<?php if (empty($quotationPackaging)) : ?>
-							<li>Packaging</li>
-						<?php endif; ?>
-					</ul>
+					<?= implode(', ', $quotationExcludes) ?>
 				</td>
 			</tr>
 			<tr>
@@ -226,7 +211,7 @@
 			<li>PARA PIHAK sepakat untuk menggunakan platform Prahu-hub sebagai perangkat control.</li>
 			<li>Ketentuan pembayaran :
 				<ul style="padding-left: 17px">
-					<li>Pelunasan: <?= numerical($quotation['payment_percent']) ?>% - <?= $quotation['payment_type'] ?></li>
+					<li><?= numerical($quotation['payment_percent']) ?>% - <?= $quotation['payment_type'] ?></li>
 				</ul>
 			</li>
 			<li>Denda dan Sanksi :
@@ -280,11 +265,13 @@
 					<br>
 					<br>
 					<br>
+					<br>
 					<p>(<?= $quotation['customer'] ?>)</p>
 				</td>
 				<td>
 					<p>PIHAK KEDUA,</p>
 					<p><strong>PT.APLIKASI TEPAT GUNA</strong></p>
+					<br>
 					<br>
 					<br>
 					<br>

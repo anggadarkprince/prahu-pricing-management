@@ -46,7 +46,7 @@
                     <?= numerical($totalLocation) ?>
                     <small>Items</small>
                 </h4>
-                <a href="<?= site_url('report/location') ?>" class="btn btn-sm btn-outline-info">
+                <a href="<?= site_url('master/location') ?>" class="btn btn-sm btn-outline-info">
                     See in Details <i class="mdi mdi-chevron-right"></i>
                 </a>
             </div>

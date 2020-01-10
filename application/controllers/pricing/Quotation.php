@@ -76,6 +76,7 @@ class Quotation extends App_Controller
 
 	/**
 	 * Print quotation.
+	 * @param $id
 	 */
 	public function print_quotation($id)
 	{
@@ -91,8 +92,18 @@ class Quotation extends App_Controller
 		$quotationPackaging = $this->quotationPackaging->getBy([
 			'quotation_packaging.id_quotation' => $id
 		]);
+		$quotationExcludes = [];
+		if (empty($subComponent['tax_percent'])) {
+			$quotationExcludes[] = 'Pajak';
+		}
+		if (empty($subComponent['insurance'])) {
+			$quotationExcludes[] = 'Insurance';
+		}
+		if (empty($quotationPackaging)) {
+			$quotationExcludes[] = 'Packaging';
+		}
 
-		$html = $this->load->view('quotation/print', compact('quotation', 'quotationSubComponents', 'quotationPackaging', 'quotationComponents'), true);
+		$html = $this->load->view('quotation/print', compact('quotation', 'quotationSubComponents', 'quotationPackaging', 'quotationComponents', 'quotationExcludes'), true);
 
 		$this->exporter->exportToPdf("quotation.pdf", $html);
 	}

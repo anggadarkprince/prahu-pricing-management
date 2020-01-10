@@ -114,6 +114,7 @@ class Component_price extends App_Controller
 			$containerSizeId = $this->input->post('container_size');
 			$containerTypeId = $this->input->post('container_type');
 			$subComponentId = $this->input->post('sub_component');
+			$expiredDate = $this->input->post('expired_date');
 			$price = $this->input->post('price');
 			$description = $this->input->post('description');
 
@@ -126,6 +127,7 @@ class Component_price extends App_Controller
 				'id_container_size' => $containerSizeId,
 				'id_container_type' => $containerTypeId,
 				'id_sub_component' => $subComponentId,
+				'expired_date' => format_date($expiredDate),
 				'price' => extract_number($price),
 				'description' => $description
 			]);
@@ -180,6 +182,7 @@ class Component_price extends App_Controller
 			$containerSizeId = $this->input->post('container_size');
 			$containerTypeId = $this->input->post('container_type');
 			$subComponentId = $this->input->post('sub_component');
+			$expiredDate = $this->input->post('expired_date');
 			$price = $this->input->post('price');
 			$description = $this->input->post('description');
 
@@ -193,6 +196,7 @@ class Component_price extends App_Controller
 				'id_container_type' => $containerTypeId,
 				'id_sub_component' => $subComponentId,
 				'price' => extract_number($price),
+				'expired_date' => format_date($expiredDate),
 				'description' => $description
 			], $id);
 
@@ -282,6 +286,7 @@ class Component_price extends App_Controller
 					]));
 				}]
 			],
+			'expired_date' => 'trim|required|max_length[50]',
 			'description' => 'max_length[500]',
 		];
 	}

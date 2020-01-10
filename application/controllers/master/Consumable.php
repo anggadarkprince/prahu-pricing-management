@@ -96,6 +96,7 @@ class Consumable extends App_Controller
 		if ($this->validate()) {
 			$consumable = $this->input->post('consumable');
 			$type = $this->input->post('type');
+			$expiredDate = $this->input->post('expired_date');
 			$description = $this->input->post('description');
 			$containerSizes = $this->input->post('container_sizes');
 
@@ -115,6 +116,7 @@ class Consumable extends App_Controller
 							'id_consumable' => $consumableId,
 							'id_container_size' => $containerSizeId,
 							'price' => extract_number($price['price']),
+							'expired_date' => format_date($expiredDate),
 						]);
 					}
 				} else {
@@ -123,6 +125,7 @@ class Consumable extends App_Controller
 							'id_consumable' => $consumableId,
 							'id_container_size' => $containerSizeId,
 							'percent' => $price['percent'],
+							'expired_date' => format_date($expiredDate),
 						]);
 						$consumablePriceId = $this->db->insert_id();
 						if (isset($price['components']) && !empty($price['components'])) {
@@ -195,6 +198,7 @@ class Consumable extends App_Controller
 		if ($this->validate($this->_validation_rules($id))) {
 			$consumable = $this->input->post('consumable');
 			$type = $this->input->post('type');
+			$expiredDate = $this->input->post('expired_date');
 			$description = $this->input->post('description');
 			$containerSizes = $this->input->post('container_sizes');
 
@@ -214,6 +218,7 @@ class Consumable extends App_Controller
 							'id_consumable' => $id,
 							'id_container_size' => $containerSizeId,
 							'price' => extract_number($price['price']),
+							'expired_date' => format_date($expiredDate),
 						]);
 					}
 				} else {
@@ -222,6 +227,7 @@ class Consumable extends App_Controller
 							'id_consumable' => $id,
 							'id_container_size' => $containerSizeId,
 							'percent' => $price['percent'],
+							'expired_date' => format_date($expiredDate),
 						]);
 						$consumablePriceId = $this->db->insert_id();
 						if (isset($price['components']) && !empty($price['components'])) {

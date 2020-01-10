@@ -11,16 +11,18 @@
 <?php foreach ($components as $component) : ?>
     <h5 class="text-primary"><?= $component['component'] ?> Component</h5>
     <div class="table-responsive mb-4">
-        <table class="table table-sm mb-0 table-hover text-nowrap">
+        <table class="table table-sm mb-0 table-hover responsive text-nowrap">
             <thead class="thead-dark">
                 <tr>
                     <th class="text-center" style="width: 60px">No</th>
                     <th>Vendor</th>
-                    <th>Port</th>
-                    <th>Port destination</th>
-                    <th>Location</th>
-                    <th>Container size</th>
-                    <th>Container type</th>
+                    <th>Port Origin</th>
+                    <th>Port Destination</th>
+                    <th>Location Origin</th>
+                    <th>Location Destination</th>
+                    <th>Container Size</th>
+                    <th>Container Type</th>
+                    <th>Expired Date</th>
                     <?php foreach ($component['sub_components'] as $subComponent) : ?>
                         <th><?= $subComponent['sub_component'] ?></th>
                     <?php endforeach ?>
@@ -34,16 +36,18 @@
                     <tr>
                         <td class="text-md-center"><?= $index + 1 ?></td>
                         <td><?= $componentPrice['vendor'] ?></td>
-                        <td><?= $componentPrice['port'] ?></td>
+                        <td><?= if_empty($componentPrice['port_origin'], '-') ?></td>
                         <td><?= if_empty($componentPrice['port_destination'], '-') ?></td>
-                        <td><?= $componentPrice['location'] ?></td>
-                        <td><?= $componentPrice['container_size'] ?></td>
-                        <td><?= $componentPrice['container_type'] ?></td>
+                        <td><?= if_empty($componentPrice['location_origin'], '-') ?></td>
+                        <td><?= if_empty($componentPrice['location_destination'], '-') ?></td>
+                        <td><?= if_empty($componentPrice['container_size'], '-') ?></td>
+                        <td><?= if_empty($componentPrice['container_type'], '-') ?></td>
+                        <td class="table-danger"><?= if_empty($componentPrice['expired_date'], '-') ?></td>
                         <?php foreach ($component['sub_components'] as $subComponent) : ?>
                             <td>Rp. <?= numerical($componentPrice[$subComponent['sub_component']]) ?></td>
                         <?php endforeach ?>
                         <?php foreach ($component['packages'] as $package) : ?>
-                            <td class="table-success px-2"><strong>Rp. <?= numerical($componentPrice[$package['package']]) ?></strong></td>
+                            <td class="table-success px-lg-2 font-weight-bold">Rp. <?= numerical($componentPrice[$package['package']]) ?></td>
                         <?php endforeach ?>
                     </tr>
                 <?php endforeach ?>

@@ -108,32 +108,41 @@ class Component_price extends App_Controller
 		if ($this->validate()) {
 			$componentId = $this->input->post('component');
 			$vendorId = $this->input->post('vendor');
-			$portId = $this->input->post('port');
+			$portOriginId = $this->input->post('port_origin');
 			$portDestinationId = $this->input->post('port_destination');
-			$locationId = $this->input->post('location');
+			$locationOriginId = $this->input->post('location_origin');
+			$locationDestinationId = $this->input->post('location_destination');
 			$containerSizeId = $this->input->post('container_size');
 			$containerTypeId = $this->input->post('container_type');
-			$subComponentId = $this->input->post('sub_component');
 			$expiredDate = $this->input->post('expired_date');
-			$price = $this->input->post('price');
+			$prices = $this->input->post('prices');
 			$description = $this->input->post('description');
 
-			$save = $this->componentPrice->create([
-				'id_component' => $componentId,
-				'id_vendor' => $vendorId,
-				'id_port' => $portId,
-				'id_port_destination' => if_empty($portDestinationId, null),
-				'id_location' => $locationId,
-				'id_container_size' => $containerSizeId,
-				'id_container_type' => $containerTypeId,
-				'id_sub_component' => $subComponentId,
-				'expired_date' => format_date($expiredDate),
-				'price' => extract_number($price),
-				'description' => $description
-			]);
+			$this->db->trans_start();
 
-			if ($save) {
-				flash('success', "Component price {$price} successfully created", 'master/component-price');
+			if (!empty($prices)) {
+				foreach ($prices as $price) {
+					$this->componentPrice->create([
+						'id_component' => $componentId,
+						'id_vendor' => $vendorId,
+						'id_port_origin' => if_empty($portOriginId, null),
+						'id_port_destination' => if_empty($portDestinationId, null),
+						'id_location_origin' => $locationOriginId,
+						'id_location_destination' => $locationDestinationId,
+						'id_container_size' => $containerSizeId,
+						'id_container_type' => $containerTypeId,
+						'id_sub_component' => $price['id_sub_component'],
+						'price' => extract_number($price['price']),
+						'expired_date' => format_date($expiredDate),
+						'description' => $description
+					]);
+				}
+			}
+
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status()) {
+				flash('success', "Component price successfully created", 'master/component-price');
 			} else {
 				flash('danger', 'Create component price failed, try again or contact administrator');
 			}
@@ -240,12 +249,19 @@ class Component_price extends App_Controller
 		return [
 			'component' => 'trim|required|max_length[20]',
 			'vendor' => 'trim|required|max_length[20]',
-			'port' => 'trim|required|max_length[20]',
+			'port_origin' => 'trim|max_length[20]',
 			'port_destination' => 'trim|max_length[20]',
-			'location' => 'trim',
+			'location_origin' => 'trim|max_length[20]',
+			'location_destination' => 'trim|max_length[20]',
 			'container_size' => 'trim|required|max_length[20]',
 			'container_type' => 'trim|required|max_length[20]',
-			'sub_component' => 'trim|required|max_length[20]',
+			'prices[]' => [
+				'trim', 'required', ['not_empty', function ($input) {
+					$this->form_validation->set_message('not_empty', 'The {field} field must be exist at least one.');
+					return !empty($input);
+				}]
+			],
+			/*
 			'price' => [
 				'trim', 'required', 'max_length[50]', ['value_exists', function ($input) use ($id) {
 					$componentId = $this->input->post('component');
@@ -260,9 +276,9 @@ class Component_price extends App_Controller
 					$priceData = $this->componentPrice->getBy([
 						'ref_component_prices.id_component' => $componentId,
 						'ref_component_prices.id_vendor' => $vendorId,
-						'ref_component_prices.id_port' => $portId,
+						'ref_component_prices.id_port_origin' => $portId,
 						'id_port_destination' => if_empty($portDestinationId, null),
-						'ref_component_prices.id_location' => $locationId,
+						'ref_component_prices.id_location_origin' => $locationId,
 						'ref_component_prices.id_container_size' => $containerSizeId,
 						'ref_component_prices.id_container_type' => $containerTypeId,
 						'ref_component_prices.id_sub_component' => $subComponentId,
@@ -273,19 +289,10 @@ class Component_price extends App_Controller
 						$linkEdit = '<a href="' . site_url('master/component-price/edit/' . $priceData['id']) . '">Click here</a>';
 						$this->form_validation->set_message('value_exists', 'The %s combination already exists, edit data instead, ' . $linkEdit);
 					}
-					return empty($this->componentPrice->getBy([
-						'ref_component_prices.id_component' => $componentId,
-						'ref_component_prices.id_vendor' => $vendorId,
-						'ref_component_prices.id_port' => $portId,
-						'id_port_destination' => if_empty($portDestinationId, null),
-						'ref_component_prices.id_location' => $locationId,
-						'ref_component_prices.id_container_size' => $containerSizeId,
-						'ref_component_prices.id_container_type' => $containerTypeId,
-						'ref_component_prices.id_sub_component' => $subComponentId,
-						'ref_component_prices.id!=' => $id
-					]));
+					return empty($priceData);
 				}]
 			],
+			*/
 			'expired_date' => 'trim|required|max_length[50]',
 			'description' => 'max_length[500]',
 		];

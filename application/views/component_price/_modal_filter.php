@@ -45,31 +45,49 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <select class="form-control select2" name="locations" id="location" data-placeholder="Select location" style="width: 100%">
-                            <option value=""></option>
-                            <?php foreach ($locations as $location) : ?>
-                                <option value="<?= $location['id'] ?>" <?= set_select('locations', $location['id'], get_url_param('locations') == $location['id']) ?>>
-                                    <?= $location['location'] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?= form_error('locations') ?>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="location_origin">Location Origin</label>
+                                <select class="form-control select2" name="location_origins" id="location_origin" data-placeholder="Select location origin" style="width: 100%">
+                                    <option value=""></option>
+                                    <?php foreach ($locations as $location) : ?>
+                                        <option value="<?= $location['id'] ?>" <?= set_select('location_origins', $location['id'], get_url_param('location_origins') == $location['id']) ?>>
+                                            <?= $location['location'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?= form_error('location_origins') ?>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="location_destination">Location Destination</label>
+                                <select class="form-control select2" name="location_destinations" id="location_destination" data-placeholder="Select location destination" style="width: 100%">
+                                    <option value=""></option>
+                                    <?php foreach ($locations as $location) : ?>
+                                        <option value="<?= $location['id'] ?>" <?= set_select('location_destinations', $location['id'], get_url_param('location_destinations') == $location['id']) ?>>
+                                            <?= $location['location'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?= form_error('location_destinations') ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="port">Port</label>
-                                <select class="form-control select2" name="ports" id="port" data-placeholder="Select port" style="width: 100%">
+                                <label for="port_origin">Port Origin</label>
+                                <select class="form-control select2" name="port_origins" id="port_origin" data-placeholder="Select port origin" style="width: 100%">
                                     <option value=""></option>
                                     <?php foreach ($ports as $port) : ?>
-                                        <option value="<?= $port['id'] ?>" <?= set_select('ports', $port['id'], get_url_param('ports') == $port['id']) ?>>
+                                        <option value="<?= $port['id'] ?>" <?= set_select('port_origins', $port['id'], get_url_param('port_origins') == $port['id']) ?>>
                                             <?= $port['port'] ?> - <?= $port['code'] ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
-                                <?= form_error('ports') ?>
+                                <?= form_error('port_origins') ?>
                             </div>
                         </div>
                         <div class="col-sm-6">

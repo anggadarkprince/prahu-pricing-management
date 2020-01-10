@@ -8,25 +8,20 @@ export default function () {
      */
     const formComponentPrice = $('#form-component-price');
     const selectComponent = formComponentPrice.find('#component');
-    const selectSubComponent = formComponentPrice.find('#sub_component');
     const selectVendor = formComponentPrice.find('#vendor');
     const labelVendor = formComponentPrice.find('label[for="vendor"]');
     const locationOrigin = formComponentPrice.find('#location_origin');
     const locationDestination = formComponentPrice.find('#location_destination');
     const portOrigin = formComponentPrice.find('#port_origin');
     const portDestination = formComponentPrice.find('#port_destination');
+    const tableSubComponent = formComponentPrice.find('#table-sub-component-price');
 
-    selectComponent.on('change', function() {
+    function setupCombination() {
         selectVendor.find('option').prop('disabled', false);
 
-        //locationOrigin.val('').trigger('change').prop('disabled', true);
-        //locationDestination.val('').trigger('change').prop('disabled', true);
-        //portOrigin.val('').trigger('change').prop('disabled', true);
-        //portDestination.val('').trigger('change').prop('disabled', true);
+        const provider = selectComponent.find('option:selected').data('provider');
+        const serviceLocation = selectComponent.find('option:selected').data('service-section');
 
-        const provider = $(this).find('option:selected').data('provider');
-        const serviceLocation = $(this).find('option:selected').data('service-section');
-        
         if (provider === 'TRUCKING') {
             labelVendor.text('Trucking');
             selectVendor.find('option[data-type="SHIPPING LINE"]').prop('disabled', true);
@@ -73,21 +68,30 @@ export default function () {
         }).on("select2:close", function () {
             $(".select2-search__field").attr("placeholder", null);
         });
+    }
+
+    selectComponent.on('change', function() {
+        setupCombination();
         
-        selectSubComponent.empty().append($('<option>', { value: '' }).text('Fetching...')).prop("disabled", true);
         const query = $.param({
             id_component: $(this).val(),
         });
         fetch(variables.baseUrl + 'master/sub-component/ajax-get-by-component?' + query)
             .then(result => result.json())
             .then(data => {
-                selectSubComponent.empty().append($('<option>', { value: '' }).text('Select sub component')).prop("disabled", false);
+                tableSubComponent.find('tbody').empty();
                 if (data && data.length > 0) {
-                    data.forEach(row => {
-                        selectSubComponent.append(
-                            $('<option>', {
-                                value: row.id,
-                            }).text(row.sub_component)
+                    data.forEach((row, index) => {
+                        tableSubComponent.find('tbody').append(
+                            `<tr>
+                                <td>${index+1}</td>
+                                <td>${row.sub_component}</td>
+                                <td>
+                                    <input type="hidden" name="prices[${index}][id_sub_component]" value="${row.id}" required>
+                                    <input type="hidden" name="prices[${index}][sub_component]" value="${row.sub_component}" required>
+                                    <input type="text" class="form-control currency" name="prices[${index}][price]" placeholder="${row.sub_component} price" required>
+                                </td>
+                            </tr>`
                         );
                     });
                 }
@@ -95,4 +99,5 @@ export default function () {
             .catch(console.log);
     });
 
+    setupCombination();
 };

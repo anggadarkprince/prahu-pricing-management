@@ -17,63 +17,75 @@
         <select class="form-control select2" name="component" id="component" data-placeholder="Select component" required style="width: 100%">
             <option value=""></option>
             <?php foreach ($components as $component) : ?>
-                <option value="<?= $component['id'] ?>" <?= set_select('component', $component['id'], $component['id'] == $componentPrice['id_component']) ?> data-provider="<?= $component['provider'] ?>">
+                <option value="<?= $component['id'] ?>" <?= set_select('component', $component['id'], $component['id'] == $componentPrice['id_component']) ?> data-service-section="<?= $component['service_section'] ?>" data-provider="<?= $component['provider'] ?>">
                     <?= $component['component'] ?>
                 </option>
             <?php endforeach; ?>
         </select>
         <?= form_error('component') ?>
     </div>
+    <div class="form-group">
+        <label for="vendor">Vendor</label>
+        <select class="form-control select2" name="vendor" id="vendor" data-placeholder="Select vendor" required style="width: 100%">
+            <option value=""></option>
+            <?php foreach ($vendors as $vendor) : ?>
+                <option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id'], $vendor['id'] == $componentPrice['id_vendor']) ?>>
+                    <?= $vendor['vendor'] ?> - <?= $vendor['type'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <?= form_error('vendor') ?>
+    </div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="vendor">Vendor</label>
-                <select class="form-control select2" name="vendor" id="vendor" data-placeholder="Select vendor" required style="width: 100%">
-                    <option value=""></option>
-                    <?php foreach ($vendors as $vendor) : ?>
-                        <option value="<?= $vendor['id'] ?>" <?= set_select('vendor', $vendor['id'], $vendor['id'] == $componentPrice['id_vendor']) ?>>
-                            <?= $vendor['vendor'] ?> - <?= $vendor['type'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <?= form_error('vendor') ?>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="location">Location</label>
-                <select class="form-control select2" name="location" id="location" data-placeholder="Select location" required style="width: 100%">
+                <label for="location_origin">Location Origin</label>
+                <select class="form-control select2" name="location_origin" id="location_origin" data-placeholder="Select origin area" required style="width: 100%">
                     <option value=""></option>
                     <?php foreach ($locations as $location) : ?>
-                        <option value="<?= $location['id'] ?>" <?= set_select('location', $location['id'], $location['id'] == $componentPrice['id_location']) ?>>
+                        <option value="<?= $location['id'] ?>" <?= set_select('location_origin', $location['id'], $location['id'] == $componentPrice['id_location_origin']) ?>>
                             <?= $location['location'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <?= form_error('location') ?>
+                <?= form_error('location_origin') ?>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="location_destination">Location Destination</label>
+                <select class="form-control select2" name="location_destination" id="location_destination" data-placeholder="Select destination area" required style="width: 100%">
+                    <option value=""></option>
+                    <?php foreach ($locations as $location) : ?>
+                        <option value="<?= $location['id'] ?>" <?= set_select('location_destination', $location['id'], $location['id'] == $componentPrice['id_location_destination']) ?>>
+                            <?= $location['location'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <?= form_error('location_destination') ?>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="port">Port</label>
-                <select class="form-control select2" name="port" id="port" data-placeholder="Select port" required style="width: 100%">
+                <label for="port_origin">Port Origin</label>
+                <select class="form-control select2" name="port_origin" id="port_origin" data-placeholder="Select port origin" required style="width: 100%">
                     <option value=""></option>
                     <?php foreach ($ports as $port) : ?>
-                        <option value="<?= $port['id'] ?>" <?= set_select('port', $port['id'], $port['id'] == $componentPrice['id_port']) ?>>
+                        <option value="<?= $port['id'] ?>" <?= set_select('port_origin', $port['id'], $port['id'] == $componentPrice['id_port_origin']) ?>>
                             <?= $port['port'] ?> - <?= $port['code'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <?= form_error('port') ?>
+                <?= form_error('port_origin') ?>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="port_destination">Port Destination</label>
-                <select class="form-control select2" name="port_destination" id="port_destination" data-placeholder="Select port destination" style="width: 100%">
-                    <option value="0">No Port Destination</option>
+                <select class="form-control select2" name="port_destination" id="port_destination" data-placeholder="Select port destination" required style="width: 100%">
+                    <option value=""></option>
                     <?php foreach ($ports as $port) : ?>
                         <option value="<?= $port['id'] ?>" <?= set_select('port_destination', $port['id'], $port['id'] == $componentPrice['id_port_destination']) ?>>
                             <?= $port['port'] ?> - <?= $port['code'] ?>
@@ -129,18 +141,18 @@
             </div>
         </div>
         <div class="col-sm-6">
-			<div class="form-group">
-				<label for="expired_date">Expired Date</label>
-				<input type="text" class="form-control datepicker" id="expired_date" name="expired_date" autocomplete="off" required maxlength="50" value="<?= set_value('expired_date', format_date($componentPrice['expired_date'], 'd/m/Y')) ?>" placeholder="Price will expired">
-				<?= form_error('expired_date') ?>
-			</div>
+            <div class="form-group">
+                <label for="expired_date">Expired Date</label>
+                <input type="text" class="form-control datepicker" readonly id="expired_date" name="expired_date" autocomplete="off" required maxlength="50" value="<?= set_value('expired_date', format_date($componentPrice['expired_date'], 'd/m/Y')) ?>" placeholder="Price will expired">
+                <?= form_error('expired_date') ?>
+            </div>
         </div>
     </div>
-	<div class="form-group">
-		<label for="price">Price</label>
-		<input type="text" class="form-control currency" id="price" name="price" required maxlength="50" value="<?= set_value('price', 'Rp. ' . numerical($componentPrice['price'])) ?>" placeholder="Price amount">
-		<?= form_error('price') ?>
-	</div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control currency" id="price" name="price" required maxlength="50" value="<?= set_value('price', 'Rp. ' . numerical($componentPrice['price'])) ?>" placeholder="Price amount">
+        <?= form_error('price') ?>
+    </div>
     <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description" name="description" maxlength="500" placeholder="Price description"><?= set_value('description', $componentPrice['description']) ?></textarea>

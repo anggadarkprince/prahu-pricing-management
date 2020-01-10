@@ -74,6 +74,7 @@ class ComponentPriceModel extends App_Model
             'location_destinations.location AS location_destination',
             'ref_container_sizes.container_size',
             'ref_container_types.container_type',
+            'ref_component_prices.expired_date',
         ];
 
         // build column sub component
@@ -105,7 +106,7 @@ class ComponentPriceModel extends App_Model
             ->join('ref_container_types', 'ref_container_types.id = ref_component_prices.id_container_type', 'left')
             ->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component')
             ->where('ref_components.id', $componentId)
-            ->group_by('ref_components.id, ref_vendors.id, ref_ports.id, port_destinations.id, ref_locations.id, ref_container_sizes.id, ref_container_types.id');
+            ->group_by('ref_components.id, ref_vendors.id, port_origins.id, port_destinations.id, location_origins.id, location_destinations.id, ref_container_sizes.id, ref_container_types.id, ref_component_prices.expired_date');
 
         return $baseQuery->get()->result_array();
     }

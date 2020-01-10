@@ -28,6 +28,7 @@
 </div>
 
 <?php $this->load->view('partials/_footer') ?>
+<?php $this->load->view('partials/modals/_alert') ?>
 
 <script src="<?= base_url(get_asset('runtime.js')) ?>"></script>
 <script src="<?= base_url(get_asset('vendors.js')) ?>"></script>

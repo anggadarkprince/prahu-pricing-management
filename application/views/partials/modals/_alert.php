@@ -9,6 +9,7 @@
             </div>
             <div class="modal-body">
                 <p class="lead modal-message mb-1"></p>
+                <p class="modal-sub-message text-muted mb-1"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-sm px-4" data-dismiss="modal">OK</button>

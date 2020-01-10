@@ -9,6 +9,10 @@
   border: none;
 }
 
+.table-secondary, .table-secondary > th, .table-secondary > td {
+  background-color: #f8f8f8;
+}
+
 .table {
   td, th, thead th {
 	white-space: normal;

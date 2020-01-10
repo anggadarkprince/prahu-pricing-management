@@ -59,7 +59,7 @@
                             <input type="checkbox" class="custom-control-input check_all"
                                    id="check_all_<?= $lastGroupName ?>" name="check_all_<?= $lastGroupName ?>"
                                    value="<?= $lastGroupName ?>"<?= set_checkbox('check_all_'.$lastGroupName, $lastGroupName) ?>>
-                            <label class="custom-control-label" for="check_all_<?= $lastGroupName ?>">
+                            <label class="custom-control-label text-danger" for="check_all_<?= $lastGroupName ?>">
                                 Module <?= ucwords($lastGroup) ?> (Check All)
                             </label>
                         </div>
@@ -71,7 +71,7 @@
                     <?php $lastSubGroup = $submodule; ?>
                     <div class="col-12">
                         <div class="mb-2 mt-2">
-                            <h6>
+                            <h6 class="text-primary">
                                 <?= ucwords(preg_replace('/\-/', ' ', $lastSubGroup)) ?>
                             </h6>
                         </div>

@@ -95,7 +95,26 @@ class ComponentPriceModel extends App_Model
         }
 
         $baseQuery = $this->db->select($selectList)
-            ->from($this->table)
+            ->from("
+            	(SELECT ref_component_prices.* FROM ref_component_prices
+				INNER JOIN (
+				    SELECT id_component, id_vendor, id_port_origin, id_port_destination, id_location_origin, id_location_destination, 
+						id_container_size, id_container_type, id_sub_component, MIN(expired_date) AS expired_date
+					FROM ref_component_prices
+					WHERE expired_date > CURDATE()
+					GROUP BY id_component, id_vendor, id_port_origin, id_port_destination, id_location_origin, id_location_destination, 
+					id_container_size, id_container_type, id_sub_component
+				) AS active_prices ON active_prices.id_component = ref_component_prices.id_component
+					AND active_prices.id_vendor = ref_component_prices.id_vendor
+					AND IFNULL(active_prices.id_port_origin, 0) = IFNULL(ref_component_prices.id_port_origin, 0)
+					AND IFNULL(active_prices.id_port_destination, 0) = IFNULL(ref_component_prices.id_port_destination, 0)
+					AND IFNULL(active_prices.id_location_origin, 0) = IFNULL(ref_component_prices.id_location_origin, 0)
+					AND IFNULL(active_prices.id_location_destination, 0) = IFNULL(ref_component_prices.id_location_destination, 0)
+					AND active_prices.id_container_size = ref_component_prices.id_container_size
+					AND active_prices.id_container_type = ref_component_prices.id_container_type
+					AND active_prices.id_sub_component = ref_component_prices.id_sub_component
+					AND active_prices.expired_date = ref_component_prices.expired_date) AS ref_component_prices
+            ")
             ->join('ref_components', 'ref_components.id = ref_component_prices.id_component')
             ->join('ref_vendors', 'ref_vendors.id = ref_component_prices.id_vendor')
 			->join('ref_ports AS port_origins', 'port_origins.id = ref_component_prices.id_port_origin')

@@ -135,9 +135,9 @@
     <table class="table table-sm responsive mt-3" id="table-sub-component-price">
         <thead>
             <tr>
-                <th class="text-md-center">No</td>
-                <th>Sub Component</td>
-                <th>Price</td>
+                <th class="text-md-center">No</th>
+                <th>Sub Component</th>
+                <th>Price</th>
             </tr>
         </thead>
         <tbody>

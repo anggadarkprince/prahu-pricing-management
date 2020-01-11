@@ -86,7 +86,7 @@ class ComponentPriceModel extends App_Model
         }
 
         // build column package
-        $packages = $this->package->getBy(['ref_packages.id_component' => $componentId]);
+        $packages = $this->packages->getBy(['ref_packages.id_component' => $componentId]);
         foreach ($packages as $package) {
             $packageSubComponents = $this->packageSubComponent->getBy([
                 'ref_package_sub_components.id_package' => $package['id']
@@ -117,13 +117,13 @@ class ComponentPriceModel extends App_Model
             ")
             ->join('ref_components', 'ref_components.id = ref_component_prices.id_component')
             ->join('ref_vendors', 'ref_vendors.id = ref_component_prices.id_vendor')
-			->join('ref_ports AS port_origins', 'port_origins.id = ref_component_prices.id_port_origin')
+			->join('ref_ports AS port_origins', 'port_origins.id = ref_component_prices.id_port_origin', 'left')
             ->join('ref_ports AS port_destinations', 'port_destinations.id = ref_component_prices.id_port_destination', 'left')
 			->join('ref_locations AS location_origins', 'location_origins.id = ref_component_prices.id_location_origin', 'left')
 			->join('ref_locations AS location_destinations', 'location_destinations.id = ref_component_prices.id_location_destination', 'left')
             ->join('ref_container_sizes', 'ref_container_sizes.id = ref_component_prices.id_container_size', 'left')
             ->join('ref_container_types', 'ref_container_types.id = ref_component_prices.id_container_type', 'left')
-            ->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component')
+            ->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component', 'left')
             ->where('ref_components.id', $componentId)
             ->group_by('ref_components.id, ref_vendors.id, port_origins.id, port_destinations.id, location_origins.id, location_destinations.id, ref_container_sizes.id, ref_container_types.id, ref_component_prices.expired_date');
 
@@ -152,13 +152,13 @@ class ComponentPriceModel extends App_Model
 			])
 			->join('ref_components', 'ref_components.id = ref_component_prices.id_component')
 			->join('ref_vendors', 'ref_vendors.id = ref_component_prices.id_vendor')
-			->join('ref_ports AS port_origins', 'port_origins.id = ref_component_prices.id_port_origin')
+			->join('ref_ports AS port_origins', 'port_origins.id = ref_component_prices.id_port_origin', 'left')
 			->join('ref_ports AS port_destinations', 'port_destinations.id = ref_component_prices.id_port_destination', 'left')
 			->join('ref_locations AS location_origins', 'location_origins.id = ref_component_prices.id_location_origin', 'left')
 			->join('ref_locations AS location_destinations', 'location_destinations.id = ref_component_prices.id_location_destination', 'left')
 			->join('ref_container_sizes', 'ref_container_sizes.id = ref_component_prices.id_container_size', 'left')
 			->join('ref_container_types', 'ref_container_types.id = ref_component_prices.id_container_type', 'left')
-			->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component')
+			->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component', 'left')
 			->join('ref_package_sub_components', 'ref_package_sub_components.id_sub_component = ref_component_prices.id_sub_component')
 			->group_by('id_component, id_vendor, id_port, id_port_destination, id_location_origin, id_location_destination, id_container_size, id_container_type');
 

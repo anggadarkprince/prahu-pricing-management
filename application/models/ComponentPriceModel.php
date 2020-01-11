@@ -47,14 +47,14 @@ class ComponentPriceModel extends App_Model
                 'ref_sub_components.sub_component',
             ])
             ->join('ref_components', 'ref_components.id = ref_component_prices.id_component')
-            ->join('ref_vendors', 'ref_vendors.id = ref_component_prices.id_vendor')
-			->join('ref_ports AS port_origins', 'port_origins.id = ref_component_prices.id_port_origin')
+            ->join('ref_vendors', 'ref_vendors.id = ref_component_prices.id_vendor', 'left')
+			->join('ref_ports AS port_origins', 'port_origins.id = ref_component_prices.id_port_origin', 'left')
             ->join('ref_ports AS port_destinations', 'port_destinations.id = ref_component_prices.id_port_destination', 'left')
             ->join('ref_locations AS location_origins', 'location_origins.id = ref_component_prices.id_location_origin', 'left')
             ->join('ref_locations AS location_destinations', 'location_destinations.id = ref_component_prices.id_location_destination', 'left')
             ->join('ref_container_sizes', 'ref_container_sizes.id = ref_component_prices.id_container_size', 'left')
             ->join('ref_container_types', 'ref_container_types.id = ref_component_prices.id_container_type', 'left')
-            ->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component');
+            ->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component', 'left');
     }
 
 	/**

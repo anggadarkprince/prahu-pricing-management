@@ -36,7 +36,6 @@ class Component_pricing extends App_Controller
             $component['sub_components'] = $this->subComponent->getBy(['ref_component_sub_components.id_component' => $component['id']]);
             $component['packages'] = $this->packages->getBy(['ref_packages.id_component' => $component['id']]);
             $component['component_prices'] = $this->componentPrice->getComponentPriceList($component['id']);
-            print_debug($this->db->last_query());
         }
 
         $this->render('report/component_pricing', compact('components'));

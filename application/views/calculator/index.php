@@ -19,9 +19,9 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group mb-0 row">
-						<label for="port_from" class="col-sm-3 col-form-label">Port</label>
+						<label for="port_origin" class="col-sm-3 col-form-label">Port Origin</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="port_from" id="port_from" data-placeholder="Select port from" style="width: 100%">
+							<select class="form-control select2" name="port_origin" id="port_origin" data-placeholder="Select port from" style="width: 100%">
 								<option value=""></option>
 								<option value="0">No port</option>
 								<?php foreach ($ports as $port) : ?>
@@ -30,15 +30,15 @@
 									</option>
 								<?php endforeach; ?>
 							</select>
-							<?= form_error('port_from') ?>
+							<?= form_error('port_origin') ?>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group mb-0 row">
-						<label for="location_from" class="col-sm-3 col-form-label">Location</label>
+						<label for="location_origin" class="col-sm-3 col-form-label">Location Origin</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="location_from" id="location_from" data-placeholder="Select location from" style="width: 100%">
+							<select class="form-control select2" name="location_origin" id="location_origin" data-placeholder="Select location from" style="width: 100%">
 								<option value=""></option>
 								<option value="0">No location</option>
 								<?php foreach ($locations as $location) : ?>
@@ -47,7 +47,7 @@
 									</option>
 								<?php endforeach; ?>
 							</select>
-							<?= form_error('location_from') ?>
+							<?= form_error('location_origin') ?>
 						</div>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group mb-0 row">
-						<label for="port_to" class="col-sm-3 col-form-label">Port</label>
+						<label for="port_to" class="col-sm-3 col-form-label">Port Dest</label>
 						<div class="col-sm-9">
 							<select class="form-control select2" name="port_to" id="port_to" data-placeholder="Select port destination" style="width: 100%">
 								<option value=""></option>
@@ -126,7 +126,7 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group mb-0 row">
-						<label for="location_to" class="col-sm-3 col-form-label">Location</label>
+						<label for="location_to" class="col-sm-3 col-form-label">Location Dest</label>
 						<div class="col-sm-9">
 							<select class="form-control select2" name="location_to" id="location_to" data-placeholder="Select location destination" style="width: 100%">
 								<option value=""></option>
@@ -412,7 +412,7 @@
 	</div>
 
 	<div id="pricing-wrapper" class="my-4">
-		<div class="card border-primary">
+		<div class="card border-primary pricing-item">
 			<div class="card-body p-0">
 				<table class="table table-sm responsive">
 					<thead class="thead-dark">

@@ -42,7 +42,7 @@ class Calculator extends App_Controller
 		$this->load->model('modules/Exporter', 'exporter');
 
 		$this->setFilterMethods([
-			'ajax_get_package_price' => 'GET'
+			'ajax_get_component_price' => 'GET'
 		]);
 	}
 
@@ -76,19 +76,22 @@ class Calculator extends App_Controller
 		print_debug($_POST);
 	}
 
-	public function ajax_get_package_price()
+	public function ajax_get_component_price()
 	{
 		$filters = [
 			'component' => get_url_param('component'),
 			'vendor' => get_url_param('vendor'),
-			'port_source' => get_url_param('port_source'),
+			'port_origin' => get_url_param('port_origin'),
 			'port_destination' => get_url_param('port_destination'),
-			'location' => get_url_param('location'),
+			'location_origin' => get_url_param('location_origin'),
+			'location_destination' => get_url_param('location_destination'),
 			'container_size' => get_url_param('container_size'),
 			'container_type' => get_url_param('container_type'),
 			'package' => get_url_param('package'),
 		];
 
-		$this->componentPrice->getComponentPackagePrice($filters);
+		$componentPrice = $this->componentPrice->getComponentPackagePrice($filters);
+
+		$this->render_json($componentPrice);
 	}
 }

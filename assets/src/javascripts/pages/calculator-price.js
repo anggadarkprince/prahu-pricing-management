@@ -1,5 +1,6 @@
 import variables from "../components/variables";
 import showAlert from "../components/alert";
+import formatter from "../components/formatter";
 
 export default function () {
 
@@ -54,4 +55,41 @@ export default function () {
 				showAlert('Error Fetching Data', 'Get data service failed, please try again!', error.message);
 			});
 	});
+
+	const selectLocationOrigin = formCalculator.find('#location_origin');
+	const selectLocationDestination = formCalculator.find('#location_destination');
+	const selectPortOrigin = formCalculator.find('#port_origin');
+	const selectPortDestination = formCalculator.find('#port_destination');
+	const selectContainerSize = formCalculator.find('#container_size');
+	const selectContainerType = formCalculator.find('#container_type');
+
+	pricingWrapper.on('change', '.select-package, .select-vendor', function () {
+		const rowComponent = $(this).closest('.row-component');
+		if (rowComponent.find('.select-vendor').val() && rowComponent.find('.select-package').val() && selectContainerSize.val() && selectContainerType.val()) {
+			const query = $.param({
+				'component': rowComponent.data('component-id'),
+				'vendor': rowComponent.find('.select-vendor').val(),
+				'port_origin': selectPortOrigin.val(),
+				'port_destination': selectPortDestination.val(),
+				'location_origin': selectLocationOrigin.val(),
+				'location_destination': selectLocationDestination.val(),
+				'container_size': selectContainerSize.val(),
+				'container_type': selectContainerType.val(),
+				'package': rowComponent.find('.select-package').val(),
+			});
+			fetch(variables.baseUrl + 'pricing/calculator/ajax-get-component-price?' + query)
+				.then(result => result.json())
+				.then(data => {
+					if(data.length) {
+						rowComponent.find('.label-component-price').text('Rp.' + formatter.setNumberValue(Number(data[0].price)));
+					} else {
+						rowComponent.find('.label-component-price').text('Rp. 0');
+					}
+				})
+				.catch(error => {
+					showAlert('Error Fetching Data', 'Get price data failed, please try again!', error.message);
+				});
+		}
+	});
+
 };

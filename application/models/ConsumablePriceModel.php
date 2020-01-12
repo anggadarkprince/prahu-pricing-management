@@ -14,8 +14,11 @@ class ConsumablePriceModel extends App_Model
 	{
 		return parent::getBaseQuery()
 			->select([
+				'ref_consumables.consumable',
+				'ref_consumables.type',
 				'ref_container_sizes.container_size'
 			])
+			->join('ref_consumables', 'ref_consumables.id = ref_consumable_prices.id_consumable')
 			->join('ref_container_sizes', 'ref_container_sizes.id = ref_consumable_prices.id_container_size');
 	}
 }

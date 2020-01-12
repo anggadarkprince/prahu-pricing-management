@@ -6,6 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property MarketingModel $marketing
  * @property LoadingCategoryModel $loadingCategory
  * @property ConsumableModel $consumable
+ * @property ConsumablePriceModel $consumablePrice
  * @property ComponentPriceModel $componentPrice
  * @property ComponentModel $component
  * @property SubComponentModel $subComponent
@@ -15,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property ContainerSizeModel $containerSize
  * @property ContainerTypeModel $containerType
  * @property ServiceModel $service
+ * @property ServicePaymentTypeModel $servicePaymentType
  * @property PaymentTypeModel $paymentType
  * @property PackageModel $package
  * @property Exporter $exporter
@@ -28,6 +30,7 @@ class Calculator extends App_Controller
 		$this->load->model('MarketingModel', 'marketing');
 		$this->load->model('LoadingCategoryModel', 'loadingCategory');
 		$this->load->model('ConsumableModel', 'consumable');
+		$this->load->model('ConsumablePriceModel', 'consumablePrice');
 		$this->load->model('ComponentPriceModel', 'componentPrice');
 		$this->load->model('SubComponentModel', 'subComponent');
 		$this->load->model('ComponentModel', 'component');
@@ -38,11 +41,14 @@ class Calculator extends App_Controller
 		$this->load->model('ContainerTypeModel', 'containerType');
 		$this->load->model('PaymentTypeModel', 'paymentType');
 		$this->load->model('ServiceModel', 'service');
+		$this->load->model('ServicePaymentTypeModel', 'servicePaymentType');
 		$this->load->model('PackageModel', 'package');
 		$this->load->model('modules/Exporter', 'exporter');
 
 		$this->setFilterMethods([
-			'ajax_get_component_price' => 'GET'
+			'ajax_get_component_price' => 'GET',
+			'ajax_get_consumable_price' => 'GET',
+			'ajax_get_margin' => 'GET',
 		]);
 	}
 
@@ -93,5 +99,26 @@ class Calculator extends App_Controller
 		$componentPrice = $this->componentPrice->getComponentPackagePrice($filters);
 
 		$this->render_json($componentPrice);
+	}
+
+	public function ajax_get_consumable_price()
+	{
+		$componentPrice = $this->consumablePrice->getBy([
+			'ref_consumables.type' => get_url_param('type'),
+			'id_consumable' => get_url_param('consumable'),
+			'id_container_size' => get_url_param('container_size')
+		], true);
+
+		$this->render_json($componentPrice);
+	}
+
+	public function ajax_get_margin()
+	{
+		$payment = $this->servicePaymentType->getBy([
+			'id_service' => get_url_param('service'),
+			'id_payment_type' => get_url_param('payment_type'),
+		], true);
+
+		$this->render_json($payment);
 	}
 }

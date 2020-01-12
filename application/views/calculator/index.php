@@ -17,8 +17,8 @@
 	<div class="card border-success mb-4">
 		<div class="card-header bg-primary text-white">
 			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group mb-0 row">
+				<div class="col-lg-6">
+					<div class="form-group mb-lg-0 row">
 						<label for="port_origin" class="col-sm-3 col-form-label">Port Origin</label>
 						<div class="col-sm-9">
 							<select class="form-control select2" name="port_origin" id="port_origin" data-placeholder="Select port from" style="width: 100%">
@@ -34,7 +34,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group mb-0 row">
 						<label for="location_origin" class="col-sm-3 col-form-label">Location Origin</label>
 						<div class="col-sm-9">
@@ -55,7 +55,7 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="buruh_from" class="col-sm-3 col-form-label">Buruh</label>
 						<div class="col-sm-9">
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="forklift_from" class="col-sm-3 col-form-label">Forklift</label>
 						<div class="col-sm-9">
@@ -81,7 +81,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row mb-0">
 						<label for="activity_duration_from" class="col-sm-3 col-form-label">Duration</label>
 						<div class="col-sm-9">
@@ -107,8 +107,8 @@
 	<div class="card border-danger mb-4">
 		<div class="card-header bg-danger text-white">
 			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group mb-0 row">
+				<div class="col-lg-6">
+					<div class="form-group mb-lg-0 row">
 						<label for="port_to" class="col-sm-3 col-form-label">Port Dest</label>
 						<div class="col-sm-9">
 							<select class="form-control select2" name="port_to" id="port_to" data-placeholder="Select port destination" style="width: 100%">
@@ -124,7 +124,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group mb-0 row">
 						<label for="location_to" class="col-sm-3 col-form-label">Location Dest</label>
 						<div class="col-sm-9">
@@ -145,7 +145,7 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="buruh_to" class="col-sm-3 col-form-label">Buruh</label>
 						<div class="col-sm-9">
@@ -158,7 +158,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="forklift_to" class="col-sm-3 col-form-label">Forklift</label>
 						<div class="col-sm-9">
@@ -171,7 +171,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row mb-0">
 						<label for="activity_duration_to" class="col-sm-3 col-form-label">Duration</label>
 						<div class="col-sm-9">
@@ -197,7 +197,7 @@
 	<div class="card mb-3">
 		<div class="card-body">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="customer_name" class="col-sm-3 col-form-label">Customer</label>
 						<div class="col-sm-9">
@@ -206,7 +206,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="company" class="col-sm-3 col-form-label">Company</label>
 						<div class="col-sm-9">
@@ -217,7 +217,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="marketing" class="col-sm-3 col-form-label">Marketing</label>
 						<div class="col-sm-9">
@@ -233,7 +233,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="loading_category" class="col-sm-3 col-form-label">Category</label>
 						<div class="col-sm-9">
@@ -251,7 +251,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="container_size" class="col-sm-3 col-form-label">Cargo Size</label>
 						<div class="col-sm-9">
@@ -267,7 +267,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="container_type" class="col-sm-3 col-form-label">Cargo Type</label>
 						<div class="col-sm-9">
@@ -285,7 +285,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row mb-0">
 						<label for="service" class="col-sm-3 col-form-label">Service</label>
 						<div class="col-sm-9">
@@ -308,8 +308,8 @@
 	<div class="card mb-4">
 		<div class="card-body">
 			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group row mb-0">
+				<div class="col-lg-6">
+					<div class="form-group row mb-lg-0">
 						<label for="payment_type" class="col-sm-3 col-form-label">Payment Type</label>
 						<div class="col-sm-9">
 							<select class="form-control select2" name="payment_type" id="payment_type" data-placeholder="Select payment type" required style="width: 100%">
@@ -324,7 +324,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row mb-0">
 						<label for="shipping_line" class="col-sm-3 col-form-label">Shipping Line</label>
 						<div class="col-sm-9">
@@ -351,7 +351,7 @@
 	<div class="card border-warning mb-3">
 		<div class="card-body">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="packaging" class="col-sm-3 col-form-label">Packaging</label>
 						<div class="col-sm-9">
@@ -370,7 +370,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="income_tax" class="col-sm-3 col-form-label">Income Tax 2%</label>
 						<div class="col-sm-9">
@@ -385,7 +385,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="insurance" class="col-sm-3 col-form-label">Insurance</label>
 						<div class="col-sm-9">
@@ -398,11 +398,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="goods_value" class="col-sm-3 col-form-label">Goods Value</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control currency" id="goods_value" readonly name="goods_value" required maxlength="50" placeholder="Per container min Rp. 125.000.000">
+							<input type="text" class="form-control currency" id="goods_value" name="goods_value" readonly maxlength="50" placeholder="Per container min Rp. 125.000.000">
 							<?= form_error('goods_value') ?>
 						</div>
 					</div>
@@ -417,10 +417,10 @@
 				<table class="table table-sm responsive">
 					<thead class="thead-dark">
 						<tr>
-							<th style="width: 200px">Component</th>
+							<th style="width: 150px">Component</th>
 							<th style="width: 200px">Package</th>
 							<th style="width: 250px">Partner</th>
-							<th class="text-md-right">Price</th>
+							<th style="width: 300px" class="text-md-right">Price</th>
 							<th style="width: 80px"></th>
 						</tr>
 					</thead>
@@ -461,8 +461,7 @@
 									</select>
 								</td>
 								<td class="text-md-right">
-									<input type="text" readonly class="form-control text-md-right currency input-component-price" aria-label="Price" placeholder="Component price" 
-										name="pricing[0][components][<?= $component['id'] ?>][price]">
+									<input type="text" readonly class="form-control text-md-right ml-auto currency input-component-price" style="max-width: 300px" aria-label="Price" placeholder="Component <?= $component['component'] ?> price" name="pricing[0][components][<?= $component['id'] ?>][price]">
 								</td>
 								<td class="text-md-right">
 									<button class="btn btn-sm btn-outline-danger btn-reveal-price" type="button">
@@ -472,9 +471,12 @@
 							</tr>
 						<?php endforeach; ?>
 						<tr>
+							<td colspan="5">&nbsp;</td>
+						</tr>
+						<tr class="row-packaging">
 							<td colspan="2">Packaging</td>
 							<td>
-								<select class="form-control select2" name="pricing[0][packaging][]" aria-label="Packaging" data-placeholder="Add packaging" style="width: 100%">
+								<select class="form-control select2 select-packaging" name="pricing[][packaging][][package]" aria-label="Packaging" data-placeholder="Add packaging" style="width: 100%">
 									<option value=""></option>
 									<option value="0">No Packaging</option>
 									<?php foreach ($consumables as $consumable) : ?>
@@ -486,20 +488,22 @@
 									<?php endforeach; ?>
 								</select>
 							</td>
-							<td class="text-md-right">Rp. 0</td>
+							<td class="text-md-right">
+								<input type="text" class="form-control text-md-right ml-auto currency input-packaging-price" name="pricing[][packaging][][price]" readonly maxlength="50" style="max-width: 300px" placeholder="Packaging amount">
+							</td>
 							<td class="text-md-right">
 								<button class="btn btn-sm btn-primary btn-add-packaging" type="button">
 									<i class="mdi mdi-plus"></i>
 								</button>
 							</td>
 						</tr>
-						<tr>
+						<tr class="row-surcharge">
 							<td colspan="2">Surcharge</td>
 							<td>
-								<input type="text" class="form-control" name="pricing[0][surcharges][0][title]" maxlength="50" placeholder="Surcharge title">
+								<input type="text" class="form-control" name="pricing[][surcharges][][surcharge]" maxlength="50" placeholder="Surcharge title">
 							</td>
 							<td class="text-md-right">
-								<input type="text" class="form-control text-right ml-auto currency" name="pricing[0][surcharges][0][amount]" maxlength="50" style="max-width: 220px" placeholder="Surcharge amount">
+								<input type="text" class="form-control text-md-right ml-auto currency input-surcharge-price" name="pricing[][surcharges][][price]" maxlength="50" style="max-width: 300px" placeholder="Surcharge amount">
 							</td>
 							<td class="text-md-right">
 								<button class="btn btn-sm btn-primary btn-add-surcharge" type="button">
@@ -510,7 +514,7 @@
 						<tr>
 							<td colspan="3">Insurance</td>
 							<td class="text-md-right label-insurance">
-								Rp. 0
+								<input type="text" readonly class="form-control text-md-right ml-auto currency input-insurance-price" aria-label="Insurance" placeholder="Insurance amount" style="max-width: 300px" name="pricing[0][insurance]">
 							</td>
 							<td></td>
 						</tr>
@@ -561,3 +565,46 @@
 		</button>
 	</div>
 </form>
+
+<script id="packaging-template" type="text/x-custom-template">
+	<tr class="row-packaging additional-package">
+		<td colspan="2"></td>
+		<td>
+			<select class="form-control select2 select-packaging" name="pricing[][packaging][][package]" aria-label="Packaging" data-placeholder="Add packaging" required style="width: 100%">
+				<option value=""></option>
+				<?php foreach ($consumables as $consumable) : ?>
+					<?php if ($consumable['type'] == ConsumableModel::TYPE_PACKAGING) : ?>
+						<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
+							<?= $consumable['consumable'] ?>
+						</option>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</select>
+		</td>
+		<td class="text-md-right">
+			<input type="text" class="form-control text-md-right ml-auto currency input-packaging-price" name="pricing[][packaging][][price]" required readonly maxlength="50" style="max-width: 300px" placeholder="Packaging amount">
+		</td>
+		<td class="text-md-right">
+			<button class="btn btn-sm btn-outline-danger btn-remove-packaging" type="button">
+				<i class="mdi mdi-trash-can-outline"></i>
+			</button>
+		</td>
+	</tr>
+</script>
+
+<script id="surcharge-template" type="text/x-custom-template">
+	<tr class="row-surcharge additional-surcharge">
+		<td colspan="2"></td>
+		<td>
+			<input type="text" class="form-control" name="pricing[][surcharges][][surcharge]" required maxlength="50" placeholder="Surcharge title">
+		</td>
+		<td class="text-md-right">
+			<input type="text" class="form-control text-md-right ml-auto currency input-surcharge-price" name="pricing[][surcharges][][price]" required maxlength="50" style="max-width: 300px" placeholder="Surcharge amount">
+		</td>
+		<td class="text-md-right">
+			<button class="btn btn-sm btn-outline-danger btn-remove-surcharge" type="button">
+				<i class="mdi mdi-trash-can-outline"></i>
+			</button>
+		</td>
+	</tr>
+</script>

@@ -57,9 +57,11 @@ class Quotation extends App_Controller
 		$quotationComponents = $this->quotationComponent->getBy([
 			'quotation_components.id_quotation' => $id
 		]);
-		$quotationSubComponents = $this->quotationSubComponent->getBy([
-			'quotation_components.id_quotation' => $id
-		]);
+		foreach($quotationComponents as &$quotationComponent) {
+			$quotationComponent['sub_components'] = $this->quotationSubComponent->getBy([
+				'quotation_sub_components.id_quotation_component' => $quotationComponent['id']
+			]);
+		}
 		$quotationPackaging = $this->quotationPackaging->getBy([
 			'quotation_packaging.id_quotation' => $id
 		]);
@@ -71,7 +73,7 @@ class Quotation extends App_Controller
 			redirect('error404');
 		}
 
-		$this->render('quotation/view', compact('quotation', 'quotationComponents', 'quotationSubComponents', 'quotationPackaging', 'quotationSurcharges'));
+		$this->render('quotation/view', compact('quotation', 'quotationComponents', 'quotationPackaging', 'quotationSurcharges'));
 	}
 
 	/**
@@ -93,10 +95,10 @@ class Quotation extends App_Controller
 			'quotation_packaging.id_quotation' => $id
 		]);
 		$quotationExcludes = [];
-		if (empty($subComponent['tax_percent'])) {
+		if (empty($quotation['tax_percent'])) {
 			$quotationExcludes[] = 'Pajak';
 		}
-		if (empty($subComponent['insurance'])) {
+		if (empty($quotation['insurance'])) {
 			$quotationExcludes[] = 'Insurance';
 		}
 		if (empty($quotationPackaging)) {

@@ -21,6 +21,7 @@ export default function () {
 	const selectInsurance = formCalculator.find('#insurance');
 	const inputGoodsValue = formCalculator.find('#goods_value');
 	const pricingWrapper = formCalculator.find('#pricing-wrapper');
+	let serviceComponentSetting = [];
 	let margin = 0;
 
 	selectService.on('change', function () {
@@ -30,33 +31,85 @@ export default function () {
 		fetch(variables.baseUrl + 'master/service/ajax-get-service?' + query)
 			.then(result => result.json())
 			.then(data => {
-				pricingWrapper.find('.row-component').addClass('table-secondary');
-				pricingWrapper.find('.select-package').val('').trigger('change').prop('disabled', true);
-				pricingWrapper.find('.select-vendor').val('').trigger('change').prop('disabled', true);
-				pricingWrapper.find('.input-component-price').val('');
-				pricingWrapper.find('.btn-reveal-price')
-					.removeClass('btn-outline-danger')
-					.addClass('btn-outline-secondary')
-					.prop('disabled', true);
 				if (data.service_components) {
-					data.service_components.forEach(component => {
-						const componentRow = pricingWrapper.find(`.row-component[data-component-id="${component.id_component}"]`);
-						componentRow.removeClass('table-secondary');
-						componentRow.find('.select-package').prop('disabled', false);
-						componentRow.find('.select-vendor').prop('disabled', false);
-						componentRow.find('.input-component-price').text('Rp. 0');
-						componentRow.find('.btn-reveal-price')
-							.addClass('btn-outline-danger')
-							.removeClass('btn-outline-secondary')
-							.prop('disabled', false);
-					});
+					serviceComponentSetting = data.service_components;
 				}
+				setupComponentActive();
 			})
 			.catch(error => {
 				showAlert('Error Fetching Data', 'Get data service failed, please try again!', error.message);
 			});
 	});
 
+	function setupComponentActive() {
+		pricingWrapper.find('.row-component').addClass('table-secondary');
+		pricingWrapper.find('.select-package').val('').trigger('change').prop('disabled', true);
+		pricingWrapper.find('.row-component:not([data-service-section="SHIPPING"]) .select-vendor').val('').trigger('change').prop('disabled', true);
+		pricingWrapper.find('.row-component:not([data-service-section="SHIPPING"]) .input-vendor').val('').prop('disabled', true);
+		pricingWrapper.find('.input-component-price').val('').prop('disabled', true);
+		pricingWrapper.find('.btn-reveal-price')
+			.removeClass('btn-outline-danger')
+			.addClass('btn-outline-secondary')
+			.prop('disabled', true);
+		serviceComponentSetting.forEach(component => {
+			const componentRow = pricingWrapper.find(`.row-component[data-component-id="${component.id_component}"]`);
+			componentRow.removeClass('table-secondary');
+			componentRow.find('.select-package').prop('disabled', false);
+			//componentRow.find('.select-vendor').prop('disabled', false);
+			componentRow.find('.input-vendor').prop('disabled', false);
+			componentRow.find('.input-component-price').text('Rp. 0').prop('disabled', false);
+			componentRow.find('.btn-reveal-price')
+				.addClass('btn-outline-danger')
+				.removeClass('btn-outline-secondary')
+				.prop('disabled', false);
+		});
+	}
+
+	const pricingTemplate = $('#pricing-template').html();
+	formCalculator.on('change', '#shipping_line', function () {
+		const shippingLineId = $(this).val();
+		if (shippingLineId == 0) {
+			pricingWrapper.empty();
+			formCalculator.find('#shipping_line option').each((index, item) => {
+				if ($(item).attr('value') != '' && $(item).attr('value') != '0') {
+					pricingWrapper.append(
+						pricingTemplate
+							.replace(/{{id}}/g, $(item).attr('value'))
+							.replace(/{{title}}/g, ($(item).text() + ' Pricing').toUpperCase())
+					);
+					pricingWrapper.find(`.pricing-item[data-id=${$(item).attr('value')}] .row-component[data-service-section=SHIPPING] .select-vendor`)
+						.val($(item).attr('value'))
+						.trigger('change');
+					pricingWrapper.find(`.pricing-item[data-id=${$(item).attr('value')}] .row-component[data-service-section=SHIPPING] .input-vendor`)
+						.val($(item).attr('value'));
+				}
+			});
+		} else {
+			pricingWrapper.html(
+				pricingTemplate
+					.replace(/{{id}}/g, shippingLineId)
+					.replace(/{{title}}/g, ($(this).find('option:selected').text() + ' Pricing').toUpperCase())
+			);
+			pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .select-vendor`)
+				.val(shippingLineId)
+				.trigger('change');
+			pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .input-vendor`)
+				.val(shippingLineId);
+			console.log(pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .input-vendor`), shippingLineId);
+		}
+
+		pricingWrapper.find('.select2').select2({
+			minimumResultsForSearch: 10,
+			placeholder: 'Select data'
+		}).on("select2:open", function () {
+			$(".select2-search__field").attr("placeholder", "Search...");
+		}).on("select2:close", function () {
+			$(".select2-search__field").attr("placeholder", null);
+		});
+
+		reorderRow();
+		setupComponentActive();
+	});
 
 	formCalculator.on('change', '#service, #payment_type', function () {
 		if (selectService.val() && selectPaymentType.val()) {
@@ -103,9 +156,47 @@ export default function () {
 		calculatePrice();
 	});
 
-	pricingWrapper.on('change', '.select-package, .select-vendor', function () {
+	let durationCharges = {
+		from: {},
+		to: {},
+		charge: []
+	};
+	formCalculator.on('change', '#activity_duration_from, #activity_duration_to', function () {
+		const durationSection = $(this).prop('id') == 'activity_duration_from' ? 'from' : 'to';
+		const query = $.param({
+			'type': 'ACTIVITY DURATION',
+			'consumable': $(this).val(),
+			'container_size': selectContainerSize.val(),
+		});
+		fetch(variables.baseUrl + 'pricing/calculator/ajax-get-consumable-price?' + query)
+			.then(result => result.json())
+			.then(data => {
+				if (data && data.components) {
+					durationCharges[durationSection] = data;
+				} else {
+					durationCharges[durationSection] = [];
+				}
+
+			})
+			.catch(error => {
+				console.log(error.message);
+			});
+	});
+
+	formCalculator.on('change', '#port_origin, #port_destination, #location_origin, #location_destination, #container_size, #container_type', function () {
+		if (selectContainerSize.val() && selectContainerType.val()) {
+			const selectPackages = pricingWrapper.find('.row-component .select-package:enabled');
+			selectPackages.each(function (index, selectPackage) {
+				if ($(selectPackage).val()) {
+					$(selectPackage).trigger('change');
+				}
+			});
+		}
+	});
+
+	pricingWrapper.on('change', '.select-package', function () {
 		const rowComponent = $(this).closest('.row-component');
-		if (rowComponent.find('.select-vendor').val() && rowComponent.find('.select-package').val() && selectContainerSize.val() && selectContainerType.val()) {
+		if (rowComponent.find('.select-package').val() && selectContainerSize.val() && selectContainerType.val()) {
 			rowComponent.find('.input-component-price').val('Calculating...');
 			const query = $.param({
 				'component': rowComponent.data('component-id'),
@@ -117,13 +208,24 @@ export default function () {
 				'container_size': selectContainerSize.val(),
 				'container_type': selectContainerType.val(),
 				'package': rowComponent.find('.select-package').val(),
+				'autoselect': rowComponent.data('service-section') == 'SHIPPING' ? '' : 'lowest-price'
 			});
 			fetch(variables.baseUrl + 'pricing/calculator/ajax-get-component-price?' + query)
 				.then(result => result.json())
 				.then(data => {
 					let price = 0;
 					if (data.length) {
+						if (rowComponent.data('service-section') != 'SHIPPING') {
+							rowComponent.find('.select-vendor').val(data[0].id_vendor).trigger('change');
+							rowComponent.find('.input-vendor').val(data[0].id_vendor);
+						}
 						price = Number(data[0].price);
+					} else {
+						if (rowComponent.data('service-section') != 'SHIPPING') {
+							rowComponent.find('.select-vendor').val('').trigger('change');
+							rowComponent.find('.input-vendor').val('');
+						}
+						showAlert('No Price Available', 'No active vendor price available!', 'Check setting above or price expiration');
 					}
 					rowComponent.find('.input-component-price').val(formatter.setNumberValue(price, 'Rp. ')).change();
 				})
@@ -180,6 +282,8 @@ export default function () {
 			}).on("select2:close", function () {
 				$(".select2-search__field").attr("placeholder", null);
 			});
+
+			reorderRow();
 		}
 	});
 
@@ -192,6 +296,7 @@ export default function () {
 		$(this).closest('.additional-package').remove();
 
 		calculatePrice();
+		reorderRow();
 	});
 
 	/**
@@ -205,6 +310,7 @@ export default function () {
 			showAlert('Surcharge restriction', 'Maximum additional surcharge are 5 items', 'Please review your inputs');
 		} else {
 			pricingItem.find('.row-surcharge').last().after(surchargeTemplate);
+			reorderRow();
 		}
 	});
 
@@ -217,6 +323,7 @@ export default function () {
 		$(this).closest('.additional-surcharge').remove();
 
 		calculatePrice();
+		reorderRow();
 	});
 
 
@@ -245,7 +352,7 @@ export default function () {
 
 			let tax = 0;
 			if (selectIncomeTax.val() == 1) {
-				tax = 0.2 * totalSellBeforeTax;
+				tax = 0.02 * totalSellBeforeTax;
 			}
 			const totalSellAfterTax = totalSellBeforeTax + tax;
 
@@ -253,6 +360,33 @@ export default function () {
 			$(pricingItem).find('.label-sell-before-tax').text('(' + formatter.setNumberValue(margin) + '%) ' + formatter.setNumberValue(totalSellBeforeTax, 'Rp. '));
 			$(pricingItem).find('.label-sell-after-tax').text(formatter.setNumberValue(totalSellAfterTax, 'Rp. '));
 
+		});
+	}
+
+	function reorderRow() {
+		pricingWrapper.find('.pricing-item').each(function (index) {
+			// reorder index of inputs pricing
+			$(this).find('input[name],select[name]').each(function () {
+				const pattern = new RegExp("pricing[([0-9]*\\)?]", "i");
+				const attributeName = $(this).attr('name').replace(pattern, 'pricing[' + index + ']');
+				$(this).attr('name', attributeName);
+			});
+
+			$(this).find('.row-packaging').each(function (indexPackaging) {
+				$(this).find('input[name],select[name]').each(function () {
+					const pattern = new RegExp("\\[packaging\\][([0-9]*\\)?]", "i");
+					const attributeName = $(this).attr('name').replace(pattern, '[packaging][' + indexPackaging + ']');
+					$(this).attr('name', attributeName);
+				});
+			});
+
+			$(this).find('.row-surcharge').each(function (indexSurcharge) {
+				$(this).find('input[name]').each(function () {
+					const pattern = new RegExp("\\[surcharges\\][([0-9]*\\)?]", "i");
+					const attributeName = $(this).attr('name').replace(pattern, '[surcharges][' + indexSurcharge + ']');
+					$(this).attr('name', attributeName);
+				});
+			});
 		});
 	}
 

@@ -210,30 +210,53 @@
             <tr>
                 <th class="text-center" style="width: 60px">No</th>
                 <th>Component</th>
+                <th>Vendor</th>
+                <th>Package</th>
+                <th>Term Payment</th>
                 <th class="text-md-right" style="width: 200px">Price</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($quotationSubComponents as $index => $subComponent) : ?>
+            <?php foreach ($quotationComponents as $index => $component) : ?>
                 <tr>
                     <td class="text-md-center"><?= $index + 1 ?></td>
                     <td class="font-weight-bold">
-                        <?= $subComponent['sub_component'] ?>
+                        <?= $component['component'] ?>
                     </td>
-                    <td class="text-md-right">Rp. <?= numerical($subComponent['price']) ?></td>
+                    <td><?= $component['vendor'] ?></td>
+                    <td><?= $component['package'] ?></td>
+                    <td><?= numerical($component['term_payment']) ?>%</td>
+                    <td></td>
+                </tr>
+                <?php if (!empty($component['sub_components'])) : ?>
+                    <?php foreach ($component['sub_components'] as $subComponent) : ?>
+                        <tr>
+                            <td></td>
+                            <td><?= $subComponent['sub_component'] ?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-md-right">Rp. <?= numerical($subComponent['price']) ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                <?php endif; ?>
+                <tr class="table-success">
+                    <td></td>
+                    <td colspan="4">Total</td>
+                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price']) ?></td>
                 </tr>
             <?php endforeach ?>
-            <?php if (empty($quotationSubComponents)) : ?>
+            <?php if (empty($quotationComponents)) : ?>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="6">
                         No component data available
                     </td>
                 </tr>
             <?php else : ?>
                 <tr class="table-warning">
                     <td></td>
-                    <td><strong>Total</strong></td>
-                    <td class="text-md-right">Rp. <?= numerical(array_sum(array_column($quotationSubComponents, 'price'))) ?></td>
+                    <td colspan="4"><strong>Total Component</strong></td>
+                    <td class="text-md-right">Rp. <?= numerical(array_sum(array_column($quotationComponents, 'total_price'))) ?></td>
                 </tr>
             <?php endif; ?>
         </tbody>
@@ -267,7 +290,7 @@
                 <?php else : ?>
                     <tr class="table-warning">
                         <td></td>
-                        <td><strong>Total</strong></td>
+                        <td><strong>Total Surcharge</strong></td>
                         <td class="text-md-right">Rp. <?= numerical(array_sum(array_column($quotationSurcharges, 'price'))) ?></td>
                     </tr>
                 <?php endif; ?>
@@ -303,7 +326,7 @@
                 <?php else : ?>
                     <tr class="table-warning">
                         <td></td>
-                        <td><strong>Total</strong></td>
+                        <td><strong>Total Packaging</strong></td>
                         <td class="text-md-right">Rp. <?= numerical(array_sum(array_column($quotationPackaging, 'price'))) ?></td>
                     </tr>
                 <?php endif; ?>

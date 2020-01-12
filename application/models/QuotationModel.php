@@ -54,7 +54,6 @@ class QuotationModel extends App_Model
 					IFNULL(SUM(quotation_surcharges.price), 0) AS total_surcharge,
 					IFNULL(SUM(quotation_components.total_component_price), 0) 
 						+ IFNULL(SUM(quotation_packaging.price), 0) 
-						+ IFNULL(SUM(quotation_packaging.price), 0) 
 						+ IFNULL(SUM(quotation_surcharges.price), 0) 
 						+ IFNULL(insurance, 0) AS base_amount
 				FROM quotations

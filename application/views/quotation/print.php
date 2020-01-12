@@ -201,7 +201,7 @@
 			</tr>
 			<tr>
 				<td>Perkiraan tgl muat</td>
-				<td><?= format_date($quotation['loading_date'], 'd F Y') ?></td>
+				<td>tba</td>
 			</tr>
 		</table>
 

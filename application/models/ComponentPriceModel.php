@@ -185,7 +185,6 @@ class ComponentPriceModel extends App_Model
 				'ref_component_prices.id_container_type',
 				'ref_component_prices.id_container_type',
 				'ref_package_sub_components.id_package',
-				'SUM(ref_component_prices.price) AS price'
 			])
 			->from("({$queryActivePrice}) AS ref_component_prices")
 			->join('ref_components', 'ref_components.id = ref_component_prices.id_component')
@@ -197,30 +196,42 @@ class ComponentPriceModel extends App_Model
 			->join('ref_container_sizes', 'ref_container_sizes.id = ref_component_prices.id_container_size', 'left')
 			->join('ref_container_types', 'ref_container_types.id = ref_component_prices.id_container_type', 'left')
 			->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component', 'left')
-			->join('ref_package_sub_components', 'ref_package_sub_components.id_sub_component = ref_component_prices.id_sub_component')
-			->group_by('id_component, id_vendor, id_port_origin, id_port_destination, id_location_origin, id_location_destination, id_container_size, id_container_type, id_package');
+			->join('ref_package_sub_components', 'ref_package_sub_components.id_sub_component = ref_component_prices.id_sub_component');
+
+		if (key_exists('detail', $filters) && $filters['detail']) {
+			$baseQuery->select(['ref_sub_components.sub_component', 'ref_component_prices.price']);
+			$baseQuery->where_in('ref_component_prices.id_component', $filters['component']);
+		} else {
+			$baseQuery->select(['SUM(ref_component_prices.price) AS price']);
+			$baseQuery->group_by('id_component, id_vendor, id_port_origin, id_port_destination, id_location_origin, id_location_destination, id_container_size, id_container_type, id_package');
+		}
 
 		if (key_exists('component', $filters) && !empty($filters['component'])) {
 			$baseQuery->where_in('ref_component_prices.id_component', $filters['component']);
+		}
+
+		if (key_exists('autoselect', $filters) && !empty($filters['autoselect'])) {
+			unset($filters['vendor']);
+			$baseQuery->limit(1);
 		}
 
 		if (key_exists('vendor', $filters) && !empty($filters['vendor'])) {
 			$baseQuery->where_in('ref_component_prices.id_vendor', $filters['vendor']);
 		}
 
-		if (key_exists('port_origin', $filters) && !empty($filters['port_origin'])) {
+		if (key_exists('port_origin', $filters)) {
 			$baseQuery->where_in('ref_component_prices.id_port_origin', $filters['port_origin']);
 		}
 
-		if (key_exists('port_destination', $filters) && !empty($filters['port_destination'])) {
+		if (key_exists('port_destination', $filters)) {
 			$baseQuery->where_in('ref_component_prices.id_port_destination', $filters['port_destination']);
 		}
 
-		if (key_exists('location_origin', $filters) && !empty($filters['location_origin'])) {
+		if (key_exists('location_origin', $filters)) {
 			$baseQuery->where_in('ref_component_prices.id_location_origin', $filters['location_origin']);
 		}
 
-		if (key_exists('location_destination', $filters) && !empty($filters['location_destination'])) {
+		if (key_exists('location_destination', $filters)) {
 			$baseQuery->where_in('ref_component_prices.id_location_destination', $filters['location_destination']);
 		}
 
@@ -235,6 +246,8 @@ class ComponentPriceModel extends App_Model
 		if (key_exists('package', $filters) && !empty($filters['package'])) {
 			$baseQuery->where_in('ref_package_sub_components.id_package', $filters['package']);
 		}
+
+		$baseQuery->order_by('price', 'asc');
 
 		return $baseQuery->get()->result_array();
 	}

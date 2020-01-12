@@ -147,6 +147,31 @@ class ComponentPriceModel extends App_Model
 	 */
     public function getComponentPackagePrice($filters)
 	{
+		if (key_exists('component', $filters) && !empty($filters['component'])) {
+			$component = $this->component->getById($filters['component']);
+			if ($component['service_section'] == 'ORIGIN') {
+				unset($filters['location_destination']);
+				unset($filters['port_destination']);
+				if ($component['provider'] == 'SHIPPING LINE') {
+					unset($filters['location_origin']);
+				}
+			} else if ($component['service_section'] == 'DESTINATION') {
+				unset($filters['location_origin']);
+				unset($filters['port_origin']);
+				if ($component['provider'] == 'SHIPPING LINE') {
+					unset($filters['location_destination']);
+				}
+			} else if ($component['service_section'] === 'SHIPPING') {
+				if ($component['provider'] === 'SHIPPING LINE') {
+					unset($filters['location_origin']);
+					unset($filters['location_destination']);
+				} else {
+					unset($filters['port_origin']);
+					unset($filters['port_destination']);
+				}
+			}
+		}
+
 		$queryActivePrice = $this->getQueryActivePrice();
 		$baseQuery = $this->db
 			->select([

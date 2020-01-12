@@ -32,7 +32,7 @@ export default function () {
 				pricingWrapper.find('.row-component').addClass('table-secondary');
 				pricingWrapper.find('.select-package').val('').trigger('change').prop('disabled', true);
 				pricingWrapper.find('.select-vendor').val('').trigger('change').prop('disabled', true);
-				pricingWrapper.find('.label-component-price').text('');
+				pricingWrapper.find('.input-component-price').val('');
 				pricingWrapper.find('.btn-reveal-price')
 					.removeClass('btn-outline-danger')
 					.addClass('btn-outline-secondary')
@@ -43,7 +43,7 @@ export default function () {
 						componentRow.removeClass('table-secondary');
 						componentRow.find('.select-package').prop('disabled', false);
 						componentRow.find('.select-vendor').prop('disabled', false);
-						componentRow.find('.label-component-price').text('Rp. 0');
+						componentRow.find('.input-component-price').text('Rp. 0');
 						componentRow.find('.btn-reveal-price')
 							.addClass('btn-outline-danger')
 							.removeClass('btn-outline-secondary')
@@ -66,6 +66,7 @@ export default function () {
 	pricingWrapper.on('change', '.select-package, .select-vendor', function () {
 		const rowComponent = $(this).closest('.row-component');
 		if (rowComponent.find('.select-vendor').val() && rowComponent.find('.select-package').val() && selectContainerSize.val() && selectContainerType.val()) {
+			rowComponent.find('.input-component-price').val('Calculating...');
 			const query = $.param({
 				'component': rowComponent.data('component-id'),
 				'vendor': rowComponent.find('.select-vendor').val(),
@@ -80,13 +81,14 @@ export default function () {
 			fetch(variables.baseUrl + 'pricing/calculator/ajax-get-component-price?' + query)
 				.then(result => result.json())
 				.then(data => {
+					let price = 0;
 					if(data.length) {
-						rowComponent.find('.label-component-price').text('Rp.' + formatter.setNumberValue(Number(data[0].price)));
-					} else {
-						rowComponent.find('.label-component-price').text('Rp. 0');
+						price = Number(data[0].price);
 					}
+					rowComponent.find('.input-component-price').val('Rp. ' + formatter.setNumberValue(price));
 				})
 				.catch(error => {
+					rowComponent.find('.input-component-price').val('Rp. 0');
 					showAlert('Error Fetching Data', 'Get price data failed, please try again!', error.message);
 				});
 		}

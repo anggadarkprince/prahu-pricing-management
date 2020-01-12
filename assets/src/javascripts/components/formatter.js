@@ -19,7 +19,7 @@ export default {
             .replace(/,/, '.');
         return Number(val || 0);
     },
-    setNumberValue: function (value, prefix = '', ths = '.', dec = ',', thsTarget = '.', decTarget = ',') {
+    setCurrencyValue: function (value, prefix = '', ths = '.', dec = ',', thsTarget = '.', decTarget = ',') {
         const signed = value.toString().match(/-/);
         const pattern = new RegExp("[^" + dec + "\\\d]", 'g');
         let number_string = value.toString().replace(pattern, '').toString(),
@@ -33,5 +33,8 @@ export default {
         }
         currency = splitDecimal[1] !== undefined ? currency + decTarget + splitDecimal[1] : currency;
         return prefix + (signed ? '-' : '') + currency;
+    },
+    setNumberValue: function(value, prefix = '', ths = ',', dec = '.', thsTarget = '.', decTarget = ',') {
+        return this.setCurrencyValue(Number(value || 0), prefix, ths, dec);
     }
 };

@@ -258,7 +258,10 @@ class Component_price extends App_Controller
 			'container_size' => 'trim|required|max_length[20]',
 			'container_type' => 'trim|required|max_length[20]',
 			'prices[]' => [
-				'trim', 'required', ['not_empty', function ($input) {
+				'trim', ['not_empty', function ($input) use ($id) {
+					if (!empty($id)) {
+						return true;
+					}
 					$this->form_validation->set_message('not_empty', 'The {field} field must be exist at least one.');
 					return !empty($input);
 				}]
@@ -277,7 +280,7 @@ class Component_price extends App_Controller
 					$prices = $this->input->post('prices');
 					$subComponentId = $this->input->post('sub_component');
 
-					if(empty($id)) {
+					if (empty($id)) {
 						$isValid = true;
 						foreach ($prices as $price) {
 							$priceData = $this->componentPrice->getBy([
@@ -324,7 +327,7 @@ class Component_price extends App_Controller
 			],
 			'expired_date' => [
 				'trim', 'required', 'max_length[50]', ['back_date', function ($input) {
-					if(format_date($input) <= date('Y-m-d')) {
+					if (format_date($input) <= date('Y-m-d')) {
 						$this->form_validation->set_message('back_date', 'The %s input back not allowed');
 						return false;
 					}
@@ -334,5 +337,4 @@ class Component_price extends App_Controller
 			'description' => 'max_length[500]',
 		];
 	}
-
 }

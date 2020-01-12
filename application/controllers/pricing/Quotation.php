@@ -36,10 +36,14 @@ class Quotation extends App_Controller
 
 		$filters = array_merge($_GET, ['page' => get_url_param('page', 1)]);
 
-		$quotations = $this->quotation->getAll($filters);
-
 		$export = $this->input->get('export');
 		if ($export) unset($filters['page']);
+
+		$quotations = $this->quotation->getAll($filters);
+
+		if ($export) {
+			$this->exporter->exportFromArray('Quotaions', $quotations);
+		}
 
 		$this->render('quotation/index', compact('quotations'));
 	}

@@ -1,70 +1,51 @@
 ###################
-What is CodeIgniter
+Prahu-hub Pricing Tool Calculator
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+Pricing tool. SET PRICES MANUALLY OR AUTOMATICALLY WITH RULES.
+Similar to Price matrix, in the Pricing tool you are able to either show all your products at once,
+or you can filter down the data to narrow down visible product amount.
 
 *******************
-Release Information
+Installation
 *******************
+## Pre-requisite (Server Requirements)
+- PHP 7.2 or newer is recommended with extension php-zip, php-xml, php-mbstring, perl-mcrypt, php-curl, php-pdo
+- Apache or nginx web server
+- Composer installation
+- Git installation
+- NodeJs v12 LTS or above
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+## Deploy to server (Installation)
+- Clone git https://github.com/anggadarkprince/prahu-pricing-management.git
+- Copy .env.example to .env in root directory
+- Change database and app url, create empty database same as DB_DATABASE setting
+- run `php index.php migrate`
+- Install composer by run `composer install`
+- Install npm package by run `npm install`
+- Adjust asset path for dynamic import in .env file. If your website live in https://domain.com/prahu-pricing then set `ASSET_PATH = '/prahu-pricing/assets/dist/'`, if your website live in https://prahu-pricing.domain.com or in root domain just set `ASSET_PATH = '/assets/dist/'`
+- Execute webpack task by run `npm run build` or `npm run watch` (in production environment run `npm run production`)
+- Give write access `chmod 755` to folder `/uploads` and `/uploads/temp` to user and group `chown www-data:www-data`
+- You ready to go
 
 **************************
 Changelog and New Features
 **************************
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
-
-*******************
-Server Requirements
-*******************
-
-PHP version 5.6 or newer is recommended.
-
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
-
-************
-Installation
-************
-
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+You can find a list of all changes for each release in the `release <https://github.com/anggadarkprince/prahu-pricing-management/releases>`_.
 
 *******
 License
 *******
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+Please see the `license agreement <https://github.com/anggadarkprince/prahu-pricing-management/blob/master/license.txt>`_.
 
 *********
 Resources
 *********
 
 -  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
+-  `Angga Ari Wijaya (First Creator) <https://angga-ari.com>`_
 
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
+Report security issues to our `Security Support <mailto:anggadarkprince@gmail.com>`_, thank you.
 
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.

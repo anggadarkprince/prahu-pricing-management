@@ -479,9 +479,11 @@
 									<?php endif; ?>
 								</select>
 								<input type="hidden" name="pricing[0][components][<?= $component['id'] ?>][partner]" class="input-vendor">
+								<input type="hidden" name="pricing[0][components][<?= $component['id'] ?>][duration_percent]" class="input-duration-percent">
 							</td>
 							<td class="text-md-right">
 								<input type="text" readonly class="form-control text-md-right ml-auto currency input-component-price" style="max-width: 300px" aria-label="Price" placeholder="Component <?= $component['component'] ?> price" name="pricing[0][components][<?= $component['id'] ?>][price]">
+								<input type="hidden" class="form-control input-component-price-original" name="pricing[0][components][<?= $component['id'] ?>][price_original]">
 							</td>
 							<td class="text-md-right">
 								<button class="btn btn-sm btn-outline-danger btn-reveal-price" type="button">
@@ -593,6 +595,16 @@
 					<td></td>
 					<td>Partner Info</td>
 					<td class="text-md-right partner-info"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Total Component</td>
+					<td class="text-md-right partner-total-component"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Activity Duration</td>
+					<td class="text-md-right partner-activity-duration"></td>
 				</tr>
 				<tr>
 					<td></td>

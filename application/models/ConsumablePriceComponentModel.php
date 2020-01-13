@@ -14,7 +14,8 @@ class ConsumablePriceComponentModel extends App_Model
 	{
 		return parent::getBaseQuery()
 			->select([
-				'ref_components.component'
+				'ref_components.component',
+				'ref_components.service_section',
 			])
 			->join('ref_components', 'ref_components.id = ref_consumable_price_components.id_component');
 	}

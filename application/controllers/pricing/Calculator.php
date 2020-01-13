@@ -168,6 +168,7 @@ class Calculator extends App_Controller
 								'vendor' => $vendor['vendor'],
 								'package' => $package['package'],
 								'term_payment' => $vendor['term_payment'],
+								'duration_charge_percent' => if_empty($componentPrice['duration_percent'], 0),
 							]);
 							$quotationComponentId = $this->db->insert_id();
 

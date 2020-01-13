@@ -80,7 +80,7 @@ class Consumable extends App_Controller
 	{
 		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_CREATE);
 
-		$components = $this->component->getAll();
+		$components = $this->component->getBy(['service_section!=' => 'SHIPPING']);
 		$containerSizes = $this->containerSize->getAll();
 
 		$this->render('consumable/create', compact('components', 'containerSizes'));
@@ -161,7 +161,7 @@ class Consumable extends App_Controller
 		AuthorizationModel::mustAuthorized(PERMISSION_CONSUMABLE_EDIT);
 
 		$consumable = $this->consumable->getById($id);
-		$components = $this->component->getAll();
+		$components = $this->component->getBy(['service_section!=' => 'SHIPPING']);
 		$containerSizes = $this->containerSize->getAll();
 
 		foreach ($containerSizes as &$containerSize) {

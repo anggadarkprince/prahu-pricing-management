@@ -24,8 +24,15 @@ export default function () {
 	const inputGoodsValue = formCalculator.find('#goods_value');
 	const pricingWrapper = formCalculator.find('#pricing-wrapper');
 	let serviceComponentSetting = [];
+	let componentActivityDuration = {
+		ORIGIN: {margin: 0, components: []},
+		DESTINATION: {margin: 0, components: []},
+	};
 	let margin = 0;
 
+	/**
+	 * Get service component combination service and save to global variable.
+	 */
 	selectService.on('change', function () {
 		const query = $.param({
 			id_service: $(this).val(),
@@ -43,12 +50,17 @@ export default function () {
 			});
 	});
 
+	/**
+	 * Set layout or service component which enable or disable
+	 */
 	function setupComponentActive() {
 		pricingWrapper.find('.row-component').addClass('table-secondary');
 		pricingWrapper.find('.select-package').val('').trigger('change').prop('disabled', true);
 		pricingWrapper.find('.row-component:not([data-service-section="SHIPPING"]) .select-vendor').val('').trigger('change').prop('disabled', true);
 		pricingWrapper.find('.row-component:not([data-service-section="SHIPPING"]) .input-vendor').val('').prop('disabled', true);
+		pricingWrapper.find('.input-duration-percent').val('').prop('disabled', true); // we do not reset val('') because we don't need re-fetch the value (disable will prevent from submission)
 		pricingWrapper.find('.input-component-price').val('').prop('disabled', true);
+		pricingWrapper.find('.input-component-price-original').val('').prop('disabled', true);
 		pricingWrapper.find('.btn-reveal-price')
 			.removeClass('btn-outline-danger')
 			.addClass('btn-outline-secondary')
@@ -57,9 +69,12 @@ export default function () {
 			const componentRow = pricingWrapper.find(`.row-component[data-component-id="${component.id_component}"]`);
 			componentRow.removeClass('table-secondary');
 			componentRow.find('.select-package').prop('disabled', false);
+			//force selected by setting shipping line
 			//componentRow.find('.select-vendor').prop('disabled', false);
 			componentRow.find('.input-vendor').prop('disabled', false);
+			componentRow.find('.input-duration-percent').val('').prop('disabled', false);
 			componentRow.find('.input-component-price').text('Rp. 0').prop('disabled', false);
+			componentRow.find('.input-component-price-original').text('Rp. 0').prop('disabled', false);
 			componentRow.find('.btn-reveal-price')
 				.addClass('btn-outline-danger')
 				.removeClass('btn-outline-secondary')
@@ -71,16 +86,23 @@ export default function () {
 			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .select-package').val('').trigger('change').prop('disabled', true);
 			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .select-vendor').val('').trigger('change').prop('disabled', true);
 			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .input-vendor').val('').prop('disabled', true);
+			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .input-component-price').val('').prop('disabled', true);
+			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .input-component-price-original').val('').prop('disabled', true);
 		}
+		setComponentDurationPercent();
 	}
 
+	/**
+	 * Generate component price item by shipping line options.
+	 * @type {jQuery}
+	 */
 	const pricingTemplate = $('#pricing-template').html();
 	formCalculator.on('change', '#shipping_line', function () {
 		const shippingLineId = $(this).val();
-		if (shippingLineId == 0) {
+		if (shippingLineId === '0') {
 			pricingWrapper.empty();
 			formCalculator.find('#shipping_line option').each((index, item) => {
-				if ($(item).attr('value') != '' && $(item).attr('value') != '0') {
+				if ($(item).attr('value') !== '' && $(item).attr('value') !== '0' && $(item).attr('value') !== '-1') {
 					pricingWrapper.append(
 						pricingTemplate
 							.replace(/{{id}}/g, $(item).attr('value'))
@@ -124,8 +146,11 @@ export default function () {
 		setupComponentActive();
 	});
 
+	/**
+	 * Enable or disable packaging list in component price
+	 */
 	selectPackaging.on('change', function () {
-		if($(this).val() == 1) {
+		if($(this).val() === '1') {
 			formCalculator.find('.select-packaging').prop('disabled', false);
 			formCalculator.find('.btn-add-packaging').prop('disabled', false);
 		} else {
@@ -136,6 +161,10 @@ export default function () {
 		}
 	});
 
+	/**
+	 * Find how much margin we need to take by looking for service again payment type,
+	 * then re-calculate component price.
+	 */
 	formCalculator.on('change', '#service, #payment_type', function () {
 		if (selectService.val() && selectPaymentType.val()) {
 			const query = $.param({
@@ -157,6 +186,9 @@ export default function () {
 		}
 	});
 
+	/**
+	 * Check if insurance is needed, enable or disable goods value.
+	 */
 	selectInsurance.on('change', function () {
 		if ($(this).val() === '1') {
 			inputGoodsValue.prop('readonly', false).prop('required', true);
@@ -167,6 +199,9 @@ export default function () {
 		calculatePrice();
 	});
 
+	/**
+	 * Goods value determine insurance amount.
+	 */
 	inputGoodsValue.on('input change', function () {
 		let goodsValue = formatter.getNumberValue(inputGoodsValue.val() || 0);
 		if (goodsValue < 125000000) {
@@ -177,40 +212,54 @@ export default function () {
 		calculatePrice();
 	});
 
+	/**
+	 * Trigger when user switch from yes to no or reverse include income tax.
+	 */
 	selectIncomeTax.on('change', function () {
 		calculatePrice();
 	});
 
-	let durationCharges = {
-		from: {},
-		to: {},
-		charge: []
-	};
+	/**
+	 * Fetch activity duration multiplier percent for component when it's changed.
+	 * Check component only affecting proper type ORIGIN for ORIGIN, DESTINATION for DESTINATION
+	 */
 	formCalculator.on('change', '#activity_duration_from, #activity_duration_to', function () {
-		const durationSection = $(this).prop('id') == 'activity_duration_from' ? 'from' : 'to';
-		const query = $.param({
-			'type': 'ACTIVITY DURATION',
-			'consumable': $(this).val(),
-			'container_size': selectContainerSize.val(),
-		});
-		fetch(variables.baseUrl + 'pricing/calculator/ajax-get-consumable-price?' + query)
-			.then(result => result.json())
-			.then(data => {
-				if (data && data.components) {
-					durationCharges[durationSection] = data;
-				} else {
-					durationCharges[durationSection] = [];
-				}
-
-			})
-			.catch(error => {
-				console.log(error.message);
+		if ($(this).val() && selectContainerSize.val()) {
+			const durationSection = $(this).prop('id') === 'activity_duration_from' ? 'ORIGIN' : 'DESTINATION';
+			const query = $.param({
+				'type': 'ACTIVITY DURATION',
+				'consumable': $(this).val(),
+				'container_size': selectContainerSize.val(),
 			});
+			fetch(variables.baseUrl + 'pricing/calculator/ajax-get-consumable-price?' + query)
+				.then(result => result.json())
+				.then(data => {
+					if (data) {
+						componentActivityDuration[durationSection] = data;
+						setComponentDurationPercent();
+						calculatePrice();
+					}
+				})
+				.catch(error => {
+					showAlert('Error Fetching Duration', 'Get activity duration failed, please try again!', error.message);
+				});
+		}
 	});
 
+	/**
+	 * Re-calculate component price when port, location, container size and type are changed.
+	 * Container size and type is required, for activity duration only need container size.
+	 */
 	formCalculator.on('change', '#port_origin, #port_destination, #location_origin, #location_destination, #container_size, #container_type', function () {
 		if (selectContainerSize.val()) {
-			if(selectContainerType.val()) {
+			// re-fetching activity duration when container size is change
+			if ($(this).prop('id') === 'container_size') {
+				formCalculator.find('#activity_duration_from').trigger('change');
+				formCalculator.find('#activity_duration_to').trigger('change');
+			}
+
+			// re-fetching component price when global control is changed, container type and size is not empty
+			if (selectContainerType.val()) {
 				const selectPackages = pricingWrapper.find('.row-component .select-package:enabled');
 				selectPackages.each(function (index, selectPackage) {
 					if ($(selectPackage).val()) {
@@ -222,9 +271,18 @@ export default function () {
 		}
 	});
 
+	/**
+	 * Get data package component when it changes.
+	 */
 	pricingWrapper.on('change', '.select-package', function () {
 		const rowComponent = $(this).closest('.row-component');
 		if (rowComponent.find('.select-package').val() && selectContainerSize.val() && selectContainerType.val()) {
+			// remove detail when it open
+			if (rowComponent.next('.row-component-detail').length) {
+				rowComponent.find('.btn-reveal-price').addClass('btn-outline-danger').removeClass('btn-danger');
+				rowComponent.find('.btn-reveal-price i').addClass('mdi-magnify').removeClass('mdi-eye-off-outline');
+				rowComponent.next('.row-component-detail').remove();
+			}
 			rowComponent.find('.input-component-price').val('Calculating...');
 			const query = $.param({
 				'component': rowComponent.data('component-id'),
@@ -236,29 +294,38 @@ export default function () {
 				'container_size': selectContainerSize.val(),
 				'container_type': selectContainerType.val(),
 				'package': rowComponent.find('.select-package').val(),
-				'autoselect': rowComponent.data('service-section') == 'SHIPPING' ? '' : 'lowest-price'
+				'autoselect': rowComponent.data('service-section') === 'SHIPPING' ? '' : 'lowest-price'
 			});
 			fetch(variables.baseUrl + 'pricing/calculator/ajax-get-component-price?' + query)
 				.then(result => result.json())
 				.then(data => {
 					let price = 0;
+					let durationPrice = 0;
 					if (data.length) {
-						if (rowComponent.data('service-section') != 'SHIPPING') {
+						// do not auto select when service type is not SHIPPING
+						if (rowComponent.data('service-section') !== 'SHIPPING') {
 							rowComponent.find('.select-vendor').val(data[0].id_vendor).trigger('change');
 							rowComponent.find('.input-vendor').val(data[0].id_vendor);
 						}
 						price = Number(data[0].price);
+
+						// add activity duration multiplier
+						const activityDurationPercent = rowComponent.find('.input-duration-percent').val() || 0;
+						durationPrice = activityDurationPercent / 100 * price;
 					} else {
-						if (rowComponent.data('service-section') != 'SHIPPING') {
+						if (rowComponent.data('service-section') !== 'SHIPPING') {
 							rowComponent.find('.select-vendor').val('').trigger('change');
 							rowComponent.find('.input-vendor').val('');
 						}
 						showAlert('No Price Available', 'No active vendor price available!', 'Check setting above or price expiration');
 						rowComponent.find('.select-package').val('').trigger('change');
 					}
-					rowComponent.find('.input-component-price').val(formatter.setNumberValue(price, 'Rp. ')).change();
+
+					rowComponent.find('.input-component-price').val(formatter.setNumberValue(price + durationPrice, 'Rp. ')).change();
+					rowComponent.find('.input-component-price-original').val(formatter.setNumberValue(price, 'Rp. ')).change();
 					if(price <= 0) {
 						rowComponent.find('.input-component-price').val('');
+						rowComponent.find('.input-component-price-original').val('');
 					}
 				})
 				.catch(error => {
@@ -270,6 +337,10 @@ export default function () {
 		}
 	});
 
+	/**
+	 * Get detail of component price by clicking button reveal.
+	 * @type {jQuery}
+	 */
 	const componentDetailTemplate = $('#component-detail-template').html();
 	pricingWrapper.on('click', '.btn-reveal-price', function () {
 		const rowComponent = $(this).closest('.row-component');
@@ -310,7 +381,12 @@ export default function () {
 							`);
 						});
 						const totalDp = data.vendor.term_payment / 100 * totalComponentPrice;
+						const activityDurationPercent = rowComponent.find('.input-duration-percent').val() || 0;
+						const totalPrice = formatter.getNumberValue(rowComponent.find('.input-component-price-original').val());
+						const activityDurationPrice = activityDurationPercent / 100 * totalPrice;
 						rowComponentDetail.find('.partner-info').text(data.vendor.vendor);
+						rowComponentDetail.find('.partner-total-component').text(formatter.setNumberValue(totalPrice, 'Rp. '));
+						rowComponentDetail.find('.partner-activity-duration').text('(' + formatter.setNumberValue(activityDurationPercent) + '%) ' + formatter.setNumberValue(activityDurationPrice, 'Rp. '));
 						rowComponentDetail.find('.partner-term-payment').text(data.vendor.term_payment + '%');
 						rowComponentDetail.find('.partner-total-payment').text(formatter.setNumberValue(totalComponentPrice, 'Rp. '));
 						rowComponentDetail.find('.partner-total-dp').text(formatter.setNumberValue(totalDp, 'Rp. '));
@@ -326,6 +402,9 @@ export default function () {
 		}
 	});
 
+	/**
+	 * Get data packaging when it change.
+	 */
 	pricingWrapper.on('change', '.select-packaging', function () {
 		const rowPackaging = $(this).closest('.row-packaging');
 		if (rowPackaging.find('.select-packaging').val() && selectContainerSize.val()) {
@@ -416,11 +495,36 @@ export default function () {
 		reorderRow();
 	});
 
-
+	/**
+	 * Re-calculate when component price, surcharge, and insurance change.
+	 */
 	pricingWrapper.on('change input', '.input-component-price, .input-surcharge-price, .input-packaging-price, .input-insurance-price', function (e) {
 		calculatePrice();
 	});
 
+	/**
+	 * Set component duration percent in inputs.
+	 */
+	function setComponentDurationPercent() {
+		componentActivityDuration.ORIGIN.components.forEach(componentDuration => {
+			// not all component affected, check service section ORIGIN or DESTINATION
+			if (componentDuration.service_section === 'ORIGIN') {
+				const componentRow = pricingWrapper.find(`.row-component[data-component-id="${componentDuration.id_component}"]`);
+				componentRow.find('.input-duration-percent').val(componentActivityDuration.ORIGIN.percent || 0);
+			}
+		});
+		componentActivityDuration.DESTINATION.components.forEach(componentDuration => {
+			// not all component affected, check service section ORIGIN or DESTINATION
+			if (componentDuration.service_section === 'DESTINATION') {
+				const componentRow = pricingWrapper.find(`.row-component[data-component-id="${componentDuration.id_component}"]`);
+				componentRow.find('.input-duration-percent').val(componentActivityDuration.DESTINATION.percent || 0);
+			}
+		});
+	}
+
+	/**
+	 * Calculate input from top to bottom.
+	 */
 	function calculatePrice() {
 		Array.from(pricingWrapper.find('.pricing-item')).forEach(function (pricingItem) {
 			let totalComponentPrice = 0;
@@ -428,7 +532,17 @@ export default function () {
 			let totalSurchargePrice = 0;
 			const insurance = formatter.getNumberValue($(pricingItem).find('.input-insurance-price').val() || 0);
 
+			/*
+			Array.from($(pricingItem).find('.input-component-price-original')).forEach(function (inputComponentPrice) {
+				const componentPriceOriginal = formatter.getNumberValue($(inputComponentPrice).val() || 0);
+				const componentDurationPercent = $(inputComponentPrice).closest('.row-component').find('.input-duration-percent').val();
+				const componentPrice = componentPriceOriginal + (componentDurationPercent / 100 * componentPriceOriginal);
+				$(inputComponentPrice).closest('.row-component').find('.input-component-price').val(formatter.setNumberValue(componentPrice, 'Rp. '));
+			});
+			 */
+
 			Array.from($(pricingItem).find('.input-component-price')).forEach(function (inputComponentPrice) {
+				const componentPrice = formatter.getNumberValue($(inputComponentPrice).val() || 0);
 				totalComponentPrice += formatter.getNumberValue($(inputComponentPrice).val() || 0);
 			});
 			Array.from($(pricingItem).find('.input-packaging-price')).forEach(function (inputPackagingPrice) {
@@ -441,7 +555,7 @@ export default function () {
 			const totalSellBeforeTax = totalPurchase + (margin / 100 * totalPurchase);
 
 			let tax = 0;
-			if (selectIncomeTax.val() == 1) {
+			if (selectIncomeTax.val() === '1') {
 				tax = 0.02 * totalSellBeforeTax;
 			}
 			const totalSellAfterTax = totalSellBeforeTax + tax;
@@ -453,6 +567,9 @@ export default function () {
 		});
 	}
 
+	/**
+	 * Reorder component price input index.
+	 */
 	function reorderRow() {
 		pricingWrapper.find('.pricing-item').each(function (index) {
 			// reorder index of inputs pricing

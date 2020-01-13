@@ -17,6 +17,7 @@ export default function () {
 	const selectContainerType = formCalculator.find('#container_type');
 	const selectPaymentType = formCalculator.find('#payment_type');
 	const selectService = formCalculator.find('#service');
+	const selectPackaging = formCalculator.find('#packaging');
 	const selectIncomeTax = formCalculator.find('#income_tax');
 	const selectInsurance = formCalculator.find('#insurance');
 	const inputGoodsValue = formCalculator.find('#goods_value');
@@ -106,8 +107,20 @@ export default function () {
 			$(".select2-search__field").attr("placeholder", null);
 		});
 
+		selectPackaging.trigger('change');
+		inputGoodsValue.trigger('change');
 		reorderRow();
 		setupComponentActive();
+	});
+
+	selectPackaging.on('change', function () {
+		if($(this).val() == 1) {
+			formCalculator.find('.select-packaging').prop('disabled', false);
+		} else {
+			formCalculator.find('.row-packaging.additional-package').remove();
+			formCalculator.find('.select-packaging').val('').trigger('change').prop('disabled', true);
+			formCalculator.find('.input-packaging-price').val('');
+		}
 	});
 
 	formCalculator.on('change', '#service, #payment_type', function () {
@@ -183,13 +196,16 @@ export default function () {
 	});
 
 	formCalculator.on('change', '#port_origin, #port_destination, #location_origin, #location_destination, #container_size, #container_type', function () {
-		if (selectContainerSize.val() && selectContainerType.val()) {
-			const selectPackages = pricingWrapper.find('.row-component .select-package:enabled');
-			selectPackages.each(function (index, selectPackage) {
-				if ($(selectPackage).val()) {
-					$(selectPackage).trigger('change');
-				}
-			});
+		if (selectContainerSize.val()) {
+			if(selectContainerType.val()) {
+				const selectPackages = pricingWrapper.find('.row-component .select-package:enabled');
+				selectPackages.each(function (index, selectPackage) {
+					if ($(selectPackage).val()) {
+						$(selectPackage).trigger('change');
+					}
+				});
+			}
+			formCalculator.find('.select-packaging').trigger('change');
 		}
 	});
 

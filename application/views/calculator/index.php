@@ -55,11 +55,11 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-6 d-none">
 					<div class="form-group row">
 						<label for="buruh_from" class="col-sm-3 col-form-label">Buruh</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="buruh_from" id="buruh_from" data-placeholder="Select buruh" required style="width: 100%">
+							<select class="form-control select2" name="buruh_from" id="buruh_from" data-placeholder="Select buruh" style="width: 100%">
 								<option value=""></option>
 								<option value="1">YES</option>
 								<option value="0">NO</option>
@@ -68,11 +68,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-6 d-none">
 					<div class="form-group row">
 						<label for="forklift_from" class="col-sm-3 col-form-label">Forklift</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="forklift_from" id="forklift_from" data-placeholder="Select forklift" required style="width: 100%">
+							<select class="form-control select2" name="forklift_from" id="forklift_from" data-placeholder="Select forklift" style="width: 100%">
 								<option value=""></option>
 								<option value="1">YES</option>
 								<option value="0">NO</option>
@@ -145,11 +145,11 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-6 d-none">
 					<div class="form-group row">
 						<label for="buruh_to" class="col-sm-3 col-form-label">Buruh</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="buruh_to" id="buruh_to" data-placeholder="Select buruh" required style="width: 100%">
+							<select class="form-control select2" name="buruh_to" id="buruh_to" data-placeholder="Select buruh" style="width: 100%">
 								<option value=""></option>
 								<option value="1">YES</option>
 								<option value="0">NO</option>
@@ -158,11 +158,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-6 d-none">
 					<div class="form-group row">
 						<label for="forklift_to" class="col-sm-3 col-form-label">Forklift</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="forklift_to" id="forklift_to" data-placeholder="Select forklift" required style="width: 100%">
+							<select class="form-control select2" name="forklift_to" id="forklift_to" data-placeholder="Select forklift" style="width: 100%">
 								<option value=""></option>
 								<option value="1">YES</option>
 								<option value="0">NO</option>
@@ -357,14 +357,8 @@
 						<div class="col-sm-9">
 							<select class="form-control select2" name="packaging" id="packaging" data-placeholder="Use package" required style="width: 100%">
 								<option value=""></option>
+								<option value="1">YES</option>
 								<option value="0">NO</option>
-								<?php foreach ($consumables as $consumable) : ?>
-									<?php if ($consumable['type'] == ConsumableModel::TYPE_PACKAGING) : ?>
-										<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
-											<?= $consumable['consumable'] ?>
-										</option>
-									<?php endif; ?>
-								<?php endforeach; ?>
 							</select>
 							<?= form_error('packaging') ?>
 						</div>
@@ -402,7 +396,8 @@
 					<div class="form-group row">
 						<label for="goods_value" class="col-sm-3 col-form-label">Goods Value</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control currency" id="goods_value" name="goods_value" readonly maxlength="50" placeholder="Per container min Rp. 125.000.000">
+							<input type="text" class="form-control currency" id="goods_value" name="goods_value" data-toggle="tooltip" data-placement="top" title="Any amount below Rp. 125 M will treat Rp. 125 M as minimum (8% + Rp. 25.000)"
+								   readonly maxlength="50" placeholder="Per container min Rp. 125.000.000">
 							<?= form_error('goods_value') ?>
 						</div>
 					</div>
@@ -513,7 +508,8 @@
 							</select>
 						</td>
 						<td class="text-md-right">
-							<input type="text" class="form-control text-md-right ml-auto currency input-packaging-price" name="pricing[][packaging][][price]" readonly maxlength="50" style="max-width: 300px" placeholder="Packaging amount">
+							<input type="text" class="form-control text-md-right ml-auto currency input-packaging-price" aria-label="Packaging price"
+								   name="pricing[][packaging][][price]" readonly maxlength="50" style="max-width: 300px" placeholder="Packaging price">
 						</td>
 						<td class="text-md-right">
 							<button class="btn btn-sm btn-primary btn-add-packaging" type="button">
@@ -524,10 +520,12 @@
 					<tr class="row-surcharge">
 						<td colspan="2">Surcharge</td>
 						<td>
-							<input type="text" class="form-control" name="pricing[][surcharges][][surcharge]" maxlength="50" placeholder="Surcharge title">
+							<input type="text" class="form-control" name="pricing[][surcharges][][surcharge]" maxlength="50"
+								   aria-label="Surcharge title" placeholder="Surcharge title">
 						</td>
 						<td class="text-md-right">
-							<input type="text" class="form-control text-md-right ml-auto currency input-surcharge-price" name="pricing[][surcharges][][price]" maxlength="50" style="max-width: 300px" placeholder="Surcharge amount">
+							<input type="text" class="form-control text-md-right ml-auto currency input-surcharge-price" name="pricing[][surcharges][][price]"
+								   maxlength="50" aria-label="Surcharge price" style="max-width: 300px" placeholder="Surcharge price">
 						</td>
 						<td class="text-md-right">
 							<button class="btn btn-sm btn-primary btn-add-surcharge" type="button">
@@ -538,7 +536,8 @@
 					<tr>
 						<td colspan="3">Insurance</td>
 						<td class="text-md-right label-insurance">
-							<input type="text" readonly class="form-control text-md-right ml-auto currency input-insurance-price" aria-label="Insurance" placeholder="Insurance amount" style="max-width: 300px" name="pricing[0][insurance]">
+							<input type="text" readonly class="form-control text-md-right ml-auto currency input-insurance-price"
+								   aria-label="Insurance" placeholder="Insurance amount" style="max-width: 300px" name="pricing[][insurance]">
 						</td>
 						<td></td>
 					</tr>
@@ -637,7 +636,8 @@
 			</select>
 		</td>
 		<td class="text-md-right">
-			<input type="text" class="form-control text-md-right ml-auto currency input-packaging-price" name="pricing[][packaging][][price]" required readonly maxlength="50" style="max-width: 300px" placeholder="Packaging amount">
+			<input type="text" class="form-control text-md-right ml-auto currency input-packaging-price" name="pricing[][packaging][][price]"
+				   required readonly maxlength="50" style="max-width: 300px" aria-label="Packaging price" placeholder="Packaging price">
 		</td>
 		<td class="text-md-right">
 			<button class="btn btn-sm btn-outline-danger btn-remove-packaging" type="button">
@@ -651,10 +651,12 @@
 	<tr class="row-surcharge additional-surcharge">
 		<td colspan="2"></td>
 		<td>
-			<input type="text" class="form-control" name="pricing[][surcharges][][surcharge]" required maxlength="50" placeholder="Surcharge title">
+			<input type="text" class="form-control" name="pricing[][surcharges][][surcharge]" required maxlength="50"
+				   aria-label="Surcharge title" placeholder="Surcharge title">
 		</td>
 		<td class="text-md-right">
-			<input type="text" class="form-control text-md-right ml-auto currency input-surcharge-price" name="pricing[][surcharges][][price]" required maxlength="50" style="max-width: 300px" placeholder="Surcharge amount">
+			<input type="text" class="form-control text-md-right ml-auto currency input-surcharge-price" name="pricing[][surcharges][][price]"
+				   required maxlength="50" style="max-width: 300px" aria-label="Surcharge price" placeholder="Surcharge price">
 		</td>
 		<td class="text-md-right">
 			<button class="btn btn-sm btn-outline-danger btn-remove-surcharge" type="button">

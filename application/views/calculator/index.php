@@ -330,6 +330,7 @@
 						<div class="col-sm-9">
 							<select class="form-control select2" name="shipping_line" id="shipping_line" data-placeholder="Select shipping line" required style="width: 100%">
 								<option value=""></option>
+								<option value="-1">NO SHIPPING LINE</option>
 								<option value="0">ALL</option>
 								<?php foreach ($vendors as $vendor) : ?>
 									<?php if ($vendor['type'] == VendorModel::TYPE_SHIPPING_LINE) : ?>

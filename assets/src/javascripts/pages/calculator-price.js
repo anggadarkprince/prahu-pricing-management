@@ -17,6 +17,7 @@ export default function () {
 	const selectContainerType = formCalculator.find('#container_type');
 	const selectPaymentType = formCalculator.find('#payment_type');
 	const selectService = formCalculator.find('#service');
+	const selectShippingLine = formCalculator.find('#shipping_line');
 	const selectPackaging = formCalculator.find('#packaging');
 	const selectIncomeTax = formCalculator.find('#income_tax');
 	const selectInsurance = formCalculator.find('#insurance');
@@ -64,6 +65,13 @@ export default function () {
 				.removeClass('btn-outline-secondary')
 				.prop('disabled', false);
 		});
+
+		// override setting when no shipping line selected
+		if(selectShippingLine.val() < 0) {
+			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .select-package').val('').trigger('change').prop('disabled', true);
+			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .select-vendor').val('').trigger('change').prop('disabled', true);
+			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .input-vendor').val('').prop('disabled', true);
+		}
 	}
 
 	const pricingTemplate = $('#pricing-template').html();
@@ -91,11 +99,14 @@ export default function () {
 					.replace(/{{id}}/g, shippingLineId)
 					.replace(/{{title}}/g, ($(this).find('option:selected').text() + ' Pricing').toUpperCase())
 			);
-			pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .select-vendor`)
-				.val(shippingLineId)
-				.trigger('change');
-			pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .input-vendor`)
-				.val(shippingLineId);
+			// except no shipping line selected
+			if(shippingLineId > 0) {
+				pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .select-vendor`)
+					.val(shippingLineId)
+					.trigger('change');
+				pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .input-vendor`)
+					.val(shippingLineId);
+			}
 		}
 
 		pricingWrapper.find('.select2').select2({
@@ -243,13 +254,19 @@ export default function () {
 							rowComponent.find('.input-vendor').val('');
 						}
 						showAlert('No Price Available', 'No active vendor price available!', 'Check setting above or price expiration');
+						rowComponent.find('.select-package').val('').trigger('change');
 					}
 					rowComponent.find('.input-component-price').val(formatter.setNumberValue(price, 'Rp. ')).change();
+					if(price <= 0) {
+						rowComponent.find('.input-component-price').val('');
+					}
 				})
 				.catch(error => {
-					rowComponent.find('.input-component-price').val('Rp. 0');
+					rowComponent.find('.select-package').val('').trigger('change');
 					showAlert('Error Fetching Component', 'Get price data failed, please try again!', error.message);
 				});
+		} else {
+			rowComponent.find('.input-component-price').val('');
 		}
 	});
 

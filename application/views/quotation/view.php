@@ -217,14 +217,14 @@
         </thead>
         <tbody>
             <?php foreach ($quotationComponents as $index => $component) : ?>
-                <tr>
+                <tr class="table-secondary">
                     <td class="text-md-center"><?= $index + 1 ?></td>
                     <td class="font-weight-bold">
                         <?= $component['component'] ?>
                     </td>
                     <td><?= $component['vendor'] ?></td>
                     <td><?= if_empty($component['package'], '-') ?></td>
-                    <td></td>
+                    <td class="text-md-right">Rp. <?= numerical($component['total_price']) ?></td>
                 </tr>
                 <?php if (!empty($component['sub_components'])) : ?>
                     <?php foreach ($component['sub_components'] as $subComponent) : ?>
@@ -268,7 +268,7 @@
                     </td>
                 </tr>
             <?php else : ?>
-                <tr class="table-warning">
+                <tr class="font-weight-bold table-warning">
                     <td></td>
                     <td colspan="3"><strong>Total Component</strong></td>
                     <td class="text-md-right">Rp. <?= numerical(array_sum(array_column($quotationComponents, 'total_price'))) ?></td>

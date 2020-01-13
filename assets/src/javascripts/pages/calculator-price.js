@@ -116,10 +116,12 @@ export default function () {
 	selectPackaging.on('change', function () {
 		if($(this).val() == 1) {
 			formCalculator.find('.select-packaging').prop('disabled', false);
+			formCalculator.find('.btn-add-packaging').prop('disabled', false);
 		} else {
 			formCalculator.find('.row-packaging.additional-package').remove();
 			formCalculator.find('.select-packaging').val('').trigger('change').prop('disabled', true);
 			formCalculator.find('.input-packaging-price').val('');
+			formCalculator.find('.btn-add-packaging').prop('disabled', true);
 		}
 	});
 

@@ -99,16 +99,15 @@ class Quotation extends App_Controller
 			'quotation_packaging.id_quotation' => $id
 		]);
 		$quotationExcludes = [];
-		if (empty($quotation['tax_percent'])) {
+		if ($quotation['tax_percent'] <= 0) {
 			$quotationExcludes[] = 'Pajak';
 		}
-		if (empty($quotation['insurance'])) {
+		if ($quotation['insurance'] <= 0) {
 			$quotationExcludes[] = 'Insurance';
 		}
 		if (empty($quotationPackaging)) {
 			$quotationExcludes[] = 'Packaging';
 		}
-
 		$html = $this->load->view('quotation/print', compact('quotation', 'quotationSubComponents', 'quotationPackaging', 'quotationComponents', 'quotationExcludes'), true);
 
 		$this->exporter->exportToPdf("quotation.pdf", $html);

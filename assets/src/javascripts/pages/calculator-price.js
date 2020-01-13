@@ -95,7 +95,6 @@ export default function () {
 				.trigger('change');
 			pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .input-vendor`)
 				.val(shippingLineId);
-			console.log(pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .input-vendor`), shippingLineId);
 		}
 
 		pricingWrapper.find('.select2').select2({
@@ -233,6 +232,62 @@ export default function () {
 					rowComponent.find('.input-component-price').val('Rp. 0');
 					showAlert('Error Fetching Component', 'Get price data failed, please try again!', error.message);
 				});
+		}
+	});
+
+	const componentDetailTemplate = $('#component-detail-template').html();
+	pricingWrapper.on('click', '.btn-reveal-price', function () {
+		const rowComponent = $(this).closest('.row-component');
+		if (rowComponent.next('.row-component-detail').length) {
+			$(this).addClass('btn-outline-danger').removeClass('btn-danger');
+			$(this).find('i').addClass('mdi-magnify').removeClass('mdi-eye-off-outline');
+			rowComponent.next('.row-component-detail').remove();
+		} else {
+			const totalComponentPrice = formatter.getNumberValue(rowComponent.find('.input-component-price').val());
+			if(rowComponent.find('.select-vendor').val() && rowComponent.find('.select-package').val() && totalComponentPrice > 0) {
+				$(this).addClass('btn-danger').removeClass('btn-outline-danger');
+				$(this).find('i').addClass('mdi-eye-off-outline').removeClass('mdi-magnify');
+				rowComponent.after(componentDetailTemplate);
+				const rowComponentDetail = rowComponent.next('.row-component-detail');
+				const query = $.param({
+					'component': rowComponent.data('component-id'),
+					'vendor': rowComponent.find('.select-vendor').val(),
+					'port_origin': selectPortOrigin.val(),
+					'port_destination': selectPortDestination.val(),
+					'location_origin': selectLocationOrigin.val(),
+					'location_destination': selectLocationDestination.val(),
+					'container_size': selectContainerSize.val(),
+					'container_type': selectContainerType.val(),
+					'package': rowComponent.find('.select-package').val(),
+					'detail': true,
+				});
+				fetch(variables.baseUrl + 'pricing/calculator/ajax-get-component-price?' + query)
+					.then(result => result.json())
+					.then(data => {
+						rowComponentDetail.find('tbody').empty();
+						data.component_prices.forEach((componentPrice, index) => {
+							rowComponentDetail.find('tbody').append(`
+								<tr>
+									<td class="text-md-center">${index + 1}</td>
+									<td>${componentPrice.sub_component}</td>
+									<td class="text-md-right">${formatter.setNumberValue(componentPrice.price, 'Rp. ')}</td>
+								</tr>
+							`);
+						});
+						const totalDp = data.vendor.term_payment / 100 * totalComponentPrice;
+						rowComponentDetail.find('.partner-info').text(data.vendor.vendor);
+						rowComponentDetail.find('.partner-term-payment').text(data.vendor.term_payment + '%');
+						rowComponentDetail.find('.partner-total-payment').text(formatter.setNumberValue(totalComponentPrice, 'Rp. '));
+						rowComponentDetail.find('.partner-total-dp').text(formatter.setNumberValue(totalDp, 'Rp. '));
+						rowComponentDetail.find('.partner-payment-left').text(formatter.setNumberValue(totalComponentPrice - totalDp, 'Rp. '));
+					})
+					.catch(error => {
+						rowComponentDetail.find('tbody').empty();
+						showAlert('Error Fetching Detail', 'Get detail data failed, please try again!', error.message);
+					});
+			} else {
+				showAlert('Cannot Show Detail', 'Component price not available, pick package, vendor, and make sure return a price');
+			}
 		}
 	});
 

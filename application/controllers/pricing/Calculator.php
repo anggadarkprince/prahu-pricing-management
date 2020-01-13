@@ -29,7 +29,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 class Calculator extends App_Controller
 {
-
+	/**
+	 * Calculator constructor.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -89,6 +91,9 @@ class Calculator extends App_Controller
 		$this->render('calculator/index', compact('components', 'ports', 'locations', 'services', 'loadingCategories', 'consumables', 'marketings', 'containerSizes', 'containerTypes', 'paymentTypes', 'vendors'));
 	}
 
+	/**
+	 * Save quotation data.
+	 */
 	public function save()
 	{
 		$portOriginId = $this->input->post('port_origin');
@@ -98,7 +103,7 @@ class Calculator extends App_Controller
 		$customerName = $this->input->post('customer_name');
 		$company = $this->input->post('company');
 		$marketingId = $this->input->post('marketing');
-		$lodingCategoryId = $this->input->post('loading_category');
+		$loadingCategoryId = $this->input->post('loading_category');
 		$containerSizeId = $this->input->post('container_size');
 		$containerTypeId = $this->input->post('container_type');
 		$serviceId = $this->input->post('service');
@@ -115,7 +120,7 @@ class Calculator extends App_Controller
 		$locationTo = $this->location->getById($locationDestinationId);
 		$portFrom = $this->port->getById($portOriginId);
 		$portTo = $this->port->getById($portDestinationId);
-		$loadingCategory = $this->loadingCategory->getById($lodingCategoryId);
+		$loadingCategory = $this->loadingCategory->getById($loadingCategoryId);
 		$containerSize = $this->containerSize->getById($containerSizeId);
 		$containerType = $this->containerType->getById($containerTypeId);
 		$paymentType = $this->paymentType->getById($paymentTypeId);
@@ -134,7 +139,7 @@ class Calculator extends App_Controller
 					'marketing' => $marketing['name'],
 					'service' => $service['service'],
 					'location_from' => get_if_exist($locationFrom, 'location', null),
-					'location_from' => get_if_exist($locationTo, 'location', null),
+					'location_to' => get_if_exist($locationTo, 'location', null),
 					'port_from' => get_if_exist($portFrom, 'port', null),
 					'port_to' => get_if_exist($portTo, 'port', null),
 					'loading_category' => $loadingCategory['loading_category'],
@@ -196,7 +201,7 @@ class Calculator extends App_Controller
 							$consumable = $this->consumable->getById($packaging['package']);
 							$this->quotationPackaging->create([
 								'id_quotation' => $quotationId,
-								'package' => $consumable['consumable'],
+								'package' => if_empty($consumable['consumable'], 'No title'),
 								'price' => extract_number($packaging['price'])
 							]);
 						}
@@ -208,7 +213,7 @@ class Calculator extends App_Controller
 						if (!empty(trim($surcharge['surcharge']))) {
 							$this->quotationSurcharge->create([
 								'id_quotation' => $quotationId,
-								'surcharge' => $surcharge['surcharge'],
+								'surcharge' => if_empty($surcharge['surcharge'], 'No title'),
 								'price' => extract_number($surcharge['price'])
 							]);
 						}
@@ -222,11 +227,14 @@ class Calculator extends App_Controller
 		if ($this->db->trans_status()) {
 			flash('success', "Quotation price successfully created");
 		} else {
-			flash('danger', 'Create component price failed, try again or contact administrator');
+			flash('danger', 'Create quotation failed, try again or contact administrator');
 		}
 		redirect('pricing/calculator');
 	}
 
+	/**
+	 * Get component price by parameters
+	 */
 	public function ajax_get_component_price()
 	{
 		$filters = [
@@ -240,13 +248,25 @@ class Calculator extends App_Controller
 			'container_type' => get_url_param('container_type'),
 			'package' => get_url_param('package'),
 			'autoselect' => get_url_param('autoselect'),
+			'detail' => get_url_param('detail'),
 		];
 
 		$componentPrice = $this->componentPrice->getComponentPackagePrice($filters);
 
-		$this->render_json($componentPrice);
+		if(get_url_param('detail', false)) {
+			$vendor = $this->vendor->getById($filters['vendor']);
+			$this->render_json([
+				'vendor' => $vendor,
+				'component_prices' => $componentPrice
+			]);
+		} else {
+			$this->render_json($componentPrice);
+		}
 	}
 
+	/**
+	 * Get consumable price.
+	 */
 	public function ajax_get_consumable_price()
 	{
 		$componentPrice = $this->consumablePrice->getBy([
@@ -264,6 +284,9 @@ class Calculator extends App_Controller
 		$this->render_json($componentPrice);
 	}
 
+	/**
+	 * Get margin payment type.
+	 */
 	public function ajax_get_margin()
 	{
 		$payment = $this->servicePaymentType->getBy([

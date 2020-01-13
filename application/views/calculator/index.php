@@ -571,6 +571,56 @@
 		</div>
 	</div>
 </script>
+
+<script id="component-detail-template" type="text/x-custom-template">
+	<tr class="row-component-detail">
+		<td colspan="4" class="pl-4">
+			<table class="table table-sm responsive ml-3">
+				<thead>
+				<tr>
+					<th style="width: 60px" class="text-md-center">No</th>
+					<th>Sub Component</th>
+					<th class="text-md-right">Price</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td colspan="3">Fetching data...</td>
+				</tr>
+				</tbody>
+				<tfoot class="font-weight-bold">
+				<tr>
+					<td></td>
+					<td>Partner Info</td>
+					<td class="text-md-right partner-info"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Term Payment</td>
+					<td class="text-md-right partner-term-payment"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Total Payment</td>
+					<td class="text-md-right partner-total-payment"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Total DP</td>
+					<td class="text-md-right partner-total-dp"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Payment Left</td>
+					<td class="text-md-right partner-payment-left"></td>
+				</tr>
+				</tfoot>
+			</table>
+		</td>
+		<td></td>
+	</tr>
+</script>
+
 <script id="packaging-template" type="text/x-custom-template">
 	<tr class="row-packaging additional-package">
 		<td colspan="2"></td>

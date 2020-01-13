@@ -15,6 +15,7 @@ class QuotationComponentModel extends App_Model
         return parent::getBaseQuery()
             ->select([
                 'SUM(quotation_sub_components.price) AS total_price',
+                'duration_charge_percent / 100 * SUM(quotation_sub_components.price) AS total_activity_charge',
             ])
             ->join('quotation_sub_components', 'quotation_sub_components.id_quotation_component = quotation_components.id', 'left')
             ->group_by('quotation_components.id');

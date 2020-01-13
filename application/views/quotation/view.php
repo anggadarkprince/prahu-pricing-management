@@ -242,8 +242,13 @@
 				</tr>
 				<tr class="font-weight-bold">
 					<td></td>
-					<td colspan="3">Total Payment</td>
+					<td colspan="3">Total Component</td>
 					<td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price']) ?></td>
+				</tr>
+				<tr class="font-weight-bold">
+					<td></td>
+					<td colspan="3">Activity Duration</td>
+					<td class="font-weight-bold text-md-right"><?= numerical($component['duration_charge_percent']) ?>% Rp. <?= numerical($component['total_activity_charge']) ?></td>
 				</tr>
 				<tr class="font-weight-bold">
                     <td></td>
@@ -251,14 +256,19 @@
                     <td class="font-weight-bold text-md-right"><?= numerical($component['term_payment']) ?>%</td>
                 </tr>
 				<tr class="font-weight-bold">
+					<td></td>
+					<td colspan="3">Total Payment</td>
+					<td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price'] + $component['total_activity_charge']) ?></td>
+				</tr>
+				<tr class="font-weight-bold">
                     <td></td>
                     <td colspan="3">Total DP</td>
-                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['term_payment'] / 100 * $component['total_price']) ?></td>
+                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['term_payment'] / 100 * ($component['total_price'] + $component['total_activity_charge'])) ?></td>
                 </tr>
                 <tr class="font-weight-bold table-danger">
                     <td></td>
                     <td colspan="3">Payment Left</td>
-                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price'] - ($component['term_payment'] / 100 * $component['total_price'])) ?></td>
+                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price'] - ($component['term_payment'] / 100 * ($component['total_price'] + $component['total_activity_charge']))) ?></td>
                 </tr>
             <?php endforeach ?>
             <?php if (empty($quotationComponents)) : ?>

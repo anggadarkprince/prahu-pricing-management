@@ -76,9 +76,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 col-lg-3 col-form-label" for="loding_category">Category</label>
+                <label class="col-sm-3 col-lg-3 col-form-label" for="container_type">Container</label>
                 <div class="col-sm-9 col-lg-9">
-                    <p class="form-control-plaintext" id="loding_category">
+                    <p class="form-control-plaintext" id="container_type">
                         <?= $quotation['container_size'] ?>' <?= $quotation['container_type'] ?>
                     </p>
                 </div>
@@ -91,7 +91,7 @@
                     </p>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row d-none">
                 <label class="col-sm-3 col-lg-3 col-form-label" for="loading_date">Loading Date</label>
                 <div class="col-sm-9 col-lg-9">
                     <p class="form-control-plaintext" id="loading_date">
@@ -178,7 +178,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-lg-3 col-form-label" for="total_price_after_tax">Total After Tax</label>
                 <div class="col-sm-9 col-lg-9">
-                    <p class="form-control-plaintext" id="total_price_after_tax">
+                    <p class="form-control-plaintext text-primary" id="total_price_after_tax">
                         Rp. <?= if_empty(numerical($quotation['total_price_after_tax']), '0') ?>
                     </p>
                 </div>
@@ -186,7 +186,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-lg-3 col-form-label" for="total_payment">Total Payment</label>
                 <div class="col-sm-9 col-lg-9">
-                    <p class="form-control-plaintext" id="total_payment">
+                    <p class="form-control-plaintext text-danger" id="total_payment">
                         Rp. <?= if_empty(numerical($quotation['total_payment']), '0') ?>
                         (<?= numerical($quotation['payment_percent']) ?>%)
                     </p>
@@ -212,7 +212,6 @@
                 <th>Component</th>
                 <th>Vendor</th>
                 <th>Package</th>
-                <th>Term Payment</th>
                 <th class="text-md-right" style="width: 200px">Price</th>
             </tr>
         </thead>
@@ -224,38 +223,54 @@
                         <?= $component['component'] ?>
                     </td>
                     <td><?= $component['vendor'] ?></td>
-                    <td><?= $component['package'] ?></td>
-                    <td><?= numerical($component['term_payment']) ?>%</td>
+                    <td><?= if_empty($component['package'], '-') ?></td>
                     <td></td>
                 </tr>
                 <?php if (!empty($component['sub_components'])) : ?>
                     <?php foreach ($component['sub_components'] as $subComponent) : ?>
                         <tr>
                             <td></td>
-                            <td><?= $subComponent['sub_component'] ?></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td colspan="3"><?= $subComponent['sub_component'] ?></td>
                             <td class="text-md-right">Rp. <?= numerical($subComponent['price']) ?></td>
                         </tr>
                     <?php endforeach ?>
                 <?php endif; ?>
-                <tr class="table-success">
+				<tr class="font-weight-bold">
+					<td></td>
+					<td colspan="3">Partner Info</td>
+					<td class="font-weight-bold text-md-right"><?= $component['vendor'] ?></td>
+				</tr>
+				<tr class="font-weight-bold">
+					<td></td>
+					<td colspan="3">Total Payment</td>
+					<td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price']) ?></td>
+				</tr>
+				<tr class="font-weight-bold">
                     <td></td>
-                    <td colspan="4">Total</td>
-                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price']) ?></td>
+                    <td colspan="3">Term Payment</td>
+                    <td class="font-weight-bold text-md-right"><?= numerical($component['term_payment']) ?>%</td>
+                </tr>
+				<tr class="font-weight-bold">
+                    <td></td>
+                    <td colspan="3">Total DP</td>
+                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['term_payment'] / 100 * $component['total_price']) ?></td>
+                </tr>
+                <tr class="font-weight-bold table-danger">
+                    <td></td>
+                    <td colspan="3">Payment Left</td>
+                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price'] - ($component['term_payment'] / 100 * $component['total_price'])) ?></td>
                 </tr>
             <?php endforeach ?>
             <?php if (empty($quotationComponents)) : ?>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="5">
                         No component data available
                     </td>
                 </tr>
             <?php else : ?>
                 <tr class="table-warning">
                     <td></td>
-                    <td colspan="4"><strong>Total Component</strong></td>
+                    <td colspan="3"><strong>Total Component</strong></td>
                     <td class="text-md-right">Rp. <?= numerical(array_sum(array_column($quotationComponents, 'total_price'))) ?></td>
                 </tr>
             <?php endif; ?>

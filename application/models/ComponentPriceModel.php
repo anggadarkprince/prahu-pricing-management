@@ -113,7 +113,7 @@ class ComponentPriceModel extends App_Model
         }
 
         // build column package
-        $packages = $this->packages->getBy(['ref_packages.id_component' => $componentId]);
+        $packages = $this->package->getBy(['ref_packages.id_component' => $componentId]);
         foreach ($packages as $package) {
             $packageSubComponents = $this->packageSubComponent->getBy([
                 'ref_package_sub_components.id_package' => $package['id']

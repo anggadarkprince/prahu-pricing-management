@@ -68,7 +68,7 @@ class Exporter extends CI_Model
                     ->applyFromArray([
                             'fill' => [
                                 'fillType' => Fill::FILL_SOLID,
-                                'color' => ['rgb' => '000000']
+                                'color' => ['rgb' => '28a745']
                             ],
                             'font' => [
                                 'bold' => true,

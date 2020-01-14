@@ -5,12 +5,17 @@
     ]
 ]) ?>
 
-<h4 class="text-primary"><?= $title ?></h4>
+<h4 class="text-primary mb-0"><?= $title ?></h4>
 <p class="form-section-title">Component pricing</p>
 
 <?php foreach ($components as $component) : ?>
-    <h5 class="text-primary"><?= $component['component'] ?> Component</h5>
-    <div class="table-responsive mb-4">
+	<div class="d-flex justify-content-between align-items-center">
+		<h5 class="text-primary mb-0"><?= $component['component'] ?> Component</h5>
+		<a href="<?= base_url(uri_string()) ?>?component=<?= $component['id'] ?>&export=true" class="btn btn-sm btn-outline-primary pr-2 pl-2">
+			<i class="mdi mdi-file-download-outline"></i> Export
+		</a>
+	</div>
+    <div class="table-responsive mt-3 mb-4">
         <table class="table table-sm mb-0 table-hover responsive text-nowrap">
             <thead class="thead-dark">
                 <tr>

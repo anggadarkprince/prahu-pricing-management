@@ -31,7 +31,7 @@ class Payment_type extends App_Controller
 
 		$filters = array_merge($_GET, ['page' => get_url_param('page', 1)]);
 
-		$export = $this->input->get('exporter');
+		$export = $this->input->get('export');
 		if ($export) unset($filters['page']);
 
 		$paymentTypes = $this->paymentType->getAll($filters);

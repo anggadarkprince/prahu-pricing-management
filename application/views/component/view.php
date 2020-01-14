@@ -112,9 +112,10 @@
                 <tr>
                     <th class="text-center" style="width: 60px">No</th>
                     <th>Vendor</th>
-                    <th>Port</th>
-                    <th>Port destination</th>
-                    <th>Location</th>
+					<th>Port Origin</th>
+					<th>Port Destination</th>
+					<th>Location Origin</th>
+					<th>Location Destination</th>
                     <th>Container size</th>
                     <th>Container type</th>
                     <?php foreach ($subComponents as $subComponent) : ?>
@@ -130,9 +131,10 @@
                     <tr>
                         <td class="text-md-center"><?= $index + 1 ?></td>
                         <td><?= $componentPrice['vendor'] ?></td>
-                        <td><?= $componentPrice['port'] ?></td>
-                        <td><?= $componentPrice['port_destination'] ?></td>
-                        <td><?= $componentPrice['location'] ?></td>
+						<td><?= if_empty($componentPrice['port_origin'], '-') ?></td>
+						<td><?= if_empty($componentPrice['port_destination'], '-') ?></td>
+						<td><?= if_empty($componentPrice['location_origin'], '-') ?></td>
+						<td><?= if_empty($componentPrice['location_destination'], '-') ?></td>
                         <td><?= $componentPrice['container_size'] ?></td>
                         <td><?= $componentPrice['container_type'] ?></td>
                         <?php foreach ($subComponents as $subComponent) : ?>

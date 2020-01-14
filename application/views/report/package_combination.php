@@ -9,7 +9,12 @@
 <p class="form-section-title">Package combination</p>
 
 <?php foreach ($components as $component) : ?>
-    <h5 class="text-primary"><?= $component['component'] ?> Component</h5>
+	<div class="d-flex justify-content-between align-items-center">
+		<h5 class="text-primary mb-0"><?= $component['component'] ?> Component</h5>
+		<a href="<?= base_url(uri_string()) ?>?component=<?= $component['id'] ?>&export=true" class="btn btn-sm btn-outline-primary pr-2 pl-2">
+			<i class="mdi mdi-file-download-outline"></i> Export
+		</a>
+	</div>
     <table class="table table-sm mt-3 mb-4 table-hover responsive">
         <thead class="thead-dark">
             <tr>

@@ -5,8 +5,15 @@
     ]
 ]) ?>
 
-<h4 class="text-primary"><?= $title ?></h4>
-<p class="form-section-title">Service combination</p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+	<div>
+		<h4 class="text-primary mb-0"><?= $title ?></h4>
+		<p class="form-section-title mb-0">Service combination</p>
+	</div>
+	<a href="<?= base_url(uri_string()) ?>?<?= $_SERVER['QUERY_STRING'] ?>&export=true" class="btn btn-sm btn-outline-primary pr-2 pl-2">
+		<i class="mdi mdi-file-download-outline"></i> Export
+	</a>
+</div>
 
 <table class="table table-sm mt-3 table-hover responsive">
     <thead>

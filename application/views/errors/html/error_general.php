@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Error</title>
+	<meta charset="utf-8">
+	<title>Error</title>
+	<link rel="icon" href="/assets/dist/img/layouts/icon.jpg" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
 <style type="text/css">
 
 ::selection { background-color: #E13300; color: white; }
@@ -13,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 body {
 	background-color: #fff;
 	margin: 40px;
-	font: 13px/20px normal Helvetica, Arial, sans-serif;
+	font: 1rem normal Roboto, Helvetica, Arial, sans-serif;
 	color: #4F5155;
 }
 
@@ -26,11 +28,10 @@ a {
 h1 {
 	color: #444;
 	background-color: transparent;
-	border-bottom: 1px solid #D0D0D0;
 	font-size: 19px;
 	font-weight: normal;
-	margin: 0 0 14px 0;
-	padding: 14px 15px 10px 15px;
+	margin: 0;
+	padding: 14px 15px 0 15px;
 }
 
 code {
@@ -47,11 +48,11 @@ code {
 #container {
 	margin: 10px;
 	border: 1px solid #D0D0D0;
-	box-shadow: 0 0 8px #D0D0D0;
+	border-radius: 5px;
 }
 
 p {
-	margin: 12px 15px 12px 15px;
+	margin: 12px 15px 15px 15px;
 }
 </style>
 </head>

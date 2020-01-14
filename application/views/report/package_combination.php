@@ -5,7 +5,7 @@
     ]
 ]) ?>
 
-<h4 class="text-primary"><?= $title ?></h4>
+<h4 class="text-primary mb-0"><?= $title ?></h4>
 <p class="form-section-title">Package combination</p>
 
 <?php foreach ($components as $component) : ?>

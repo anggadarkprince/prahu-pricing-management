@@ -59,7 +59,7 @@
                     <i class="mdi mdi-checkbox-marked-circle-outline mr-2"></i>Quotation
                 </h5>
                 <h6 class="card-subtitle mb-1 text-muted small">Pricing offer histories</h6>
-                <h4 class="mb-3">732
+                <h4 class="mb-3"><?= $totalQuotation ?>
                     <small>SF</small>
                 </h4>
                 <a href="<?= site_url('pricing/quotation') ?>" class="btn btn-sm btn-outline-warning">
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<div class="mt-2 d-none" style="position: relative;">
+<div class="mt-2" style="position: relative;">
     <canvas id="movement-chart" height="70">
         Your browser does not support the canvas element.
     </canvas>
@@ -85,21 +85,13 @@
 
         // The data for our dataset
         data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            labels: <?= json_encode(array_column($movements, 'month')) ?>,
             datasets: [{
-                label: "Inbound",
-                backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                label: "Quotation",
+                backgroundColor: 'rgba(34,178,80,0.8)',
+                borderColor: 'rgb(34,178,80)',
                 pointBackgroundColor: 'rgba(255, 255, 255, 1)',
-                data: [0, 10, 5, 2, 20, 30, 45, 34, 14, 26, 43, 53],
-                borderWidth: 3,
-                fill: true
-            }, {
-                label: "Outbound",
-                backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                pointBackgroundColor: 'rgba(255, 255, 255, 1)',
-                data: [40, 50, 3, 2, 3, 34, 60, 23, 13, 64, 34, 64],
+                data: <?= json_encode(array_column($movements, 'total')) ?>,
                 borderWidth: 3,
                 fill: true
             }]
@@ -127,7 +119,7 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        stepSize: 15,
+                        stepSize: 10,
                         padding: 20,
                     },
                     gridLines: {

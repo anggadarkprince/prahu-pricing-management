@@ -237,7 +237,7 @@ export default function () {
 					if (data) {
 						componentActivityDuration[durationSection] = data;
 						setComponentDurationPercent();
-						calculatePrice();
+						refreshComponentPrice();
 					}
 				})
 				.catch(error => {
@@ -256,20 +256,25 @@ export default function () {
 			if ($(this).prop('id') === 'container_size') {
 				formCalculator.find('#activity_duration_from').trigger('change');
 				formCalculator.find('#activity_duration_to').trigger('change');
-			}
-
-			// re-fetching component price when global control is changed, container type and size is not empty
-			if (selectContainerType.val()) {
-				const selectPackages = pricingWrapper.find('.row-component .select-package:enabled');
-				selectPackages.each(function (index, selectPackage) {
-					if ($(selectPackage).val()) {
-						$(selectPackage).trigger('change');
-					}
-				});
+			} else if (selectContainerType.val()) {
+				// re-fetching component price when global control is changed, container type and size is not empty
+				refreshComponentPrice();
 			}
 			formCalculator.find('.select-packaging').trigger('change');
 		}
 	});
+
+	/**
+	 * Re-fetching active component price.
+	 */
+	function refreshComponentPrice() {
+		const selectPackages = pricingWrapper.find('.row-component .select-package:enabled');
+		selectPackages.each(function (index, selectPackage) {
+			if ($(selectPackage).val()) {
+				$(selectPackage).trigger('change');
+			}
+		});
+	}
 
 	/**
 	 * Get data package component when it changes.

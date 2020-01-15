@@ -25,8 +25,8 @@ export default function () {
 	const pricingWrapper = formCalculator.find('#pricing-wrapper');
 	let serviceComponentSetting = [];
 	let componentActivityDuration = {
-		ORIGIN: {margin: 0, components: []},
-		DESTINATION: {margin: 0, components: []},
+		ORIGIN: { margin: 0, components: [] },
+		DESTINATION: { margin: 0, components: [] },
 	};
 	let margin = 0;
 
@@ -82,7 +82,7 @@ export default function () {
 		});
 
 		// override setting when no shipping line selected
-		if(selectShippingLine.val() < 0) {
+		if (selectShippingLine.val() < 0) {
 			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .select-package').val('').trigger('change').prop('disabled', true);
 			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .select-vendor').val('').trigger('change').prop('disabled', true);
 			pricingWrapper.find('.row-component[data-service-section="SHIPPING"] .input-vendor').val('').prop('disabled', true);
@@ -122,7 +122,7 @@ export default function () {
 					.replace(/{{title}}/g, ($(this).find('option:selected').text() + ' Pricing').toUpperCase())
 			);
 			// except no shipping line selected
-			if(shippingLineId > 0) {
+			if (shippingLineId > 0) {
 				pricingWrapper.find(`.pricing-item[data-id=${shippingLineId}] .row-component[data-service-section=SHIPPING] .select-vendor`)
 					.val(shippingLineId)
 					.trigger('change');
@@ -150,7 +150,7 @@ export default function () {
 	 * Enable or disable packaging list in component price
 	 */
 	selectPackaging.on('change', function () {
-		if($(this).val() === '1') {
+		if ($(this).val() === '1') {
 			formCalculator.find('.select-packaging').prop('disabled', false);
 			formCalculator.find('.btn-add-packaging').prop('disabled', false);
 		} else {
@@ -192,6 +192,7 @@ export default function () {
 	selectInsurance.on('change', function () {
 		if ($(this).val() === '1') {
 			inputGoodsValue.prop('readonly', false).prop('required', true);
+			inputGoodsValue.trigger('change');
 		} else {
 			inputGoodsValue.val('').prop('readonly', true).prop('required', false);
 			pricingWrapper.find('.input-insurance-price').val('');
@@ -203,11 +204,14 @@ export default function () {
 	 * Goods value determine insurance amount.
 	 */
 	inputGoodsValue.on('input change', function () {
-		let goodsValue = formatter.getNumberValue(inputGoodsValue.val() || 0);
-		if (goodsValue < 125000000) {
-			goodsValue = 125000000;
+		let insurance = 0;
+		if (selectInsurance.val() === '1') {
+			let goodsValue = formatter.getNumberValue(inputGoodsValue.val() || 0);
+			if (goodsValue < 125000000) {
+				goodsValue = 125000000;
+			}
+			insurance = (0.08 / 100 * goodsValue) + 25000;
 		}
-		const insurance = (0.08 / 100 * goodsValue) + 25000;
 		pricingWrapper.find('.input-insurance-price').val(formatter.setNumberValue(insurance, 'Rp. '));
 		calculatePrice();
 	});
@@ -279,7 +283,7 @@ export default function () {
 	/**
 	 * Get data package component when it changes.
 	 */
-	pricingWrapper.on('change', '.select-package', function () {
+	pricingWrapper.on('change', '.select-package', function (e, triggerSiblings = true) {
 		const rowComponent = $(this).closest('.row-component');
 		if (rowComponent.find('.select-package').val() && selectContainerSize.val() && selectContainerType.val()) {
 			// remove detail when it open
@@ -328,7 +332,7 @@ export default function () {
 
 					rowComponent.find('.input-component-price').val(formatter.setNumberValue(price + durationPrice, 'Rp. ')).change();
 					rowComponent.find('.input-component-price-original').val(formatter.setNumberValue(price, 'Rp. ')).change();
-					if(price <= 0) {
+					if (price <= 0) {
 						rowComponent.find('.input-component-price').val('');
 						rowComponent.find('.input-component-price-original').val('');
 					}
@@ -337,6 +341,13 @@ export default function () {
 					rowComponent.find('.select-package').val('').trigger('change');
 					showAlert('Error Fetching Component', 'Get price data failed, please try again!', error.message);
 				});
+			// trigger another package
+			if (triggerSiblings) {
+				pricingWrapper.find('.row-component[data-component-id=' + rowComponent.data('component-id') + '] .select-package')
+					.not(this)
+					.val($(this).val())
+					.trigger('change', [false]);
+			}
 		} else {
 			rowComponent.find('.input-component-price').val('');
 		}
@@ -355,7 +366,7 @@ export default function () {
 			rowComponent.next('.row-component-detail').remove();
 		} else {
 			const totalComponentPrice = formatter.getNumberValue(rowComponent.find('.input-component-price').val());
-			if(rowComponent.find('.select-vendor').val() && rowComponent.find('.select-package').val() && totalComponentPrice > 0) {
+			if (rowComponent.find('.select-vendor').val() && rowComponent.find('.select-package').val() && totalComponentPrice > 0) {
 				$(this).addClass('btn-danger').removeClass('btn-outline-danger');
 				$(this).find('i').addClass('mdi-eye-off-outline').removeClass('mdi-magnify');
 				rowComponent.after(componentDetailTemplate);

@@ -87,9 +87,10 @@ class ComponentPriceModel extends App_Model
 	/**
 	 * Get component package
 	 * @param $componentId
-	 * @return array
+	 * @param array $filters
+	 * @return array|int
 	 */
-    public function getComponentPriceList($componentId)
+    public function getComponentPriceList($componentId, $filters = [])
     {
         $selectList = [
             'ref_components.component',
@@ -135,6 +136,14 @@ class ComponentPriceModel extends App_Model
             ->join('ref_sub_components', 'ref_sub_components.id = ref_component_prices.id_sub_component', 'left')
             ->where('ref_components.id', $componentId)
             ->group_by('ref_components.id, ref_vendors.id, port_origins.id, port_destinations.id, location_origins.id, location_destinations.id, ref_container_sizes.id, ref_container_types.id, ref_component_prices.expired_date');
+
+		if (key_exists('vendor', $filters) && !empty($filters['vendor'])) {
+			$baseQuery->where_in('ref_vendors.id', $filters['vendor']);
+		}
+
+		if (key_exists('total', $filters) && $filters['total']) {
+			return $baseQuery->count_all_results();
+		}
 
         return $baseQuery->get()->result_array();
     }

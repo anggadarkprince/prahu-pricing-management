@@ -17,7 +17,8 @@ try {
     window.moment = require('moment');
     require('daterangepicker');
     require('select2');
-    require('datatables.net-bs4');
+	//require('datatables.net');
+	require('datatables.net-bs4');
 
     // loading misc scripts
     require('./scripts/validation');

@@ -20,6 +20,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property ServicePaymentTypeModel $servicePaymentType
  * @property PaymentTypeModel $paymentType
  * @property PackageModel $package
+ * @property PackageSubComponentModel $packageSubComponent
  * @property QuotationModel $quotation
  * @property QuotationPackagingModel $quotationPackaging
  * @property QuotationSurchargeModel $quotationSurcharge
@@ -52,6 +53,7 @@ class Calculator extends App_Controller
 		$this->load->model('ServiceModel', 'service');
 		$this->load->model('ServicePaymentTypeModel', 'servicePaymentType');
 		$this->load->model('PackageModel', 'package');
+		$this->load->model('PackageSubComponentModel', 'packageSubComponent');
 		$this->load->model('QuotationModel', 'quotation');
 		$this->load->model('QuotationComponentModel', 'quotationComponent');
 		$this->load->model('QuotationPackagingModel', 'quotationPackaging');
@@ -87,6 +89,23 @@ class Calculator extends App_Controller
 		$containerTypes = $this->containerType->getAll();
 		$paymentTypes = $this->paymentType->getAll();
 		$vendors = $this->vendor->getAll();
+
+		// exclude vendors have not price at all
+		foreach ($vendors as $index => $vendor) {
+			if ($vendor['type'] == 'SHIPPING LINE') {
+				foreach ($components as $component) {
+					if ($component['service_section'] == 'SHIPPING') {
+						$componentPrice = $this->componentPrice->getComponentPriceList($component['id'], [
+							'vendor' => $vendor['id'],
+							'total' => true
+						]);
+						if ($componentPrice <= 0) {
+							unset($vendors[$index]);
+						}
+					}
+				}
+			}
+		}
 
 		$this->render('calculator/index', compact('components', 'ports', 'locations', 'services', 'loadingCategories', 'consumables', 'marketings', 'containerSizes', 'containerTypes', 'paymentTypes', 'vendors'));
 	}

@@ -1,4 +1,4 @@
-const setViewport = function() {
+const setTableViewport = function() {
     // screen.width
     if ($(window).width() > 768 ) {
         $('table.responsive .responsive-label').remove();
@@ -26,8 +26,29 @@ const setViewport = function() {
     }
 };
 
-setViewport();
+setTableViewport();
+
+$('.data-table').DataTable({
+	language: {
+		processing: "Loading...",
+		searchPlaceholder: "Search data"
+	},
+	pageLength: 25,
+	scrollX: true,
+	drawCallback: function () {
+		$('.dataTables_paginate > .pagination').addClass('pagination-sm');
+		setTableViewport();
+		setTimeout(function () {
+			$('.data-table').removeAttr('style');
+		}, 300);
+	}
+});
 
 window.onresize = function() {
-    setViewport();
+	setTableViewport();
+	setTimeout(function () {
+		$('.data-table').removeAttr('style');
+	}, 300);
 };
+
+export default setTableViewport;

@@ -93,9 +93,10 @@ class Calculator extends App_Controller
 		// exclude vendors have not price at all
 		foreach ($vendors as $index => $vendor) {
 			if ($vendor['type'] == 'SHIPPING LINE') {
-				foreach ($components as $component) {
-					if ($component['service_section'] == 'SHIPPING') {
-						$componentPrice = $this->componentPrice->getComponentPriceList($component['id'], [
+				$componentData = $components;
+				foreach ($componentData as $componentCheck) {
+					if ($componentCheck['service_section'] == 'SHIPPING') {
+						$componentPrice = $this->componentPrice->getComponentPriceList($componentCheck['id'], [
 							'vendor' => $vendor['id'],
 							'total' => true
 						]);

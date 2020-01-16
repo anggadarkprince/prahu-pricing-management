@@ -39,36 +39,6 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="location_origin">Location Origin</label>
-                <select class="form-control select2" name="location_origin" id="location_origin" data-placeholder="Select origin area" required style="width: 100%">
-                    <option value=""></option>
-                    <?php foreach ($locations as $location) : ?>
-                        <option value="<?= $location['id'] ?>" <?= set_select('location_origin', $location['id'], $location['id'] == $componentPrice['id_location_origin']) ?>>
-                            <?= $location['location'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <?= form_error('location_origin') ?>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="location_destination">Location Destination</label>
-                <select class="form-control select2" name="location_destination" id="location_destination" data-placeholder="Select destination area" required style="width: 100%">
-                    <option value=""></option>
-                    <?php foreach ($locations as $location) : ?>
-                        <option value="<?= $location['id'] ?>" <?= set_select('location_destination', $location['id'], $location['id'] == $componentPrice['id_location_destination']) ?>>
-                            <?= $location['location'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <?= form_error('location_destination') ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
                 <label for="port_origin">Port Origin</label>
                 <select class="form-control select2" name="port_origin" id="port_origin" data-placeholder="Select port origin" required style="width: 100%">
                     <option value=""></option>
@@ -96,6 +66,36 @@
             </div>
         </div>
     </div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="location_origin">Location Origin</label>
+				<select class="form-control select2" name="location_origin" id="location_origin" data-placeholder="Select origin area" required style="width: 100%">
+					<option value=""></option>
+					<?php foreach ($locations as $location) : ?>
+						<option value="<?= $location['id'] ?>" <?= set_select('location_origin', $location['id'], $location['id'] == $componentPrice['id_location_origin']) ?>>
+							<?= $location['location'] ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+				<?= form_error('location_origin') ?>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="location_destination">Location Destination</label>
+				<select class="form-control select2" name="location_destination" id="location_destination" data-placeholder="Select destination area" required style="width: 100%">
+					<option value=""></option>
+					<?php foreach ($locations as $location) : ?>
+						<option value="<?= $location['id'] ?>" <?= set_select('location_destination', $location['id'], $location['id'] == $componentPrice['id_location_destination']) ?>>
+							<?= $location['location'] ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+				<?= form_error('location_destination') ?>
+			</div>
+		</div>
+	</div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">

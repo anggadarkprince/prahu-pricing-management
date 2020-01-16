@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Class Location
  * @property LocationModel $location
+ * @property PortModel $port
  * @property Exporter $exporter
  */
 class Location extends App_Controller
@@ -15,6 +16,7 @@ class Location extends App_Controller
     {
         parent::__construct();
         $this->load->model('LocationModel', 'location');
+        $this->load->model('PortModel', 'port');
         $this->load->model('modules/Exporter', 'exporter');
     }
 
@@ -64,7 +66,9 @@ class Location extends App_Controller
     {
         AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_CREATE);
 
-        $this->render('location/create');
+        $ports = $this->port->getAll();
+
+        $this->render('location/create', compact('ports'));
     }
 
     /**
@@ -75,10 +79,12 @@ class Location extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_CREATE);
 
         if ($this->validate()) {
+            $port = $this->input->post('port');
             $location = $this->input->post('location');
             $description = $this->input->post('description');
 
             $save = $this->location->create([
+                'id_port' => $port,
                 'location' => $location,
                 'description' => $description
             ]);
@@ -102,8 +108,9 @@ class Location extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_EDIT);
 
         $location = $this->location->getById($id);
+        $ports = $this->port->getAll();
 
-        $this->render('location/edit', compact('location'));
+        $this->render('location/edit', compact('location', 'ports'));
     }
 
     /**
@@ -116,10 +123,12 @@ class Location extends App_Controller
         AuthorizationModel::mustAuthorized(PERMISSION_LOCATION_EDIT);
 
         if ($this->validate($this->_validation_rules($id))) {
+            $port = $this->input->post('port');
             $location = $this->input->post('location');
             $description = $this->input->post('description');
 
             $update = $this->location->update([
+                'id_port' => $port,
 				'location' => $location,
                 'description' => $description
             ], $id);
@@ -162,6 +171,7 @@ class Location extends App_Controller
     {
 		$id = isset($params[0]) ? $params[0] : 0;
         return [
+            'port' => 'trim|required|max_length[50]',
 			'location' => [
 				'trim', 'required', 'max_length[50]', ['value_exists', function ($value) use ($id) {
 					$this->form_validation->set_message('value_exists', 'The %s has been registered before, try another');

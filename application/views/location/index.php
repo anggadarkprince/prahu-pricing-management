@@ -25,6 +25,7 @@
     <tr>
         <th class="text-center" style="width: 60px">No</th>
         <th>Location</th>
+        <th>Port</th>
         <th>Description</th>
         <th style="width: 80px">Action</th>
     </tr>
@@ -35,6 +36,7 @@
         <tr>
             <td class="text-md-center"><?= ++$no ?></td>
             <td><?= $location['location'] ?></td>
+            <td><?= $location['port'] ?></td>
             <td><?= if_empty($location['description'], 'No description') ?></td>
             <td>
                 <div class="dropdown">
@@ -67,7 +69,7 @@
     <?php endforeach; ?>
     <?php if (empty($locations['data'])): ?>
         <tr>
-            <td colspan="4" class="text-center">No location available</td>
+            <td colspan="5" class="text-center">No location available</td>
         </tr>
     <?php endif; ?>
     </tbody>

@@ -24,6 +24,7 @@
 									$columns = [
 										'created_at' => 'CREATED AT',
 										'location' => 'LOCATION',
+										'port' => 'PORT',
 										'description' => 'DESCRIPTION',
 									]
 									?>

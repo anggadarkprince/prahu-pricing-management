@@ -62,6 +62,10 @@ class Migration_Create_table_settings extends CI_Migration
 				'key' => 'api_token',
 				'value' => '',
 			],
+			[
+				'key' => 'language',
+				'value' => 'english',
+			],
 		]);
 		echo '--Seeding Migration_Create_table_ref_settings' . PHP_EOL;
     }

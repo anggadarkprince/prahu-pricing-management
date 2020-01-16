@@ -16,14 +16,13 @@ $segment2 = $this->uri->segment(2);
                 <a class="nav-link p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="d-flex flex-row align-items-center">
                         <span class="d-none d-sm-inline-block mr-2"><?= AuthModel::loginData('name') ?></span>
-                        <div class="rounded-circle" style="height: 37px; width: 37px; background: url('<?= base_url(if_empty(AuthModel::loginData('avatar'), 'assets/dist/img/no-avatar.png', 'uploads/')) ?>') center center / cover"></div>
+                        <div class="rounded-circle" style="height: 37px; width: 37px; background: url('<?= base_url(if_empty(AuthModel::loginData('avatar'), 'assets/dist/img/layouts/no-avatar.png', 'uploads/')) ?>') center center / cover"></div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= site_url('account') ?>">My Account</a>
-                    <a class="dropdown-item" href="<?= site_url('inbound/notification') ?>">Notification</a>
+                    <a class="dropdown-item" href="<?= site_url('account') ?>"><?= $this->lang->line('menu_account') ?></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?= site_url('auth/logout') ?>">Sign Out</a>
+                    <a class="dropdown-item" href="<?= site_url('auth/logout') ?>"><?= $this->lang->line('menu_sign_out') ?></a>
                 </div>
             </li>
         </ul>
@@ -31,7 +30,7 @@ $segment2 = $this->uri->segment(2);
             <ul class="navbar-nav ml-3 mr-auto">
                 <li class="nav-item<?= $segment1 == 'dashboard' ? ' active' : '' ?>">
                     <a class="nav-link" href="<?= site_url('dashboard') ?>">
-                        <i class="mdi mdi-speedometer-slow mr-1"></i>Dashboard
+                        <i class="mdi mdi-speedometer-slow mr-1"></i><?= $this->lang->line('menu_dashboard') ?>
                     </a>
                 </li>
 				<?php
@@ -44,90 +43,90 @@ $segment2 = $this->uri->segment(2);
 				?>
                 <li class="nav-item dropdown<?= $segment1 == 'master' ? ' active' : '' ?>">
                     <a class="nav-link dropdown-toggle" href="#" id="nav-master" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="mdi mdi-cube-outline mr-1"></i>Master
+                        <i class="mdi mdi-cube-outline mr-1"></i><?= $this->lang->line('menu_master') ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="nav-master">
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_ROLE_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'role' ? ' active' : '' ?>" href="<?= site_url('master/role') ?>">
-								<i class="mdi mdi-lock-outline mr-2"></i>Roles
+								<i class="mdi mdi-lock-outline mr-2"></i><?= $this->lang->line('menu_role') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_USER_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'user' ? ' active' : '' ?>" href="<?= site_url('master/user') ?>">
-								<i class="mdi mdi-account-outline mr-2"></i>Users
+								<i class="mdi mdi-account-outline mr-2"></i><?= $this->lang->line('menu_user') ?>
 							</a>
 							<div class="dropdown-divider"></div>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'component' ? ' active' : '' ?>" href="<?= site_url('master/component') ?>">
-								<i class="mdi mdi-layers-triple-outline mr-2"></i>Component
+								<i class="mdi mdi-layers-triple-outline mr-2"></i><?= $this->lang->line('menu_component') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_SUB_COMPONENT_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'sub-component' ? ' active' : '' ?>" href="<?= site_url('master/sub-component') ?>">
-								<i class="mdi mdi-layers-search mr-2"></i>Sub-component
+								<i class="mdi mdi-layers-search mr-2"></i><?= $this->lang->line('menu_sub_component') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_PACKAGE_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'package' ? ' active' : '' ?>" href="<?= site_url('master/package') ?>">
-								<i class="mdi mdi-archive-arrow-down-outline mr-2"></i>Packages
+								<i class="mdi mdi-archive-arrow-down-outline mr-2"></i><?= $this->lang->line('menu_package') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_SERVICE_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'service' ? ' active' : '' ?>" href="<?= site_url('master/service') ?>">
-								<i class="mdi mdi-inbox-full-outline mr-2"></i>Services
+								<i class="mdi mdi-inbox-full-outline mr-2"></i><?= $this->lang->line('menu_service') ?>
 							</a>
 							<div class="dropdown-divider"></div>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_PORT_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'port' ? ' active' : '' ?>" href="<?= site_url('master/port') ?>">
-								<i class="mdi mdi-anchor mr-2"></i>Ports
+								<i class="mdi mdi-anchor mr-2"></i><?= $this->lang->line('menu_port') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_LOCATION_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'location' ? ' active' : '' ?>" href="<?= site_url('master/location') ?>">
-								<i class="mdi mdi-map-marker-outline mr-2"></i>Location
+								<i class="mdi mdi-map-marker-outline mr-2"></i><?= $this->lang->line('menu_location') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_VENDOR_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'vendor' ? ' active' : '' ?>" href="<?= site_url('master/vendor') ?>">
-								<i class="mdi mdi-factory mr-2"></i>Vendors
+								<i class="mdi mdi-factory mr-2"></i><?= $this->lang->line('menu_vendor') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_CONTAINER_SIZE_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'container-size' ? ' active' : '' ?>" href="<?= site_url('master/container-size') ?>">
-								<i class="mdi mdi-move-resize-variant mr-2"></i>Cargo Sizes
+								<i class="mdi mdi-move-resize-variant mr-2"></i><?= $this->lang->line('menu_cargo_size') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_CONTAINER_TYPE_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'container-type' ? ' active' : '' ?>" href="<?= site_url('master/container-type') ?>">
-								<i class="mdi mdi-truck-outline mr-2"></i>Cargo Types
+								<i class="mdi mdi-truck-outline mr-2"></i><?= $this->lang->line('menu_cargo_type') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_LOADING_CATEGORY_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'loading-category' ? ' active' : '' ?>" href="<?= site_url('master/loading-category') ?>">
-								<i class="mdi mdi-tray-full mr-2"></i>Categories
+								<i class="mdi mdi-tray-full mr-2"></i><?= $this->lang->line('menu_category') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_MARKETING_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'marketing' ? ' active' : '' ?>" href="<?= site_url('master/marketing') ?>">
-								<i class="mdi mdi-account-supervisor-outline mr-2"></i>Marketing
+								<i class="mdi mdi-account-supervisor-outline mr-2"></i><?= $this->lang->line('menu_marketing') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_PAYMENT_TYPE_VIEW)): ?>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item<?= $segment2 == 'payment-type' ? ' active' : '' ?>" href="<?= site_url('master/payment-type') ?>">
-								<i class="mdi mdi-calendar-text-outline mr-2"></i>Payment Types
+								<i class="mdi mdi-calendar-text-outline mr-2"></i><?= $this->lang->line('menu_payment_type') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_CONSUMABLE_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'consumable' ? ' active' : '' ?>" href="<?= site_url('master/consumable') ?>">
-								<i class="mdi mdi-note-plus-outline mr-2"></i>Consumables
+								<i class="mdi mdi-note-plus-outline mr-2"></i><?= $this->lang->line('menu_consumable') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_PRICE_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'component-price' ? ' active' : '' ?>" href="<?= site_url('master/component-price') ?>">
-								<i class="mdi mdi-currency-usd mr-2"></i>Component Prices
+								<i class="mdi mdi-currency-usd mr-2"></i><?= $this->lang->line('menu_component_price') ?>
 							</a>
 						<?php endif; ?>
                     </div>
@@ -141,17 +140,17 @@ $segment2 = $this->uri->segment(2);
 				?>
                 <li class="nav-item dropdown<?= $segment1 == 'pricing' ? ' active' : '' ?>">
                     <a class="nav-link dropdown-toggle" href="#" id="nav-inbound" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="mdi mdi-cart-outline mr-1"></i>Pricing
+                        <i class="mdi mdi-cart-outline mr-1"></i><?= $this->lang->line('menu_pricing') ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="nav-inbound">
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_PRICING_CALCULATE)): ?>
 							<a class="dropdown-item<?= $segment2 == 'calculator' ? ' active' : '' ?>" href="<?= site_url('pricing/calculator') ?>">
-								<i class="mdi mdi-ballot-outline mr-2"></i>Calculators
+								<i class="mdi mdi-ballot-outline mr-2"></i><?= $this->lang->line('menu_calculator') ?>
 							</a>
 						<?php endif; ?>
 						<?php if(AuthorizationModel::isAuthorized(PERMISSION_QUOTATION_VIEW)): ?>
 							<a class="dropdown-item<?= $segment2 == 'quotation' ? ' active' : '' ?>" href="<?= site_url('pricing/quotation') ?>">
-								<i class="mdi mdi-file-document-box-check-outline mr-2"></i>Quotation
+								<i class="mdi mdi-file-document-box-check-outline mr-2"></i><?= $this->lang->line('menu_quotation') ?>
 							</a>
 						<?php endif; ?>
                     </div>
@@ -166,32 +165,32 @@ $segment2 = $this->uri->segment(2);
 				?>
 					<li class="nav-item dropdown<?= $segment1 == 'report' ? ' active' : '' ?>">
 						<a class="nav-link dropdown-toggle" href="#" id="nav-inbound" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="mdi mdi-file-outline mr-1"></i>Report
+							<i class="mdi mdi-file-outline mr-1"></i><?= $this->lang->line('menu_report') ?>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="nav-inbound">
 							<?php if(AuthorizationModel::isAuthorized(PERMISSION_REPORT_SERVICE_COMBINATION_VIEW)): ?>
 								<a class="dropdown-item<?= $segment2 == 'service-combination' ? ' active' : '' ?>" href="<?= site_url('report/service-combination') ?>">
-									<i class="mdi mdi-inbox-full-outline mr-2"></i>Service Combination
+									<i class="mdi mdi-inbox-full-outline mr-2"></i><?= $this->lang->line('menu_service_combination') ?>
 								</a>
 							<?php endif; ?>
 							<?php if(AuthorizationModel::isAuthorized(PERMISSION_REPORT_PACKAGE_COMBINATION_VIEW)): ?>
 								<a class="dropdown-item<?= $segment2 == 'package-combination' ? ' active' : '' ?>" href="<?= site_url('report/package-combination') ?>">
-									<i class="mdi mdi-archive-arrow-down-outline mr-2"></i>Package Combination
+									<i class="mdi mdi-archive-arrow-down-outline mr-2"></i><?= $this->lang->line('menu_package_combination') ?>
 								</a>
 							<?php endif; ?>
 							<?php if(AuthorizationModel::isAuthorized(PERMISSION_REPORT_PAYMENT_MARGIN_VIEW)): ?>
 								<a class="dropdown-item<?= $segment2 == 'payment-margin' ? ' active' : '' ?>" href="<?= site_url('report/payment-margin') ?>">
-									<i class="mdi mdi-cart-plus mr-2"></i>Payment Margin
+									<i class="mdi mdi-cart-plus mr-2"></i><?= $this->lang->line('menu_payment_margin') ?>
 								</a>
 							<?php endif; ?>
 							<?php if(AuthorizationModel::isAuthorized(PERMISSION_REPORT_CONSUMABLE_PRICING_VIEW)): ?>
 								<a class="dropdown-item<?= $segment2 == 'consumable-pricing' ? ' active' : '' ?>" href="<?= site_url('report/consumable-pricing') ?>">
-									<i class="mdi mdi-note-plus-outline mr-2"></i>Consumable Pricing
+									<i class="mdi mdi-note-plus-outline mr-2"></i><?= $this->lang->line('menu_consumable_pricing') ?>
 								</a>
 							<?php endif; ?>
 							<?php if(AuthorizationModel::isAuthorized(PERMISSION_REPORT_COMPONENT_PRICING_VIEW)): ?>
 								<a class="dropdown-item<?= $segment2 == 'component-pricing' ? ' active' : '' ?>" href="<?= site_url('report/component-pricing') ?>">
-									<i class="mdi mdi-shopping-outline mr-2"></i>Component Pricing
+									<i class="mdi mdi-shopping-outline mr-2"></i><?= $this->lang->line('menu_component_pricing') ?>
 								</a>
 							<?php endif; ?>
 						</div>
@@ -201,7 +200,7 @@ $segment2 = $this->uri->segment(2);
 				<?php if(AuthorizationModel::isAuthorized(PERMISSION_SETTING_EDIT)): ?>
 					<li class="nav-item<?= $segment1 == 'setting' ? ' active' : '' ?>">
 						<a class="nav-link" href="<?= site_url('setting') ?>">
-							<i class="mdi mdi-tune mr-1"></i>Setting
+							<i class="mdi mdi-tune mr-1"></i><?= $this->lang->line('menu_setting') ?>
 						</a>
 					</li>
 				<?php endif; ?>
@@ -218,12 +217,12 @@ $segment2 = $this->uri->segment(2);
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 					<?php if(AuthorizationModel::isAuthorized(PERMISSION_ACCOUNT_EDIT)): ?>
 						<a class="dropdown-item" href="<?= site_url('account') ?>">
-							<i class="mdi mdi-account-outline mr-2"></i>My Account
+							<i class="mdi mdi-account-outline mr-2"></i><?= $this->lang->line('menu_account') ?>
 						</a>
 						<div class="dropdown-divider"></div>
 					<?php endif; ?>
                     <a class="dropdown-item" href="<?= site_url('auth/logout') ?>">
-                        <i class="mdi mdi-logout-variant mr-2"></i>Sign Out
+                        <i class="mdi mdi-logout-variant mr-2"></i><?= $this->lang->line('menu_sign_out') ?>
                     </a>
                 </div>
             </li>

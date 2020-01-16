@@ -85,12 +85,13 @@ class Setting extends App_Controller
 			'meta_keywords' => 'trim|required|max_length[300]|regex_match[/^[a-zA-Z0-9\-, ]+$/]',
 			'meta_description' => 'trim|required|max_length[300]',
 			'meta_author' => 'trim|required|max_length[50]',
+			'language' => 'trim|required|in_list[english,indonesia]',
 			'email_bug_report' => 'trim|required|valid_email|max_length[50]',
 			'email_support' => 'trim|required|valid_email|max_length[50]',
 			'company_name' => 'trim|required|max_length[50]',
 			'company_address' => 'trim|required|max_length[200]',
 			'company_contact' => 'trim|required|max_length[100]',
-			'api_token' => 'trim|required|max_length[100]',
+			'api_token' => 'trim|max_length[100]',
 		];
 	}
 }

@@ -60,12 +60,30 @@
 	</div>
 
     <p class="form-section-title">Contact & Basic Setting</p>
-	<div class="form-group">
-		<label for="meta_author">Author</label>
-		<input type="text" class="form-control" id="meta_author" name="meta_author"
-			   placeholder="Author of application" maxlength="50"
-			   value="<?= set_value('meta_author', get_if_exist($setting, 'meta_author')) ?>">
-		<?= form_error('meta_author') ?>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="meta_author">Author</label>
+				<input type="text" class="form-control" id="meta_author" name="meta_author"
+					   placeholder="Author of application" maxlength="50"
+					   value="<?= set_value('meta_author', get_if_exist($setting, 'meta_author')) ?>">
+				<?= form_error('meta_author') ?>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="language">Language</label>
+				<select class="custom-select" name="language" id="language" required>
+					<option value="english"<?= set_select('language', 'english', get_if_exist($setting, 'language', 'english') == 'english') ?>>
+						English (US)
+					</option>
+					<option value="indonesia"<?= set_select('language', 'indonesia', get_if_exist($setting, 'language', 'english') == 'indonesia') ?>>
+						Indonesia (ID)
+					</option>
+				</select>
+				<?= form_error('language'); ?>
+			</div>
+		</div>
 	</div>
     <div class="row">
         <div class="col-sm-6">

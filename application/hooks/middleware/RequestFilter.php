@@ -9,7 +9,7 @@ class RequestFilter
 	public function filterRequestMethod()
 	{
 		$CI = get_instance();
-
+		$CI->lang->load('menu', get_setting('language'));
 		if (is_callable([$CI, 'filterRequest'])) {
 			call_user_func([$CI, 'filterRequest']);
 		}

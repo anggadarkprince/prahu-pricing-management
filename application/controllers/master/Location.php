@@ -18,6 +18,10 @@ class Location extends App_Controller
         $this->load->model('LocationModel', 'location');
         $this->load->model('PortModel', 'port');
         $this->load->model('modules/Exporter', 'exporter');
+
+        $this->setFilterMethods([
+            'ajax_get_by_port' => 'GET'
+        ]);
     }
 
     /**
@@ -183,5 +187,20 @@ class Location extends App_Controller
 			],
             'description' => 'max_length[500]',
         ];
+    }
+
+    /**
+     * Get location by port
+     *
+     * @return array
+     */
+    public function ajax_get_by_port()
+    {
+        $portId = get_url_param('id_port');
+        $locations = $this->location->getBy([
+            'ref_components.id' => $portId,
+        ]);
+
+        $this->render_json($locations);
     }
 }

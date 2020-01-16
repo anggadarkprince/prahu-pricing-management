@@ -157,7 +157,7 @@
 				<td>
 					<?php $noShippingLine = true; ?>
 					<?php foreach($quotationComponents as $quotationComponent): ?>
-						<?php if($quotationComponent['type'] == 'SHIPPING LINE'): ?>
+						<?php if($quotationComponent['type'] == 'SHIPPING LINE' && $quotationComponent['service_section'] == 'SHIPPING' || $quotationComponent['component'] == 'B'): ?>
 							<?php $noShippingLine = false ?>
 							<?= $quotationComponent['vendor'] ?>
 						<?php endif ?>
@@ -173,11 +173,11 @@
 			</tr>
 			<tr>
 				<td>Alamat door muat</td>
-				<td><?= if_empty($quotation['location_from'], '-') ?></td>
+				<td><?= if_empty($quotation['location_from'], '-') ?> - <?= if_empty($quotation['address_from'], 'No address') ?></td>
 			</tr>
 			<tr>
 				<td>Alamat door bongkar</td>
-				<td><?= if_empty($quotation['location_to'], '-') ?></td>
+				<td><?= if_empty($quotation['location_to'], '-') ?> - <?= if_empty($quotation['address_to'], 'No address') ?></td></td>
 			</tr>
 			<tr>
 				<td>Barang dan packing</td>

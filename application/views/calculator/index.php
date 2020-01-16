@@ -26,7 +26,7 @@
 								<option value="0">No port</option>
 								<?php foreach ($ports as $port) : ?>
 									<option value="<?= $port['id'] ?>" <?= set_select('port', $port['id']) ?>>
-										<?= $port['port'] ?> - <?= $port['code'] ?>
+										<?= $port['port'] ?>
 									</option>
 								<?php endforeach; ?>
 							</select>
@@ -55,7 +55,7 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-lg-6 d-none">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="buruh_from" class="col-sm-3 col-form-label">Buruh</label>
 						<div class="col-sm-9">
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6 d-none">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="forklift_from" class="col-sm-3 col-form-label">Forklift</label>
 						<div class="col-sm-9">
@@ -85,8 +85,9 @@
 					<div class="form-group row mb-0">
 						<label for="activity_duration_from" class="col-sm-3 col-form-label">Duration</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="activity_duration_from" id="activity_duration_from" data-placeholder="Select activity duration" required style="width: 100%">
+							<select class="form-control select2" name="activity_duration_from" id="activity_duration_from" data-placeholder="Select activity duration" style="width: 100%">
 								<option value=""></option>
+								<option value="0">No Duration</option>
 								<?php foreach ($consumables as $consumable) : ?>
 									<?php if ($consumable['type'] == ConsumableModel::TYPE_ACTIVITY_DURATION) : ?>
 										<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
@@ -96,6 +97,15 @@
 								<?php endforeach; ?>
 							</select>
 							<?= form_error('activity_duration_from') ?>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="form-group row">
+						<label for="address_origin" class="col-sm-3 col-form-label">Address</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="address_origin" name="address_origin" maxlength="100" placeholder="Origin address">
+							<?= form_error('address_origin') ?>
 						</div>
 					</div>
 				</div>
@@ -116,7 +126,7 @@
 								<option value="0">No port</option>
 								<?php foreach ($ports as $port) : ?>
 									<option value="<?= $port['id'] ?>" <?= set_select('port_destination', $port['id']) ?>>
-										<?= $port['port'] ?> - <?= $port['code'] ?>
+										<?= $port['port'] ?>
 									</option>
 								<?php endforeach; ?>
 							</select>
@@ -145,7 +155,7 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-lg-6 d-none">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="buruh_to" class="col-sm-3 col-form-label">Buruh</label>
 						<div class="col-sm-9">
@@ -158,7 +168,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6 d-none">
+				<div class="col-lg-6">
 					<div class="form-group row">
 						<label for="forklift_to" class="col-sm-3 col-form-label">Forklift</label>
 						<div class="col-sm-9">
@@ -175,8 +185,9 @@
 					<div class="form-group row mb-0">
 						<label for="activity_duration_to" class="col-sm-3 col-form-label">Duration</label>
 						<div class="col-sm-9">
-							<select class="form-control select2" name="activity_duration_to" id="activity_duration_to" data-placeholder="Select activity duration" required style="width: 100%">
+							<select class="form-control select2" name="activity_duration_to" id="activity_duration_to" data-placeholder="Select activity duration" style="width: 100%">
 								<option value=""></option>
+								<option value="0">No Duration</option>
 								<?php foreach ($consumables as $consumable) : ?>
 									<?php if ($consumable['type'] == ConsumableModel::TYPE_ACTIVITY_DURATION) : ?>
 										<option value="<?= $consumable['id'] ?>" <?= set_select('consumable', $consumable['id']) ?>>
@@ -186,6 +197,15 @@
 								<?php endforeach; ?>
 							</select>
 							<?= form_error('activity_duration_to') ?>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="form-group row">
+						<label for="address_destination" class="col-sm-3 col-form-label">Address</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="address_destination" name="address_destination" maxlength="100" placeholder="Destination address">
+							<?= form_error('address_destination') ?>
 						</div>
 					</div>
 				</div>

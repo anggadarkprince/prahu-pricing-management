@@ -120,6 +120,8 @@ class Calculator extends App_Controller
 		$portDestinationId = $this->input->post('port_destination');
 		$locationOriginId = $this->input->post('location_origin');
 		$locationDestinationId = $this->input->post('location_destination');
+		$addressOrigin = $this->input->post('address_origin');
+		$addressDestination = $this->input->post('address_destination');
 		$customerName = $this->input->post('customer_name');
 		$company = $this->input->post('company');
 		$marketingId = $this->input->post('marketing');
@@ -162,6 +164,8 @@ class Calculator extends App_Controller
 					'location_to' => get_if_exist($locationTo, 'location', null),
 					'port_from' => get_if_exist($portFrom, 'port', null),
 					'port_to' => get_if_exist($portTo, 'port', null),
+					'address_from' => $addressOrigin,
+					'address_to' => $addressDestination,
 					'loading_category' => $loadingCategory['loading_category'],
 					'container_size' => $containerSize['container_size'],
 					'container_type' => $containerType['container_type'],
@@ -185,6 +189,7 @@ class Calculator extends App_Controller
 								'id_quotation' => $quotationId,
 								'component' => $component['component'],
 								'type' => $component['provider'],
+								'service_section' => $component['service_section'],
 								'vendor' => $vendor['vendor'],
 								'package' => $package['package'],
 								'term_payment' => $vendor['term_payment'],

@@ -36,14 +36,6 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 col-lg-3 col-form-label" for="service">Service</label>
-                <div class="col-sm-9 col-lg-9">
-                    <p class="form-control-plaintext" id="service">
-                        <?= if_empty($quotation['service'], 'No service') ?>
-                    </p>
-                </div>
-            </div>
-            <div class="form-group row">
                 <label class="col-sm-3 col-lg-3 col-form-label" for="location_from">Location From</label>
                 <div class="col-sm-9 col-lg-9">
                     <p class="form-control-plaintext" id="location_from">
@@ -52,10 +44,26 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-3 col-lg-3 col-form-label" for="address_from">Address From</label>
+                <div class="col-sm-9 col-lg-9">
+                    <p class="form-control-plaintext" id="address_from">
+                        <?= if_empty($quotation['address_from'], 'No address') ?>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-3 col-lg-3 col-form-label" for="location_to">Location To</label>
                 <div class="col-sm-9 col-lg-9">
                     <p class="form-control-plaintext" id="location_to">
                         <?= if_empty($quotation['location_to'], 'No location') ?>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-lg-3 col-form-label" for="address_to">Address To</label>
+                <div class="col-sm-9 col-lg-9">
+                    <p class="form-control-plaintext" id="address_to">
+                        <?= if_empty($quotation['address_to'], 'No address') ?>
                     </p>
                 </div>
             </div>
@@ -109,6 +117,14 @@
             </div>
         </div>
         <div class="col-md-6">
+			<div class="form-group row">
+				<label class="col-sm-3 col-lg-3 col-form-label" for="service">Service</label>
+				<div class="col-sm-9 col-lg-9">
+					<p class="form-control-plaintext" id="service">
+						<?= if_empty($quotation['service'], 'No service') ?>
+					</p>
+				</div>
+			</div>
             <div class="form-group row">
                 <label class="col-sm-3 col-lg-3 col-form-label" for="payment_type">Payment Type</label>
                 <div class="col-sm-9 col-lg-9">
@@ -268,7 +284,7 @@
                 <tr class="font-weight-bold table-danger">
                     <td></td>
                     <td colspan="3">Payment Left</td>
-                    <td class="font-weight-bold text-md-right">Rp. <?= numerical($component['total_price'] - ($component['term_payment'] / 100 * ($component['total_price'] + $component['total_activity_charge']))) ?></td>
+                    <td class="font-weight-bold text-md-right">Rp. <?= numerical(($component['total_price'] + $component['total_activity_charge']) - ($component['term_payment'] / 100 * ($component['total_price'] + $component['total_activity_charge']))) ?></td>
                 </tr>
             <?php endforeach ?>
             <?php if (empty($quotationComponents)) : ?>

@@ -31,9 +31,13 @@ class Logout extends App_Controller
                 delete_cookie('remember_token');
                 $this->userToken->delete($rememberToken);
             }
-            flash('warning', 'You are logged out', 'auth/login');
+			if(get_url_param('force_logout', false)) {
+				flash('danger', 'You are kicked out from session');
+			} else {
+				flash('warning', 'You are logged out');
+			}
         }
-        redirect('app');
+		redirect('auth/login');
     }
 
 }

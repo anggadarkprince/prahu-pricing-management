@@ -87,10 +87,16 @@ class AuthModel extends App_Model
     public static function isLoggedIn()
     {
         $CI = get_instance();
-        $sessionUserId = $CI->session->userdata('auth.id');
-        if (is_null($sessionUserId) || $sessionUserId == '') {
-            return false;
-        }
+		$sessionUserId = $CI->session->userdata('auth.id');
+		if (is_null($sessionUserId) || $sessionUserId == '') {
+			return false;
+		}
+		if (AuthModel::loginData('status') != 'ACTIVATED') {
+			$CI->session->unset_userdata([
+				'auth.id', 'auth.is_logged_in', 'auth.remember_me', 'auth.remember_token'
+			]);
+			flash('danger', 'You are kicked out from session', 'auth/login?force_logout=1');
+		}
         return true;
     }
 

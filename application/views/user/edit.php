@@ -54,10 +54,12 @@
             <div class="form-group">
                 <label for="status">Status</label>
                 <select class="custom-select" name="status" id="status" required>
-                    <option value="<?= UserModel::STATUS_PENDING ?>"
-                        <?= set_select('status', UserModel::STATUS_PENDING, $user['status'] == UserModel::STATUS_PENDING) ?>>
-                        <?= UserModel::STATUS_PENDING ?>
-                    </option>
+					<?php if($user['status'] == UserModel::STATUS_PENDING): ?>
+						<option value="<?= UserModel::STATUS_PENDING ?>"
+							<?= set_select('status', UserModel::STATUS_PENDING, $user['status'] == UserModel::STATUS_PENDING) ?>>
+							<?= UserModel::STATUS_PENDING ?>
+						</option>
+					<?php endif; ?>
                     <option value="<?= UserModel::STATUS_ACTIVATED ?>"
                         <?= set_select('status', UserModel::STATUS_ACTIVATED, $user['status'] == UserModel::STATUS_ACTIVATED) ?>>
                         <?= UserModel::STATUS_ACTIVATED ?>

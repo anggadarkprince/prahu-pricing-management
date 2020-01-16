@@ -58,7 +58,7 @@
                     <option value=""></option>
                     <?php foreach ($ports as $port) : ?>
                         <option value="<?= $port['id'] ?>" <?= set_select('port_destination', $port['id'], $port['id'] == $componentPrice['id_port_destination']) ?>>
-                            <?= $port['port'] ?> - <?= $port['code'] ?>
+                            <?= $port['port'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

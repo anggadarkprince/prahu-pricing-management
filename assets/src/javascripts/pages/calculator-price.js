@@ -264,7 +264,27 @@ export default function () {
 				// re-fetching component price when global control is changed, container type and size is not empty
 				refreshComponentPrice();
 			}
-			formCalculator.find('.select-packaging').trigger('change');
+			//formCalculator.find('.select-packaging').trigger('change');
+		}
+
+
+		if ($(this).prop('id') === 'port_origin' || $(this).prop('id') === 'port_destination') {
+			const selectLocation = $($(this).data('target'));
+			selectLocation.empty().append($('<option>')).prop("disabled", true);
+			fetch(variables.baseUrl + 'master/location/ajax-get-by-port?id_port=' + $(this).val())
+				.then(result => result.json())
+				.then(data => {
+					selectLocation.prop("disabled", false);
+					data.forEach(row => {
+						selectLocation.append(
+							$('<option>', {value: row.id}).text(row.location)
+						);
+					});
+				})
+				.catch(error => {
+					showAlert('Error Fetching Location', 'Get location data failed, please try again!', error.message);
+					selectLocation.prop("disabled", false);
+				});
 		}
 	});
 

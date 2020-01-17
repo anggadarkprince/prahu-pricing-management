@@ -1,7 +1,7 @@
 <?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
         'sub component' => 'master/componentPrice',
-        'view' => 'master/componentPrice/view/' . $componentPrice['id']
+        'view' => 'master/componentPrice/view'
     ]
 ]) ?>
 
@@ -73,22 +73,6 @@
             </p>
         </div>
     </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-lg-2 col-form-label" for="sub_component">Sub Component</label>
-        <div class="col-sm-9 col-lg-10">
-            <p class="form-control-plaintext" id="sub_component">
-                <?= if_empty($componentPrice['sub_component'], 'No sub component') ?>
-            </p>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-lg-2 col-form-label" for="price">Price</label>
-        <div class="col-sm-9 col-lg-10">
-            <p class="form-control-plaintext" id="price">
-                Rp. <?= numerical($componentPrice['price']) ?>
-            </p>
-        </div>
-    </div>
 	<div class="form-group row">
 		<label class="col-sm-3 col-lg-2 col-form-label" for="expired_date">Expired Date</label>
 		<div class="col-sm-9 col-lg-10">
@@ -97,30 +81,31 @@
 			</p>
 		</div>
 	</div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-lg-2 col-form-label" for="description">Description</label>
-        <div class="col-sm-9 col-lg-10">
-            <p class="form-control-plaintext" id="description">
-                <?= if_empty($componentPrice['description'], 'No description') ?>
-            </p>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-lg-2 col-form-label" for="created_at">Created At</label>
-        <div class="col-sm-9 col-lg-10">
-            <p class="form-control-plaintext" id="created_at">
-                <?= format_date($componentPrice['created_at'], 'd F Y H:i') ?>
-            </p>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-lg-2 col-form-label" for="updated_at">Updated At</label>
-        <div class="col-sm-9 col-lg-10">
-            <p class="form-control-plaintext" id="updated_at">
-                <?= if_empty(format_date($componentPrice['updated_at'], 'd F Y H:i'), '-') ?>
-            </p>
-        </div>
-    </div>
+
+	<table class="table table-sm responsive mt-3" id="table-sub-component-price">
+		<thead>
+		<tr>
+			<th class="text-md-center">No</th>
+			<th>Sub Component</th>
+			<th>Price</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($subComponentPrices as $index => $subComponentPrice) : ?>
+			<tr>
+				<td class="text-md-center"><?= $index + 1 ?></td>
+				<td><?= $subComponentPrice['sub_component'] ?></td>
+				<td>Rp. <?= numerical($subComponentPrice['price']) ?></td>
+			</tr>
+		<?php endforeach ?>
+		<?php if (empty($subComponentPrices)) : ?>
+			<tr>
+				<td colspan="3">Select sub component price</td>
+			</tr>
+		<?php else : ?>
+		<?php endif ?>
+		</tbody>
+	</table>
 
     <hr class="mt-5">
 
@@ -129,7 +114,7 @@
             <i class="mdi mdi-arrow-left mr-2"></i>Back
         </button>
         <?php if (AuthorizationModel::isAuthorized(PERMISSION_COMPONENT_PRICE_EDIT)) : ?>
-            <a href="<?= site_url('master/component-price/edit/' . $componentPrice['id']) ?>" class="btn btn-primary">
+            <a href="<?= site_url('master/component-price/edit?' . $_SERVER['QUERY_STRING']) ?>" class="btn btn-primary">
                 Edit Price<i class="mdi mdi-square-edit-outline ml-2"></i>
             </a>
         <?php endif; ?>

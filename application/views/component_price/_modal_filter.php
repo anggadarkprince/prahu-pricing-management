@@ -145,13 +145,12 @@
                                         'created_at' => 'CREATED AT',
                                         'component' => 'COMPONENT',
                                         'vendor' => 'VENDOR',
-                                        'port' => 'PORT',
+                                        'port_origin' => 'PORT ORIGIN',
                                         'port_destination' => 'PORT DESTINATION',
-                                        'location' => 'LOCATION',
+                                        'location_origin' => 'LOCATION ORIGIN',
+                                        'location_destination' => 'LOCATION DESTINATION',
                                         'container_size' => 'CONTAINER SIZE',
                                         'container_type' => 'CONTAINER TYPE',
-                                        'sub_component' => 'SUB COMPONENT',
-                                        'price' => 'PRICE',
                                         'description' => 'DESCRIPTION',
                                     ]
                                     ?>

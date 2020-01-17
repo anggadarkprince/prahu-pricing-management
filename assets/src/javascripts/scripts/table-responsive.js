@@ -37,10 +37,12 @@ $('.data-table').DataTable({
 	scrollX: true,
 	drawCallback: function () {
 		$('.dataTables_paginate > .pagination').addClass('pagination-sm');
-		setTableViewport();
-		setTimeout(function () {
-			$('.data-table').removeAttr('style');
-		}, 300);
+		if ($(window).width() <= 767 ) {
+			setTableViewport();
+			setTimeout(function () {
+				$('.data-table').removeAttr('style');
+			}, 300);
+		}
 	}
 });
 

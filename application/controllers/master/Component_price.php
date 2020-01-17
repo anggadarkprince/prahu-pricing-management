@@ -44,12 +44,20 @@ class Component_price extends App_Controller
 		$export = $this->input->get('export');
 		if ($export) unset($filters['page']);
 
-		$componentPrices = $this->componentPrice->getAll($filters);
+		$components = $this->component->getAll();
+		if (empty(get_if_exist($filters, 'components')) && !empty($components)) {
+			$filters['components'] = $components[0]['id'];
+			$componentActive = $this->component->getById($components[0]['id']);
+			$componentActive['sub_components'] = $this->subComponent->getBy(['ref_component_sub_components.id_component' => $components[0]['id']]);
+		} else {
+			$componentActive = $this->component->getById($filters['components']);
+			$componentActive['sub_components'] = $this->subComponent->getBy(['ref_component_sub_components.id_component' => $filters['components']]);
+		}
+		$componentPrices = $this->componentPrice->getAllGroup($filters);
 
 		if ($export) {
 			$this->exporter->exportFromArray('Component prices', $componentPrices);
 		}
-		$components = $this->component->getAll();
 		$subComponents = $this->subComponent->getAll();
 		$vendors = $this->vendor->getAll();
 		$ports = $this->port->getAll();
@@ -57,25 +65,25 @@ class Component_price extends App_Controller
 		$containerSizes = $this->containerSize->getAll();
 		$containerTypes = $this->containerType->getAll();
 
-		$this->render('component_price/index', compact('componentPrices', 'subComponents', 'components', 'subComponents', 'vendors', 'ports', 'locations', 'containerSizes', 'containerTypes'));
+		$this->render('component_price/index', compact('componentPrices', 'subComponents', 'components', 'componentActive', 'subComponents', 'vendors', 'ports', 'locations', 'containerSizes', 'containerTypes'));
 	}
 
 	/**
 	 * Show component price data.
-	 *
-	 * @param $id
 	 */
-	public function view($id)
+	public function view()
 	{
 		AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_PRICE_VIEW);
 
-		$componentPrice = $this->componentPrice->getById($id);
+		$componentPrice = $this->componentPrice->getAllGroup($_GET);
 
 		if (empty($componentPrice)) {
 			redirect('error404');
 		}
+		$componentPrice = end($componentPrice);
+		$subComponentPrices = $this->componentPrice->getAll($_GET);
 
-		$this->render('component_price/view', compact('componentPrice'));
+		$this->render('component_price/view', compact('componentPrice', 'subComponentPrices'));
 	}
 
 	/**
@@ -152,14 +160,21 @@ class Component_price extends App_Controller
 
 	/**
 	 * Show edit component price form.
-	 *
-	 * @param $id
 	 */
-	public function edit($id)
+	public function edit()
 	{
 		AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_PRICE_EDIT);
 
-		$componentPrice = $this->componentPrice->getById($id);
+		$componentPrice = $this->componentPrice->getAllGroup($_GET);
+		if (empty($componentPrice)) {
+			redirect('error404');
+		}
+		$componentPrice = end($componentPrice);
+		$subComponentPrices = $this->componentPrice->getAll($_GET);
+		foreach ($subComponentPrices as &$subComponentPrice) {
+			$subComponentPrice['price'] = 'Rp. ' . numerical($subComponentPrice['price']);
+		}
+
 		$components = $this->component->getAll();
 		$subComponents = $this->subComponent->getBy([
 			'ref_components.id' => $componentPrice['id_component'],
@@ -170,19 +185,17 @@ class Component_price extends App_Controller
 		$containerSizes = $this->containerSize->getAll();
 		$containerTypes = $this->containerType->getAll();
 
-		$this->render('component_price/edit', compact('componentPrice', 'components', 'subComponents', 'vendors', 'ports', 'locations', 'containerSizes', 'containerTypes'));
+		$this->render('component_price/edit', compact('componentPrice', 'subComponentPrices', 'components', 'subComponents', 'vendors', 'ports', 'locations', 'containerSizes', 'containerTypes'));
 	}
 
 	/**
 	 * Update data component price by id.
-	 *
-	 * @param $id
 	 */
-	public function update($id)
+	public function update()
 	{
 		AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_PRICE_EDIT);
 
-		if ($this->validate($this->_validation_rules($id))) {
+		if ($this->validate()) {
 			$componentId = $this->input->post('component');
 			$vendorId = $this->input->post('vendor');
 			$portOriginId = $this->input->post('port_origin');
@@ -191,48 +204,74 @@ class Component_price extends App_Controller
 			$locationDestinationId = $this->input->post('location_destination');
 			$containerSizeId = $this->input->post('container_size');
 			$containerTypeId = $this->input->post('container_type');
-			$subComponentId = $this->input->post('sub_component');
 			$expiredDate = $this->input->post('expired_date');
-			$price = $this->input->post('price');
+			$prices = $this->input->post('prices');
 			$description = $this->input->post('description');
 
-			$update = $this->componentPrice->update([
-				'id_component' => $componentId,
-				'id_vendor' => $vendorId,
-				'id_port_origin' => if_empty($portOriginId, null),
-				'id_port_destination' => if_empty($portDestinationId, null),
-				'id_location_origin' => if_empty($locationOriginId, null),
-				'id_location_destination' => if_empty($locationDestinationId, null),
-				'id_container_size' => $containerSizeId,
-				'id_container_type' => $containerTypeId,
-				'id_sub_component' => $subComponentId,
-				'price' => extract_number($price),
-				'expired_date' => format_date($expiredDate),
-				'description' => $description
-			], $id);
+			$this->db->trans_start();
 
-			if ($update) {
-				flash('success', "Component price {$price} successfully updated", 'master/component-price');
+			$this->componentPrice->delete([
+				'id_component' => get_url_param('components'),
+				'id_vendor' => get_url_param('vendors'),
+				'id_port_origin' => if_empty(get_url_param('port_origins'), null),
+				'id_port_destination' => if_empty(get_url_param('port_destinations'), null),
+				'id_location_origin' => if_empty(get_url_param('location_origins'), null),
+				'id_location_destination' => if_empty(get_url_param('location_destinations'), null),
+				'id_container_size' => get_url_param('container_sizes'),
+				'id_container_type' => get_url_param('container_types'),
+				'expired_date' => get_url_param('expired_dates'),
+			]);
+
+			if (!empty($prices)) {
+				foreach ($prices as $price) {
+					$this->componentPrice->create([
+						'id_component' => $componentId,
+						'id_vendor' => $vendorId,
+						'id_port_origin' => if_empty($portOriginId, null),
+						'id_port_destination' => if_empty($portDestinationId, null),
+						'id_location_origin' => if_empty($locationOriginId, null),
+						'id_location_destination' => if_empty($locationDestinationId, null),
+						'id_container_size' => $containerSizeId,
+						'id_container_type' => $containerTypeId,
+						'id_sub_component' => $price['id_sub_component'],
+						'price' => extract_number($price['price']),
+						'expired_date' => format_date($expiredDate),
+						'description' => $description
+					]);
+				}
+			}
+
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status()) {
+				flash('success', "Component price successfully updated", 'master/component-price');
 			} else {
 				flash('danger', "Update component price failed, try again or contact administrator");
 			}
 		}
-		$this->edit($id);
+		$this->edit();
 	}
 
 	/**
 	 * Perform deleting component data.
-	 *
-	 * @param $id
 	 */
-	public function delete($id)
+	public function delete()
 	{
 		AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_PRICE_DELETE);
 
-		$componentPrice = $this->subComponent->getById($id);
-
-		if ($this->componentPrice->delete($id)) {
-			flash('warning', "Component price " . numerical($componentPrice['price']) . " successfully deleted");
+		$delete = $this->componentPrice->delete([
+			'id_component' => get_url_param('components'),
+			'id_vendor' => get_url_param('vendors'),
+			'id_port_origin' => if_empty(get_url_param('port_origins'), null),
+			'id_port_destination' => if_empty(get_url_param('port_destinations'), null),
+			'id_location_origin' => if_empty(get_url_param('location_origins'), null),
+			'id_location_destination' => if_empty(get_url_param('location_destinations'), null),
+			'id_container_size' => get_url_param('container_sizes'),
+			'id_container_type' => get_url_param('container_types'),
+			'expired_date' => get_url_param('expired_dates'),
+		]);
+		if ($delete) {
+			flash('warning', "Component price successfully deleted");
 		} else {
 			flash('danger', 'Delete component price failed, try again or contact administrator');
 		}
@@ -242,12 +281,10 @@ class Component_price extends App_Controller
 	/**
 	 * Return general validation rules.
 	 *
-	 * @param array $params
 	 * @return array
 	 */
-	protected function _validation_rules(...$params)
+	protected function _validation_rules()
 	{
-		$id = isset($params[0]) ? $params[0] : 0;
 		return [
 			'component' => 'trim|required|max_length[20]',
 			'vendor' => 'trim|required|max_length[20]',
@@ -258,14 +295,12 @@ class Component_price extends App_Controller
 			'container_size' => 'trim|required|max_length[20]',
 			'container_type' => 'trim|required|max_length[20]',
 			'prices[]' => [
-				'trim', ['not_empty', function ($input) use ($id) {
-					if (!empty($id)) {
-						return true;
-					}
+				'trim', ['not_empty', function ($input) {
 					$this->form_validation->set_message('not_empty', 'The {field} field must be exist at least one.');
 					return !empty($input);
 				}]
 			],
+			/*
 			'price' => [
 				'trim', 'max_length[50]', ['value_exists', function ($input) use ($id) {
 					$componentId = $this->input->post('component');
@@ -325,6 +360,7 @@ class Component_price extends App_Controller
 					return empty($priceData);
 				}]
 			],
+			*/
 			'expired_date' => [
 				'trim', 'required', 'max_length[50]', ['back_date', function ($input) {
 					if (format_date($input) <= date('Y-m-d')) {

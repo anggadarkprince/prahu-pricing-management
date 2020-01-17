@@ -17,7 +17,11 @@ if (!function_exists('flash')) {
         ]);
 
 		if (!empty($redirectTo)) {
-			$redirect = str_replace('redirect=', '', get_if_exist($_SERVER, 'REDIRECT_QUERY_STRING', ''));
+			$redirect = '';
+			$serverRedirect = get_if_exist($_SERVER, 'REDIRECT_QUERY_STRING', '');
+			if(strpos($serverRedirect, 'redirect=') !== false) {
+				$redirect = str_replace('redirect=', '', $serverRedirect);
+			}
 			if (empty($redirect)) {
 				$redirect = get_url_param('redirect');
 			}

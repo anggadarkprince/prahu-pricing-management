@@ -1,13 +1,13 @@
 <?php $this->load->view('partials/_breadcrumb', [
     'breadcrumbs' => [
         'component price' => 'master/component-price',
-        'create' => 'master/component-price/edit/' . $componentPrice['id']
+        'create' => 'master/component-price/edit'
     ]
 ]) ?>
 
 <h4 class="text-primary"><?= $title ?></h4>
 
-<form action="<?= site_url('master/component-price/update/' . $componentPrice['id']) ?>" method="POST" id="form-component-price" class="edit">
+<form action="<?= site_url('master/component-price/update?' . $_SERVER['QUERY_STRING']) ?>" method="POST" id="form-component-price" class="edit">
     <?= _csrf() ?>
     <?= _method('put') ?>
 
@@ -97,50 +97,35 @@
 		</div>
 	</div>
     <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="container_size">Container Size</label>
-                <select class="form-control select2" name="container_size" id="container_size" data-placeholder="Select container size" required style="width: 100%">
-                    <option value=""></option>
-                    <?php foreach ($containerSizes as $containerSize) : ?>
-                        <option value="<?= $containerSize['id'] ?>" <?= set_select('container_size', $containerSize['id'], $containerSize['id'] == $componentPrice['id_container_size']) ?>>
-                            <?= $containerSize['container_size'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <?= form_error('container_size') ?>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="container_type">Container Type</label>
-                <select class="form-control select2" name="container_type" id="container_type" data-placeholder="Select container type" required style="width: 100%">
-                    <option value=""></option>
-                    <?php foreach ($containerTypes as $containerType) : ?>
-                        <option value="<?= $containerType['id'] ?>" <?= set_select('container_type', $containerType['id'], $containerType['id'] == $componentPrice['id_container_type']) ?>>
-                            <?= $containerType['container_type'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <?= form_error('container_type') ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="sub_component">Sub Component</label>
-                <select class="form-control select2" name="sub_component" id="sub_component" required data-placeholder="Select sub component" style="width: 100%">
-                    <?php foreach ($subComponents as $subComponent) : ?>
-                        <option value="<?= $subComponent['id'] ?>" <?= set_select('sub_component', $subComponent['id'], $subComponent['id'] == $componentPrice['id_sub_component']) ?>>
-                            <?= $subComponent['sub_component'] ?>
-                        </option>
-                    <?php endforeach ?>
-                </select>
-                <?= form_error('sub_component') ?>
-            </div>
-        </div>
-        <div class="col-sm-6">
+		<div class="col-sm-6 col-md-3">
+			<div class="form-group">
+				<label for="container_size">Container Size</label>
+				<select class="form-control select2" name="container_size" id="container_size" data-placeholder="Select container size" required style="width: 100%">
+					<option value=""></option>
+					<?php foreach ($containerSizes as $containerSize) : ?>
+						<option value="<?= $containerSize['id'] ?>" <?= set_select('container_size', $containerSize['id'], $containerSize['id'] == $componentPrice['id_container_size']) ?>>
+							<?= $containerSize['container_size'] ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+				<?= form_error('container_size') ?>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-3">
+			<div class="form-group">
+				<label for="container_type">Container Type</label>
+				<select class="form-control select2" name="container_type" id="container_type" data-placeholder="Select container type" required style="width: 100%">
+					<option value=""></option>
+					<?php foreach ($containerTypes as $containerType) : ?>
+						<option value="<?= $containerType['id'] ?>" <?= set_select('container_type', $containerType['id'], $containerType['id'] == $componentPrice['id_container_type']) ?>>
+							<?= $containerType['container_type'] ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+				<?= form_error('container_type') ?>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6">
             <div class="form-group">
                 <label for="expired_date">Expired Date</label>
                 <input type="text" class="form-control datepicker" readonly id="expired_date" name="expired_date" autocomplete="off" required maxlength="50" value="<?= set_value('expired_date', format_date($componentPrice['expired_date'], 'd/m/Y')) ?>" placeholder="Price will expired">
@@ -148,14 +133,38 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="price">Price</label>
-        <input type="text" class="form-control currency" id="price" name="price" required maxlength="50" value="<?= set_value('price', 'Rp. ' . numerical($componentPrice['price'])) ?>" placeholder="Price amount">
-        <?= form_error('price') ?>
-    </div>
+	<table class="table table-sm responsive mt-3" id="table-sub-component-price">
+		<thead>
+		<tr>
+			<th class="text-md-center">No</th>
+			<th>Sub Component</th>
+			<th>Price</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php $prices = set_value('prices', $subComponentPrices) ?>
+		<?php if (empty($prices)) : ?>
+			<tr>
+				<td colspan="3">Select component first</td>
+			</tr>
+		<?php else : ?>
+			<?php foreach ($prices as $index => $price) : ?>
+				<tr>
+					<td class="text-md-center"><?= $index + 1 ?></td>
+					<td><?= $price['sub_component'] ?></td>
+					<td>
+						<input type="hidden" name="prices[<?= $index ?>][id_sub_component]" value="<?= $price['id_sub_component'] ?>" required>
+						<input type="hidden" name="prices[<?= $index ?>][sub_component]" value="<?= $price['sub_component'] ?>" required>
+						<input type="text" class="form-control currency" name="prices[<?= $index ?>][price]" value="<?= $price['price'] ?>" placeholder="<?= $price['sub_component'] ?> price" required>
+					</td>
+				</tr>
+			<?php endforeach ?>
+		<?php endif ?>
+		</tbody>
+	</table>
     <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" maxlength="500" placeholder="Price description"><?= set_value('description', $componentPrice['description']) ?></textarea>
+        <textarea class="form-control" id="description" name="description" maxlength="500" placeholder="Price description"><?= set_value('description', end($subComponentPrices)['description']) ?></textarea>
         <?= form_error('description') ?>
     </div>
 

@@ -43,7 +43,7 @@
 					<option value=""></option>
 					<?php foreach ($ports as $port) : ?>
 						<option value="<?= $port['id'] ?>" <?= set_select('port_origin', $port['id']) ?>>
-							<?= $port['port'] ?> - <?= $port['code'] ?>
+							<?= $port['port'] ?>
 						</option>
 					<?php endforeach; ?>
 				</select>

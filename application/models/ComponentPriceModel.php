@@ -385,6 +385,14 @@ class ComponentPriceModel extends App_Model
 			}
 		}
 
+		$packageName = '';
+		if (key_exists('package', $filters) && !empty($filters['package'])) {
+			$currentPackage = $this->package->getById($filters['package']);
+			if(!empty($currentPackage)) {
+				$packageName = $currentPackage['package'];
+			}
+		}
+
 		$queryActivePrice = $this->getQueryActivePrice();
 		$baseQuery = $this->db
 			->select([
@@ -423,15 +431,6 @@ class ComponentPriceModel extends App_Model
 			$baseQuery->where_in('ref_component_prices.id_component', $filters['component']);
 		}
 
-		if (key_exists('autoselect', $filters) && !empty($filters['autoselect'])) {
-			unset($filters['vendor']);
-			$baseQuery->limit(1);
-		}
-
-		if (key_exists('vendor', $filters) && !empty($filters['vendor'])) {
-			$baseQuery->where_in('ref_component_prices.id_vendor', $filters['vendor']);
-		}
-
 		if (key_exists('port_origin', $filters)) {
 			$baseQuery->where_in('ref_component_prices.id_port_origin', $filters['port_origin']);
 		}
@@ -458,6 +457,19 @@ class ComponentPriceModel extends App_Model
 
 		if (key_exists('package', $filters) && !empty($filters['package'])) {
 			$baseQuery->where_in('ref_package_sub_components.id_package', $filters['package']);
+		}
+
+		if (key_exists('autoselect', $filters) && !empty($filters['autoselect'])) {
+			if(strtolower($packageName) == 'c101' || strtolower($packageName) == 'c101') {
+				$filters['vendor'] = $filters['vendor_reference'];
+			} else {
+				unset($filters['vendor']);
+			}
+			$baseQuery->limit(1);
+		}
+
+		if (key_exists('vendor', $filters) && !empty($filters['vendor'])) {
+			$baseQuery->where_in('ref_component_prices.id_vendor', $filters['vendor']);
 		}
 
 		$baseQuery->order_by('price', 'asc');

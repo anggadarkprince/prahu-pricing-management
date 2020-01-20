@@ -305,6 +305,7 @@ export default function () {
 	 */
 	pricingWrapper.on('change', '.select-package', function (e, triggerSiblings = true) {
 		const rowComponent = $(this).closest('.row-component');
+		const pricingItem = $(this).closest('.pricing-item');
 		if (rowComponent.find('.select-package').val() && selectContainerSize.val() && selectContainerType.val()) {
 			// remove detail when it open
 			if (rowComponent.next('.row-component-detail').length) {
@@ -323,6 +324,7 @@ export default function () {
 				'container_size': selectContainerSize.val(),
 				'container_type': selectContainerType.val(),
 				'package': rowComponent.find('.select-package').val(),
+				'vendor_reference': pricingItem.find('.row-component[data-service-section="SHIPPING"] .select-vendor').val(),
 				'autoselect': rowComponent.data('service-section') === 'SHIPPING' ? '' : 'lowest-price'
 			});
 			fetch(variables.baseUrl + 'pricing/calculator/ajax-get-component-price?' + query)

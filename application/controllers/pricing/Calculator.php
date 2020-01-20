@@ -94,20 +94,24 @@ class Calculator extends App_Controller
 		foreach ($vendors as $index => $vendor) {
 			if ($vendor['type'] == 'SHIPPING LINE') {
 				$componentData = $components;
+				$foundPrice = false;
 				foreach ($componentData as $componentCheck) {
-					if ($componentCheck['service_section'] == 'SHIPPING') {
+					if ($componentCheck['provider'] == 'SHIPPING LINE') {
 						$componentPrice = $this->componentPrice->getComponentPriceList($componentCheck['id'], [
 							'vendor' => $vendor['id'],
 							'total' => true
 						]);
-						if ($componentPrice <= 0) {
-							unset($vendors[$index]);
+						if ($componentPrice > 0) {
+							$foundPrice = true;
+							break;
 						}
 					}
 				}
+				if(!$foundPrice) {
+					unset($vendors[$index]);
+				}
 			}
 		}
-
 		$this->render('calculator/index', compact('components', 'ports', 'locations', 'services', 'loadingCategories', 'consumables', 'marketings', 'containerSizes', 'containerTypes', 'paymentTypes', 'vendors'));
 	}
 
@@ -266,6 +270,7 @@ class Calculator extends App_Controller
 		$filters = [
 			'component' => get_url_param('component'),
 			'vendor' => get_url_param('vendor'),
+			'vendor_reference' => get_url_param('vendor_reference'),
 			'port_origin' => get_url_param('port_origin'),
 			'port_destination' => get_url_param('port_destination'),
 			'location_origin' => get_url_param('location_origin'),

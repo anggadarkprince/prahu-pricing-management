@@ -460,7 +460,7 @@ class ComponentPriceModel extends App_Model
 		}
 
 		if (key_exists('autoselect', $filters) && !empty($filters['autoselect'])) {
-			if(strtolower($packageName) == 'c101' || strtolower($packageName) == 'c101') {
+			if(strtolower($packageName) == 'c101' || strtolower($packageName) == 'a101') {
 				$filters['vendor'] = $filters['vendor_reference'];
 			} else {
 				unset($filters['vendor']);

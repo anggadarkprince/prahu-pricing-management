@@ -23,7 +23,7 @@ $lang['menu_category'] = 'Jenis Muatan';
 $lang['menu_marketing'] = 'Marketing';
 $lang['menu_payment_type'] = 'Jenis Pembayaran';
 $lang['menu_consumable'] = 'Tambahan';
-$lang['menu_component_price'] = 'Harga Komponent';
+$lang['menu_component_price'] = 'Harga Komponen';
 $lang['menu_calculator'] = 'Hitung';
 $lang['menu_quotation'] = 'Penawaran';
 

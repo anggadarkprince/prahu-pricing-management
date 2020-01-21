@@ -113,7 +113,7 @@ class Component_price extends App_Controller
 	{
 		AuthorizationModel::mustAuthorized(PERMISSION_COMPONENT_PRICE_CREATE);
 
-		if ($this->validate()) {
+		if ($this->validate($this->_validation_rules(true))) {
 			$componentId = $this->input->post('component');
 			$vendorId = $this->input->post('vendor');
 			$portOriginId = $this->input->post('port_origin');
@@ -281,9 +281,10 @@ class Component_price extends App_Controller
 	/**
 	 * Return general validation rules.
 	 *
+	 * @param bool $validatePrice
 	 * @return array
 	 */
-	protected function _validation_rules()
+	protected function _validation_rules($validatePrice = false)
 	{
 		return [
 			'component' => 'trim|required|max_length[20]',
@@ -295,77 +296,52 @@ class Component_price extends App_Controller
 			'container_size' => 'trim|required|max_length[20]',
 			'container_type' => 'trim|required|max_length[20]',
 			'prices[]' => [
-				'trim', ['not_empty', function ($input) {
+				'trim', 'required', ['not_empty', function ($input) use($validatePrice) {
 					$this->form_validation->set_message('not_empty', 'The {field} field must be exist at least one.');
 					return !empty($input);
 				}]
 			],
-			/*
-			'price' => [
-				'trim', 'max_length[50]', ['value_exists', function ($input) use ($id) {
-					$componentId = $this->input->post('component');
-					$vendorId = $this->input->post('vendor');
-					$portOriginId = $this->input->post('port_origin');
-					$portDestinationId = $this->input->post('port_destination');
-					$locationOriginId = $this->input->post('location_origin');
-					$locationDestinationId = $this->input->post('location_destination');
-					$containerSizeId = $this->input->post('container_size');
-					$containerTypeId = $this->input->post('container_type');
-					$expiredDate = $this->input->post('expired_date');
-					$prices = $this->input->post('prices');
-					$subComponentId = $this->input->post('sub_component');
-
-					if (empty($id)) {
-						$isValid = true;
-						foreach ($prices as $price) {
-							$priceData = $this->componentPrice->getBy([
-								'ref_component_prices.id_component' => $componentId,
-								'ref_component_prices.id_vendor' => $vendorId,
-								'ref_component_prices.id_port_origin' => if_empty($portOriginId, null),
-								'ref_component_prices.id_port_destination' => if_empty($portDestinationId, null),
-								'ref_component_prices.id_location_origin' => if_empty($locationOriginId, null),
-								'ref_component_prices.id_location_destination' => if_empty($locationDestinationId, null),
-								'ref_component_prices.id_container_size' => $containerSizeId,
-								'ref_component_prices.id_container_type' => $containerTypeId,
-								'ref_component_prices.id_sub_component' => $price['id_sub_component'],
-								'ref_component_prices.expired_date' => format_date($expiredDate),
-							], true);
-
-							if (!empty($priceData)) {
-								$this->form_validation->set_message('value_exists', 'The %s is exist with same date and combination');
-								$isValid = false;
-								break;
-							}
-						}
-						return $isValid;
-					}
-
-					$priceData = $this->componentPrice->getBy([
-						'ref_component_prices.id_component' => $componentId,
-						'ref_component_prices.id_vendor' => $vendorId,
-						'ref_component_prices.id_port_origin' => if_empty($portOriginId, null),
-						'ref_component_prices.id_port_destination' => if_empty($portDestinationId, null),
-						'ref_component_prices.id_location_origin' => if_empty($locationOriginId, null),
-						'ref_component_prices.id_location_destination' => if_empty($locationDestinationId, null),
-						'ref_component_prices.id_container_size' => $containerSizeId,
-						'ref_component_prices.id_container_type' => $containerTypeId,
-						'ref_component_prices.id_sub_component' => $subComponentId,
-						'ref_component_prices.expired_date' => format_date($expiredDate),
-						'ref_component_prices.id!=' => $id
-					], true);
-					if (!empty($priceData)) {
-						$linkEdit = '<a href="' . site_url('master/component-price/edit/' . $priceData['id']) . '">Click here</a>';
-						$this->form_validation->set_message('value_exists', 'The %s combination already exists, edit data instead, ' . $linkEdit);
-					}
-					return empty($priceData);
-				}]
-			],
-			*/
 			'expired_date' => [
-				'trim', 'required', 'max_length[50]', ['back_date', function ($input) {
+				'trim', 'required', 'max_length[50]', ['back_date', function ($input) use ($validatePrice) {
 					if (format_date($input) <= date('Y-m-d')) {
 						$this->form_validation->set_message('back_date', 'The %s input back not allowed');
 						return false;
+					} else {
+						if ($validatePrice) {
+							$componentId = $this->input->post('component');
+							$vendorId = $this->input->post('vendor');
+							$portOriginId = $this->input->post('port_origin');
+							$portDestinationId = $this->input->post('port_destination');
+							$locationOriginId = $this->input->post('location_origin');
+							$locationDestinationId = $this->input->post('location_destination');
+							$containerSizeId = $this->input->post('container_size');
+							$containerTypeId = $this->input->post('container_type');
+							$expiredDate = $this->input->post('expired_date');
+							$prices = $this->input->post('prices');
+
+							$isValid = true;
+							foreach ($prices as $price) {
+								$priceData = $this->componentPrice->getBy([
+									'ref_component_prices.id_component' => $componentId,
+									'ref_component_prices.id_vendor' => $vendorId,
+									'ref_component_prices.id_port_origin' => if_empty($portOriginId, null),
+									'ref_component_prices.id_port_destination' => if_empty($portDestinationId, null),
+									'ref_component_prices.id_location_origin' => if_empty($locationOriginId, null),
+									'ref_component_prices.id_location_destination' => if_empty($locationDestinationId, null),
+									'ref_component_prices.id_container_size' => $containerSizeId,
+									'ref_component_prices.id_container_type' => $containerTypeId,
+									'ref_component_prices.id_sub_component' => $price['id_sub_component'],
+									'ref_component_prices.expired_date' => format_date($expiredDate),
+								], true);
+
+								if (!empty($priceData)) {
+									$this->form_validation->set_message('back_date', 'The price data is exist with same date and combination');
+									$isValid = false;
+									break;
+								}
+							}
+							return $isValid;
+						}
 					}
 					return true;
 				}]

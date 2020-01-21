@@ -83,7 +83,7 @@
                                     <option value=""></option>
                                     <?php foreach ($ports as $port) : ?>
                                         <option value="<?= $port['id'] ?>" <?= set_select('port_origins', $port['id'], get_url_param('port_origins') == $port['id']) ?>>
-                                            <?= $port['port'] ?> - <?= $port['code'] ?>
+                                            <?= $port['port'] ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
@@ -97,7 +97,7 @@
                                     <option value=""></option>
                                     <?php foreach ($ports as $port) : ?>
                                         <option value="<?= $port['id'] ?>" <?= set_select('port_destinations', $port['id'], get_url_param('port_destinations') == $port['id']) ?>>
-                                            <?= $port['port'] ?> - <?= $port['code'] ?>
+                                            <?= $port['port'] ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>

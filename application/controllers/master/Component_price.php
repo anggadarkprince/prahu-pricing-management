@@ -181,11 +181,12 @@ class Component_price extends App_Controller
 		]);
 		$vendors = $this->vendor->getAll();
 		$ports = $this->port->getAll();
-		$locations = $this->location->getAll();
+		$locationOrigins = $this->location->getBy(['id_port' => $componentPrice['id_port_origin']]);
+		$locationDestinations = $this->location->getBy(['id_port' => $componentPrice['id_port_destination']]);
 		$containerSizes = $this->containerSize->getAll();
 		$containerTypes = $this->containerType->getAll();
 
-		$this->render('component_price/edit', compact('componentPrice', 'subComponentPrices', 'components', 'subComponents', 'vendors', 'ports', 'locations', 'containerSizes', 'containerTypes'));
+		$this->render('component_price/edit', compact('componentPrice', 'subComponentPrices', 'components', 'subComponents', 'vendors', 'ports', 'locationOrigins', 'locationDestinations', 'containerSizes', 'containerTypes'));
 	}
 
 	/**

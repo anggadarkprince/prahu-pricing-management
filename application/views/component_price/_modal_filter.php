@@ -142,7 +142,7 @@
                                 <select class="custom-select" name="sort_by" id="sort_by" required>
                                     <?php
                                     $columns = [
-                                        'created_at' => 'CREATED AT',
+                                        'expired_date' => 'EXPIRED DATE',
                                         'component' => 'COMPONENT',
                                         'vendor' => 'VENDOR',
                                         'port_origin' => 'PORT ORIGIN',

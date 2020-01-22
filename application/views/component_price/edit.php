@@ -40,7 +40,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="port_origin">Port Origin</label>
-                <select class="form-control select2" name="port_origin" id="port_origin" data-placeholder="Select port origin" required style="width: 100%">
+                <select class="form-control select2" name="port_origin" id="port_origin" data-target="#location_origin"  data-placeholder="Select port origin" required style="width: 100%">
                     <option value=""></option>
                     <?php foreach ($ports as $port) : ?>
                         <option value="<?= $port['id'] ?>" <?= set_select('port_origin', $port['id'], $port['id'] == $componentPrice['id_port_origin']) ?>>
@@ -54,7 +54,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="port_destination">Port Destination</label>
-                <select class="form-control select2" name="port_destination" id="port_destination" data-placeholder="Select port destination" required style="width: 100%">
+                <select class="form-control select2" name="port_destination" id="port_destination" data-target="#location_destination" data-placeholder="Select port destination" required style="width: 100%">
                     <option value=""></option>
                     <?php foreach ($ports as $port) : ?>
                         <option value="<?= $port['id'] ?>" <?= set_select('port_destination', $port['id'], $port['id'] == $componentPrice['id_port_destination']) ?>>
@@ -72,7 +72,7 @@
 				<label for="location_origin">Location Origin</label>
 				<select class="form-control select2" name="location_origin" id="location_origin" data-placeholder="Select origin area" required style="width: 100%">
 					<option value=""></option>
-					<?php foreach ($locations as $location) : ?>
+					<?php foreach ($locationOrigins as $location) : ?>
 						<option value="<?= $location['id'] ?>" <?= set_select('location_origin', $location['id'], $location['id'] == $componentPrice['id_location_origin']) ?>>
 							<?= $location['location'] ?>
 						</option>
@@ -86,7 +86,7 @@
 				<label for="location_destination">Location Destination</label>
 				<select class="form-control select2" name="location_destination" id="location_destination" data-placeholder="Select destination area" required style="width: 100%">
 					<option value=""></option>
-					<?php foreach ($locations as $location) : ?>
+					<?php foreach ($locationDestinations as $location) : ?>
 						<option value="<?= $location['id'] ?>" <?= set_select('location_destination', $location['id'], $location['id'] == $componentPrice['id_location_destination']) ?>>
 							<?= $location['location'] ?>
 						</option>

@@ -39,7 +39,7 @@
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label for="port_origin">Port Origin</label>
-				<select class="form-control select2" name="port_origin" id="port_origin" data-placeholder="Select port origin" required style="width: 100%">
+				<select class="form-control select2" name="port_origin" id="port_origin" data-target="#location_origin" data-placeholder="Select port origin" required style="width: 100%">
 					<option value=""></option>
 					<?php foreach ($ports as $port) : ?>
 						<option value="<?= $port['id'] ?>" <?= set_select('port_origin', $port['id']) ?>>
@@ -53,7 +53,7 @@
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label for="port_destination">Port Destination</label>
-				<select class="form-control select2" name="port_destination" id="port_destination" data-placeholder="Select port destination" required style="width: 100%">
+				<select class="form-control select2" name="port_destination" id="port_destination" data-target="#location_destination" data-placeholder="Select port destination" required style="width: 100%">
 					<option value=""></option>
 					<?php foreach ($ports as $port) : ?>
 						<option value="<?= $port['id'] ?>" <?= set_select('port_destination', $port['id']) ?>>

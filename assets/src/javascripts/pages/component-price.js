@@ -1,4 +1,5 @@
 import variables from "../components/variables";
+import showAlert from "../components/alert";
 
 export default function () {
 
@@ -100,4 +101,23 @@ export default function () {
     });
 
     setupCombination();
+
+	formComponentPrice.on('change', '#port_origin, #port_destination', function () {
+		const selectLocation = $($(this).data('target'));
+		selectLocation.empty().append($('<option>')).prop("disabled", true);
+		fetch(variables.baseUrl + 'master/location/ajax-get-by-port?id_port=' + $(this).val())
+			.then(result => result.json())
+			.then(data => {
+				selectLocation.prop("disabled", false);
+				data.forEach(row => {
+					selectLocation.append(
+						$('<option>', {value: row.id}).text(row.location)
+					);
+				});
+			})
+			.catch(error => {
+				showAlert('Error Fetching Location', 'Get location data failed, please try again!', error.message);
+				selectLocation.prop("disabled", false);
+			});
+	});
 };

@@ -16,7 +16,8 @@ class ComponentPriceModel extends App_Model
         'ref_vendors.vendor',
         'port_origins.port',
         'port_destinations.port',
-        'ref_locations.location',
+        'location_origins.location',
+        'location_destinations.location',
         'ref_container_sizes.container_size',
         'ref_container_types.container_type',
         'ref_sub_components.sub_component',
@@ -146,16 +147,18 @@ class ComponentPriceModel extends App_Model
 			}
 
 			if (key_exists('search', $filters) && !empty($filters['search'])) {
+				$baseQuery->group_start();
 				foreach ($this->filteredFields as $filteredField) {
 					if ($filteredField == '*') {
 						$fields = $this->db->list_fields($this->table);
 						foreach ($fields as $field) {
-							$baseQuery->or_having($this->table . '.' . $field . ' LIKE', '%' . trim($filters['search']) . '%');
+							$baseQuery->or_where($this->table . '.' . $field, trim($filters['search']));
 						}
 					} else {
-						$baseQuery->or_having($filteredField . ' LIKE', '%' . trim($filters['search']) . '%');
+						$baseQuery->or_where($filteredField, trim($filters['search']));
 					}
 				}
+				$baseQuery->group_end();
 			}
 
 			if (key_exists('status', $filters) && !empty($filters['status'])) {

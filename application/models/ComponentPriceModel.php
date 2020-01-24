@@ -152,10 +152,10 @@ class ComponentPriceModel extends App_Model
 					if ($filteredField == '*') {
 						$fields = $this->db->list_fields($this->table);
 						foreach ($fields as $field) {
-							$baseQuery->or_where($this->table . '.' . $field, trim($filters['search']));
+							$baseQuery->or_like($this->table . '.' . $field, trim($filters['search']));
 						}
 					} else {
-						$baseQuery->or_where($filteredField, trim($filters['search']));
+						$baseQuery->or_like($filteredField, trim($filters['search']));
 					}
 				}
 				$baseQuery->group_end();
